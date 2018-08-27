@@ -15,7 +15,7 @@ import cn.his.core.service.doctor.DoctorService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:application-context.xml"})
-public class TestDoctorService{
+public class TestDoctorService {
 
 	@Autowired
 	private DoctorService doctorService;
@@ -42,7 +42,6 @@ public class TestDoctorService{
 		doctor.setLicense("des123456");
 		doctor.setDepartment("1234");
 		doctor.setFirst(true);
-		doctor.setLevel(1);
 		doctor.setTitle("扫地");
 		doctor.setDuty("医生");
 		doctor.setHiredate(dateStr);
@@ -60,8 +59,7 @@ public class TestDoctorService{
 	@Test
 	public void TestGetDoctorByCode() throws Exception {
 		Doctor doctor = doctorService.findDoctorByCode("326525");
-		System.out.println(doctor.getPatient());
-		System.out.println(doctor.getMedical_record());
+		System.out.println(doctor);
 	}
 	
 	@Test
@@ -86,8 +84,9 @@ public class TestDoctorService{
 	
 	@Test
 	public void TestDeleteDoctor() throws Exception {
-		doctorService.deleteDoctorByCode("326525");
-		System.out.println("删除成功");
+		if (doctorService.deleteDoctorByCode("222223")) {
+			System.out.println("删除成功");
+		}
 	}
 	
 	@Test
