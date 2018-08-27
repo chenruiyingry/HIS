@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.CostDao">
+	<resultMap type="Cost" id="Cost">
+		<result column="code" property="code"/>
+		<result column="medical_code" property="medical_code"/>
+		<result column="drug_cost" property="drug_cost"/>
+		<result column="hospitalization_cost" property="hospitalization_cost"/>
+		<result column="assay_cost" property="assay_cost"/>
+		<result column="examination_cost" property="examination_cost"/>
+		<result column="register_cost" property="register_cost"/>
+		<result column="total" property="total"/>
+		<result column="payment" property="payment"/>
+		<result column="flow_number" property="flow_number"/>
+		<result column="date" property="date"/>
+	</resultMap>
+	
+	<!-- 根据病历编号查询所有内容 -->
+	<select id="findCostByMedical_code" parameterType="String" resultMap="Cost">
+		select * from Cost 
+		<where>
+			medical_code = #{medical_code}
+		</where>
+	</select>
+	
+	<!-- 根据详细费用编号查询所有内容 -->
+	<select id="findCostByCode" parameterType="Cost" resultMap="Cost">
+		select * from Cost
+		<where>
+			code = #{code}	
+		</where>	
+	</select>
+	
+	<!-- 通过病历号查询该病历号所有缴费记录 -->
+	<select id="getCostCount" parameterType="Cost" resultType="Integer">
+		select count(1) from Cost
+		<where>
+			medical_code = #{medical_code}
+		</where>
+	</select>
+	
+	<!-- 查询某病历号的所有缴费单 -->
+	<select id="findCostList" parameterType="Cost" resultMap="Cost">
+			select * from Cost
+		<where>
+			<if test="medical_code != null">
+				and medical_code = #{medical_code}
+			</if>
+			<if test="paymment != null">
+				and payment = #{payment}
+			</if>
+		</where>
+		order by date
+		<if test="startRow != null">
+			limit #{startRow}, #{pageSize}
+		</if>
+	</select>
+	
+	<!-- 添加费用信息 -->
+	<insert id="insertCost" parameterType="Cost">
+		insert into Cost
+		<trim prefix="(" suffix=")">
+			code , medical_code , drug_cost , hospitalization_cost , assay_cost ,
+			examination_cost , register_cost , total , payment , flow_number , date
+		</trim>
+		values
+		<trim prefix="(" suffix=")">
+			#{code} , #{medical_code} , #{drug_cost} , #{hospitalization_cost} , #{assay_cost} ,
+			#{examination_cost} , #{register_cost} , #{total} , #{payment} , #{flow_number} , #{date}
+		</trim>
+	</insert>
+	
+	<!-- 通过详细费用编号修改费用表 -->
+	<update id="updateCost" parameterType="Cost">
+		update Cost
+		<set>
+			<if test="medical_code != null">
+				medical_code = #{medical_code}
+			</if>
+			<if test="drug_cost != null">
+				drug_cost = #{drug_cost}
+			</if>
+			<if test="hospitalization_cost != null">
+				hospitalization_cost = #{hospitalization_cost}
+			</if>
+			<if test="assay_cost != null">
+				assay_cost = #{assay_cost}
+			</if>
+			<if test="examination_cost != null">
+				examination_cost = #{examination_cost}
+			</if>
+			<if test="register_cost != null">
+				register_cost = #{register_cost}
+			</if>
+			<if test="totalt != null">
+				total = #{total}
+			</if>
+			<if test="payment != null">
+				payment = #{payment}
+			</if>
+			<if test="flow_number != null">
+				flow_number = #{flow_number}
+			</if>
+			<if test="date != null">
+				date = #{date}
+			</if>
+		</set>
+		<where>
+			code = #{code}
+		</where>
+	</update>
+	
+	<!-- 通过详细费用单号删除费用表 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from Cost 
+		<where>
+			code = #{code}
+		</where>
+	</delete>
+</mapper>

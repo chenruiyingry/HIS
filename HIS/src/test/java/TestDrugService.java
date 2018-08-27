@@ -38,7 +38,6 @@ public class TestDrugService {
 	@Test
 	public void testFindDrugList() {
 		Drug drug = new Drug();
-		drug.setPageSize(3);
 		Pagination pagination = drugService.findDrugList(drug);
 		System.out.println(pagination.getList());
 	}
