@@ -1,24 +1,44 @@
 package cn.his.core.model.doctor;
 
+import java.util.List;
+
+import cn.his.core.model.Page;
+
 /*
  * 科室表
  */
-public class Department {
+public class Department extends Page {
 
+	private int id;//id
 	private String code;//科室编号
+	private String p_code;//部门编号
 	private String name;//科室名字
 	private String introduction;//简介
-	private int people;//人数
-	private Doctor doctor;
-	
-	public Department(String code, String name, String introduction, int people) {
+	private List<Doctor> doctors;
+
+	public Department(int id, String code, String p_code, String name, String introduction, List<Doctor> doctors) {
 		super();
+		this.id = id;
 		this.code = code;
+		this.p_code = p_code;
 		this.name = name;
 		this.introduction = introduction;
-		this.people = people;
+		this.doctors = doctors;
 	}
-	
+
+	public Department() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -43,27 +63,28 @@ public class Department {
 		this.introduction = introduction;
 	}
 
-	public int getPeople() {
-		return people;
+	public List<Doctor> getDoctors() {
+		return doctors;
 	}
 
-	public void setPeople(int people) {
-		this.people = people;
+	public void setDoctors(List<Doctor> doctors) {
+		this.doctors = doctors;
 	}
 
-	public Doctor getDoctor() {
-		return doctor;
+	public String getP_code() {
+		return p_code;
 	}
 
-	public void setDoctor(Doctor doctor) {
-		this.doctor = doctor;
+	public void setP_code(String p_code) {
+		this.p_code = p_code;
 	}
 
 	@Override
 	public String toString() {
-		return "Department [code=" + code + ", name=" + name
-				+ ", introduction=" + introduction + ", people=" + people + "]";
+		return "Department [id=" + id + ", code=" + code + ", p_code=" + p_code + ", name=" + name + ", introduction="
+				+ introduction + ", doctors=" + doctors + "]";
 	}
+
 	
 	
 }

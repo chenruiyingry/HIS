@@ -37,6 +37,9 @@
 			<if test="name != null">
 				name like "%"#{name}"%"
 			</if>
+			<if test="department_code != null">
+				department_code = #{department_code}
+			</if>
 		</where>
 		order by id
 		<if test="startRow != null">

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.doctor.DepartmentDao">
+	<resultMap type="Department" id="Department">
+		<id column="id" property="id"/>
+		<result column="code" property="code"/>
+		<result column="p_code" property="p_code"/>
+		<result column="name" property="name"/>
+		<result column="introduction" property="introduction"/>
+	</resultMap>
+	
+	<!-- 查询科室集合-->
+	<select id="findDepartmentList" parameterType="Department" resultMap="Department">
+		select * from department
+		<where>
+			code is not null
+			<if test="name != null">
+				and name like "%"#{name}"%"
+			</if>
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+	
+	<!-- 查询部门列表 -->
+	<select id="findDivisionList" resultMap="Department">
+		select * from department
+		<where>
+			code is null
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+	
+	<!-- 按部门查询科室列表 -->
+	<select id="findDepartmentListByP_code" parameterType="String" resultMap="Department">
+		select * from department
+		<where>
+			p_code = #{p_code} and code is not null
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+	
+	<!-- 根据科室编号查询科室信息 -->
+	<select id="findDepartmentByCode" parameterType="String" resultMap="Department">
+		select * from department
+		<where>
+			code = #{code}
+		</where>
+	</select>
+
+	<!-- 根据部门编号查询部门信息 -->	
+	<select id="findDivisionByCode" parameterType="String" resultMap="Department">
+		select * from department
+		<where>
+			p_code = #{p_code} and code is null
+		</where>
+	</select>
+	
+	<!-- 查询部门总数 -->
+	<select id="getDivisionCount" parameterType="Department" resultType="Integer">
+		select count(1) from department
+		<where>
+			code is null
+		</where>
+	</select>
+	
+	<!-- 按部门查询科室总数 -->
+	<select id="getDepartmentCount" parameterType="Department" resultType="Integer">
+		select count(1) from department
+		<where>
+			p_code = #{p_code} and code is not null
+		</where>
+	</select>
+		
+	<!-- 添加科室信息 -->
+	<insert id="insertDepartment" parameterType="Department">
+		insert into department
+		<trim prefix="(" suffix=")">
+			code, p_code, name, introduction
+		</trim>
+		values
+		<trim prefix="(" suffix=")">
+			#{code}, #{p_code}, #{name}, #{introduction}
+		</trim>
+	</insert>
+	
+	<!-- 更新科室信息 -->
+	<update id="updateDepartment" parameterType="Department">
+		update department 
+		<set>
+			<if test="code != null">
+				code = #{code},
+			</if>
+			<if test="p_code != null">
+				p_code = #{p_code},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction},
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+	
+	<!-- 通过科室代码删除科室信息 -->
+	<delete id="deleteDepartment" parameterType="Integer">
+		delete from department
+		<where>
+			id = #{id}
+		</where>
+	</delete>
+</mapper>
