@@ -18,36 +18,43 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Resource
 	private DoctorDao doctorDao;
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Department> findDepartmentList(Department department) {
 		return departmentDao.findDepartmentList(department);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Department> findDivisionList() {
 		return departmentDao.findDivisionList();
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public List<Department> findDepartmentListByP_code(String p_code) {
 		return departmentDao.findDepartmentListByP_code(p_code);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public Department findDepartmentByCode(String code) {
 		return departmentDao.findDepartmentByCode(code);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public Department findDivisionByCode(String code) {
 		return departmentDao.findDivisionByCode(code);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public int getDivisionCount(Department department) {
 		return departmentDao.getDivisionCount(department);
 	}
 
+	@Transactional(readOnly = true)
 	@Override
 	public int getDepartmentCount(Department department) {
 		return departmentDao.getDepartmentCount(department);
