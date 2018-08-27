@@ -4,28 +4,40 @@ package cn.his.core.model;
  */
 public class Register_cost {
 	
-	private int level;//医师级别
-	private String cost;//挂号费用
-	public Register_cost(int level, String cost) {
+	private int id;//id
+	private Level level;//医师级别
+	private double cost;//挂号费用
+	
+	public Register_cost(Level level, double cost) {
 		super();
 		this.level = level;
 		this.cost = cost;
 	}
-	public int getLevel() {
+	public Register_cost() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public Level getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
+	public void setLevel(Level level) {
 		this.level = level;
 	}
-	public String getCost() {
+	public double getCost() {
 		return cost;
 	}
-	public void setCost(String cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
 	@Override
 	public String toString() {
-		return "Register_cost [level=" + level + ", cost=" + cost + "]";
+		return "Register_cost [id=" + id + ", level=" + level + ", cost=" + cost + "]";
 	}
 	
 }
