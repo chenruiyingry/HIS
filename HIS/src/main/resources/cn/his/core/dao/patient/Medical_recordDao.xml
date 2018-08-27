@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.patient.Medical_recordDao">
+	<resultMap type="Medical_record" id="Medical_record">
+		<result column="code" property="code"/>
+		<result column="patient_code" property="patient_code"/>
+		<result column="doctor_code" property="doctor_code"/>
+		<result column="isAssay" property="isAssay"/>
+		<result column="Assay_result" property="Assay_result"/>
+		<result column="isExamination" property="isExamination"/>
+		<result column="examination_result" property="examination_result"/>
+		<result column="diagnostic_result" property="diagnostic_result"/>
+		<result column="treatment" property="treatment"/>
+		<result column="isHospitalization" property="isHospitalization"/>
+		<result column="ward_number" property="ward_number"/>
+		<result column="bed_number" property="bed_number"/>
+		<result column="hospitalization_days" property="hospitalization_days"/>
+		<result column="date" property="date"/>
+	</resultMap>
+	
+	<!-- 通过病人编号查询所有信息 -->
+	<select id="findMedical_recordList" parameterType="Medical_record" resultMap="Medical_record">
+		select * from medical_record 
+		<where>
+			<if test="code != null">
+				code = #{code}
+			</if>
+			<if test="patient_code != null">
+				patient_code = #{patient_code}
+			</if>
+			<if test="doctor_code != null">
+				doctor_code = #{doctor_code}
+			</if>
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow}, #{pageSize}
+		</if>
+	</select>
+	
+	<!-- 查询同一个病人编号的病历的总记录数 -->
+	<select id="getMedical_recordCount" parameterType="String" resultType="Integer">
+		select count(1) from medical_record
+		<where>
+			patient_code = #{code}
+		</where>
+	</select>
+	
+	<!-- 通过病历号查询所有信息 -->
+	<select id="findMedical_recordByCode" parameterType="String" resultMap="Medical_record">
+		select * from medical_record 
+		<where>
+			code = #{code}
+		</where>
+	</select>
+	
+	<!-- 添加新的病历信息 -->
+	<insert id="insertMedical_record" parameterType="Medical_record">
+		insert into medical_record
+		<trim prefix="(" suffix=")">
+		code , patient_code , doctor_code , isAssay , Assay_result , isExamination , examination_result , 
+		diagnostic_result , treatment , isHospitalization , ward_number , bed_number , hospitalization_days , date
+		</trim>
+		values 
+		<trim prefix="(" suffix=")">
+		#{code} , #{patient_code} , #{doctor_code} , #{isAssay} , #{Assay_result} , #{isExamination} , #{examination_result} , 
+		#{diagnostic_result} , #{treatment} , #{isHospitalization} , #{ward_number} , #{bed_number} , #{hospitalization_days} , #{date}
+		</trim>
+	</insert>
+	
+	<!-- 修改病历表 -->
+	<update id="updateMdical_record" parameterType="Medical_record">
+		update medical_record
+		<set>
+		<if test="doctor_code != null">
+				doctor_code = #{doctor_code},
+			</if>
+			<if test="isAssay != null">
+				isAssay = #{isAssay},
+			</if>
+			<if test="Assay_result != null">
+				Assay_result = #{Assay_result},
+			</if>
+			<if test="isExamination != null">
+				isExamination = #{isExamination},
+			</if>
+			<if test="examination_result != null">
+				examination_result = #{examination_result},
+			</if>
+			<if test="diagnostic_result != null">
+				diagnostic_result = #{diagnostic_result},
+			</if>
+			<if test="treatment != null">
+				treatment = #{treatment},
+			</if>
+			<if test="isHospitalization != null">
+				isHospitalization = #{isHospitalization},
+			</if>
+			<if test=" ward_number != null">
+				 ward_number = #{ ward_number},
+			</if>
+			<if test="bed_number != null">
+				bed_number = #{bed_number},
+			</if>
+			<if test="hospitalization_days != null">
+				hospitalization_days = #{hospitalization_days},
+			</if>
+			<if test="date != null">
+				date = #{date},
+			</if>
+		<where>
+			code = #{code}
+		</where>
+		</set>
+	</update>
+	
+	<!-- 删除病历信息 -->
+	<delete id="deleteMedical_record" parameterType="String">
+		delete from medical_record
+		<where>
+			code = #{code}
+		</where>
+	</delete>
+</mapper>

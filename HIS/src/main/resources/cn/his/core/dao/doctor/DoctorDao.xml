@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.doctor.DoctorDao">
+	<resultMap type="Doctor" id="Doctor">
+		<result column="code" property="code"/>
+		<result column="password" property="password"/>
+		<result column="name" property="name"/>
+		<result column="sex" property="sex"/>
+		<result column="native_place" property="native_place"/>
+		<result column="nation" property="nation"/>
+		<result column="birth" property="birth"/>
+		<result column="degree" property="degree"/>
+		<result column="graduate" property="graduate"/>
+		<result column="address" property="address"/>
+		<result column="phone" property="phone"/>
+		<result column="email" property="email"/>
+		<result column="qualification" property="qualification"/>
+		<result column="license" property="license"/>
+		<result column="department_code" property="department_code"/>
+		<result column="level" property="level"/>
+		<result column="title" property="title"/>
+		<result column="duty" property="duty"/>
+		<result column="hiredate" property="hiredate"/>
+		<result column="major" property="major"/>
+		<result column="remark" property="remark"/>
+		<result column="isWork" property="isWork"/>
+		<result column="work_time" property="work_time"/>
+		<result column="isFirst" property="isFirst"/>
+		<result column="image_url" property="image_url"/>
+		<result column="introduction" property="introduction"/>
+	</resultMap>
+	
+	<!-- 查询医生集合-->
+	<select id="findDoctorListWithPage" parameterType="Doctor" resultMap="Doctor">
+		select * from doctor
+		<where>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow},#{pageSize}
+		</if>
+	</select>
+	
+	<!-- 查询总记录数 -->
+	<select id="getDoctorCount" parameterType="Doctor" resultType="Integer">
+		select count(1) from doctor
+		<where>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
+		</where>
+	</select>
+	
+	<!-- 通过医生代码查询医生信息 -->
+	<select id="findDoctorByCode" parameterType="String" resultMap="Doctor">
+		select code, password, name, sex, native_place, nation, birth, degree, graduate, address, phone, email, qualification,
+		license, department_code, level, title, duty, hiredate, major, remark, isWork, work_time, isFirst, image_url,
+		introduction from doctor 
+		<where>
+			code = #{code}
+		</where>
+	</select>
+	
+	<!-- 添加医生信息 -->
+	<insert id="insertDoctor" parameterType="Doctor">
+		insert into doctor 
+		<trim prefix="(" suffix=")">
+			code, password, name, sex, native_place, nation, birth, degree, graduate, address, phone, email, qualification,
+			license, department_code, level, title, duty, hiredate, major, remark, isWork, work_time, isFirst, image_url,
+			introduction
+		</trim>
+		values
+		<trim prefix="(" suffix=")">
+			#{code}, #{password}, #{name}, #{sex}, #{native_place}, #{nation}, #{birth}, #{degree}, #{graduate}, #{address},
+			#{phone}, #{email}, #{qualification}, #{license}, #{department_code}, #{level}, #{title}, #{duty}, #{hiredate}, 
+			#{major}, #{remark}, #{isWork}, #{work_time}, #{isFirst}, #{image_url}, #{introduction}
+		</trim>
+	</insert>
+	
+	<!-- 修改医生信息 -->
+	<update id="updateDoctor" parameterType="Doctor">
+		update doctor 
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="sex != null">
+				sex = #{sex},
+			</if>
+			<if test="native_place != null">
+				native_place = #{native_place},
+			</if>
+			<if test="nation != null">
+				nation = #{nation},
+			</if>
+			<if test="birth != null">
+				birth = #{birth},
+			</if>
+			<if test="degree != null">
+				degree = #{degree},
+			</if>
+			<if test="graduate != null">
+				graduate = #{graduate},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			<if test="qualification != null">
+				qualification = #{qualification},
+			</if>
+			<if test="license != null">
+				license = #{license},
+			</if>
+			<if test="department_code != null">
+				department_code = #{department_code},
+			</if>
+			<if test="level != null">
+				level = #{level},
+			</if>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="duty != null">
+				duty = #{duty},
+			</if>
+			<if test="hiredate != null">
+				hiredate = #{hiredate},
+			</if>
+			<if test="major != null">
+				major = #{major},
+			</if>
+			<if test="remark != null">
+				remark = #{remark},
+			</if>
+			<if test="isWork != null">
+				isWork = #{isWork},
+			</if>
+			<if test="work_time != null">
+				work_time = #{work_time},
+			</if>
+			<if test="isFirst != null">
+				isFirst = #{isFirst},
+			</if>
+			<if test="image_url != null">
+				image_url = #{image_url},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction}
+			</if>
+		</set>
+		<where>
+			code = #{code}
+		</where>
+	</update>
+	
+	<!-- 通过医生代码删除医生信息 -->
+	<delete id="deleteDoctorByCode" parameterType="String">
+		delete from doctor
+		<where>
+			code = #{code}
+		</where>
+	</delete>
+</mapper>

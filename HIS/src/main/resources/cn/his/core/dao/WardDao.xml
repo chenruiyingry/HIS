@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.WardDao">
+	<resultMap type="Ward" id="Ward">
+		<result column="ward_code" property="ward_code"/>
+		<result column="bed_code" property="bed_code"/>
+		<result column="type" property="type"/>
+		<result column="price" property="price"/>
+		<result column="isOccupy" property="isOccupy"/>
+	</resultMap>
+	
+	<!-- 通过病床号，查询病房所有信息 -->
+	<select id="findWardByBed_codeAndWard_code" parameterType="Ward" resultMap="Ward">
+		select * from ward
+		<where>
+			bed_code = #{bed_code} and ward_code = #{ward_code}
+		</where>
+	</select>
+	
+	<!-- 通过病房编号，查询所有信息 -->
+	<select id="findWardByWard_code" parameterType="String" resultMap="Ward">
+		select * from ward
+		<where>
+			ward_code = #{ward_code} and bed_code is null
+		</where>
+	</select>
+	
+	<!-- 查询病房集合 -->
+	<select id="selectWardList"  resultMap="Ward">
+		select * from ward 
+		<where>
+			bed_code is null
+		</where>
+	</select>
+	
+	<!-- 通过病房号查询病床集合 -->
+	<select id="selectBedListByWard_code" parameterType="String" resultMap="Ward">
+		select * from ward
+		<where>
+			ward_code = #{ward_code} and bed_code is not null
+		</where>
+	</select>
+	
+	<!-- 查询某个病房的空床位 -->
+	<select id="findLessBedByWard_code" parameterType="String" resultMap="Ward">
+		select * from ward 
+		<where>
+			ward_code = #{ward_code} and bed_code is not null and isOccupy = 0
+		</where>
+	</select>
+	
+	<!-- 查询医院病房数量 -->
+	<select id="getWardCount" resultType="Integer">
+		select count(1) from ward  
+		<where>
+			bed_code is null
+		</where>
+	</select>
+	
+	<!-- 查询某病房病床数量 -->
+	<select id="getBedCountByWard_code" parameterType="String" resultType="Integer">
+		select count(1) from ward 
+		<where>
+			ward_code = #{ward_code} and bed_code is not null
+		</where>
+	</select>
+	
+	<!-- 查询某病房的未被占用病床数量 -->
+	<select id="getLessBedCountByWord_code" parameterType="String" resultType="Integer">
+		select count(1) from ward 
+		<where>
+			ward_code = #{ward_code} and bed_code is not null and isOccupy = 0
+		</where>
+	</select>
+	
+	<!-- 添加新的病房或病床 -->
+	<insert id="insertWard" parameterType="Ward">
+		insert into ward
+		<trim prefix="(" suffix=")">
+			ward_code , bed_code , type , price , isOccupy
+		</trim>
+		values
+		<trim prefix="(" suffix=")">
+			#{ward_code} , #{bed_code} , #{type} , #{price} , #{isOccupy}
+		</trim>
+	</insert>
+	
+	<!-- 通过id修改病房或病床信息 -->
+	<update id="updateWardById" parameterType="Ward">
+		update ward
+		<set>
+			<if test="ward_code != null">
+				ward_code = #{ward_code},
+			</if>
+			<if test="bed_code != null">
+				bed_code = #{bed_code},
+			</if>
+			<if test="type != null">
+				type = #{type},
+			</if>
+			<if test="price != null">
+				price = #{price},
+			</if>
+			<if test="isOccupy != null">
+				isOccupy = #{isOccupy}
+			</if>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>	
+	
+	<!-- 通过病房号进行删除 -->
+	<delete id="deleteWard" parameterType="Integer">
+		delete from ward
+		<where>
+			id = #{id}
+		</where>
+	</delete>
+
+</mapper>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.patient.PatientDao">
+	<resultMap type="Patient" id="Patient">
+		<result column="code" property="code"/>
+		<result column="doctor_code" property="doctor_code"/>
+		<result column="name" property="name"/>
+		<result column="sex" property="sex"/>
+		<result column="age" property="age"/>
+		<result column="phone" property="phone"/>
+		<result column="insurance_type" property="insurance_type"/>
+		<result column="present_illness" property="present_illness"/>
+		<result column="past_illness" property="past_illness"/>
+		<result column="allergy" property="allergy"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	
+	<!-- 通过病床号，查询病人信息 -->
+	<select id="findMedical_recordByCode" parameterType="Medical_record" resultMap="Patient">
+		select * from patient 
+		<where>
+			code = 
+			<trim prefix="(" suffix=")">
+				select patient_code from Medical_record
+				<where>
+					bed_number = #{bed_number} and ward_number = #{ward_number}
+				</where>
+			</trim>
+		</where>
+	</select>
+	
+	<!-- 通过医生编号查询所有病人信息 -->
+	<select id="findPatientList" parameterType="Patient" resultMap="Patient">
+		select * from patient 
+		<where>
+			doctor_code = #{doctor_code}
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow}, #{pageSize}
+		</if>
+	</select>
+	
+	<select id="getPatientCount" parameterType="String" resultType="Integer">
+		select count(1) from patient
+		<where>
+			code = 
+			<trim prefix="(" suffix=")">
+				select patient_code from medical_record
+				<where>
+					doctor_code = #{code}
+				</where>
+			</trim>
+		</where>
+	</select>
+	
+	<!-- 通过病人编号查询病人信息 -->
+	<select id="findPatientByCode" parameterType="Patient" resultMap="Patient">
+		select * from patient where code = #{code}
+	</select>
+	
+	<!-- 添加病人信息 -->
+	<insert id="insertPatient" parameterType="Patient">
+		insert into patient(code , doctor_code , name , sex , age , phone , insurance_type , present_illness , past_illness ,allergy , status) values
+		(#{code} , #{doctor_code} , #{name} , #{sex} , #{age} , #{phone} , #{insurance_type} , #{present_illness} , #{past_illness} ,#{allergy} , #{status}) 
+	</insert>
+	
+	<!-- 修改病人信息 -->
+	<update id="updatePatient" parameterType="Patient">
+		update patient 
+		<set>
+			<if test="doctor_code != null">
+				doctor_code= #{doctor_code}
+			</if>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="sex != null">
+				sex = #{sex},
+			</if>
+			<if test="age != null">
+				age = #{age},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="insurance_type != null">
+				insurance_type = #{insurance_type},
+			</if>
+			<if test="present_illness != null">
+				present_illness = #{present_illness},
+			</if>
+			<if test="past_illness != null">
+				past_illness = #{past_illness},
+			</if>
+			<if test="allergy != null">
+				allergy = #{allergy},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+		</set>
+		<where>
+			code = #{code}
+		</where>
+	</update>
+	
+	<!-- 通过病人编号删除病人信息 -->
+	<delete id="deletePatient" parameterType="String">
+		delete from patient where code = #{code}
+	</delete>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.drug.DrugDao">
+	<resultMap type="Drug" id="Drug">
+		<result column="code" property="code"/>
+		<result column="name" property="name"/>
+		<result column="function" property="function"/>
+		<result column="produce_date" property="produce_date"/>
+		<result column="effective_date" property="effective_date"/>
+		<result column="manufacturer" property="manufacturer"/>
+		<result column="unit" property="unit"/>
+		<result column="purchase_price" property="purchase_price"/>
+		<result column="sale_price" property="sale_price"/>
+		<result column="store" property="store"/>
+	</resultMap>
+	
+	<!-- 获取药品列表，分页，通过名字模糊查询，通过制造方模糊查询，通过主治功能模糊查询 -->
+	<select id="findDrugList" parameterType="Drug" resultMap="Drug">
+		select * from drug
+		<where>
+			1 = 1
+			<if test="name != null">
+				and name like "%"#{name}"%"
+			</if>
+			<if test="manufacturer != null">
+				and manufacturer like "%"#{manufacturer}"%"
+			</if>
+			<if test="function != null">
+				and function like "%"#{function}"%"
+			</if>
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow}, #{pageSize}
+		</if>
+	</select>
+	
+	<!-- 获取药品数量，可以按照名字模糊查询、制造方模糊查询、主治功能模糊查询 -->
+	<select id="getDrugCount" parameterType="Drug" resultType="Integer">
+		select count(1) from drug
+		<where>
+			1 = 1
+			<if test="name != null">
+				and name like "%"#{name}"%"
+			</if>
+			<if test="manufacturer != null">
+				and manufacturer like "%"#{manufacturer}"%"
+			</if>
+			<if test="function != null">
+				and function like "%"#{function}"%"
+			</if>
+		</where>
+	</select>
+	
+	<!-- 通过药品代码查询药品信息 -->
+	<select id="findDrugByCode" parameterType="String" resultMap="Drug">
+		select * from drug 
+		<where>
+			code = #{code}
+		</where>
+	</select>
+	
+	<!-- 添加药品 -->
+	<insert id="insertDrug" parameterType="Drug">
+		insert into drug
+		<trim prefix="(" suffix=")">
+			code, name, function, produce_date, effective_date, manufacturer, unit, purchase_price, sale_price, store
+		</trim>
+		values
+		<trim prefix="(" suffix=")">
+			#{code}, #{name}, #{function}, #{produce_date}, #{effective_date}, #{manufacturer}, #{unit}, 
+			#{purchase_price}, #{sale_price}, #{store}
+		</trim>
+	</insert>
+	
+	<!-- 修改药品信息 -->
+	<update id="updateDrug" parameterType="Drug">
+		update drug
+		<set>
+			<if test="name != null">
+				name = #{name}
+			</if>
+			<if test="function != null">
+				function = #{function}
+			</if>
+			<if test="produce_date != null">
+				produce_date = #{produce_date}
+			</if>
+			<if test="effective_date != null">
+				effective_date = #{effective_date}
+			</if>
+			<if test="manufacturer != null">
+				manufacturer = #{manufacturer}
+			</if>
+			<if test="unit != null">
+				unit = #{unit}
+			</if>
+			<if test="purchase_price != null">
+				purchase_price = #{purchase_price}
+			</if>
+			<if test="sale_price != null">
+				sale_price = #{sale_price}
+			</if>
+			<if test="store != null">
+				store = #{store}
+			</if>
+			<where>
+				code = #{code}
+			</where>
+		</set>
+	</update>
+	
+	<!-- 删除药品信息 -->
+	<delete id="deleteDrug" parameterType="String">
+		delete from drug
+		<where>
+			code = #{code}
+		</where>
+	</delete>
+	
+</mapper>

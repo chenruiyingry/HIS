@@ -1,0 +1,172 @@
+package cn.his.common.page;
+
+import org.apache.ibatis.javassist.SerialVersionUID;
+
+/**
+ * 简单分页类
+ * @author chenruiying
+ *
+ */
+public class SimplePage implements Paginable {
+	
+	private static final long SerialVersionUID = 1L;
+	public static final int DEF_COUNT = 20;
+
+	/**
+	 * 检查页码 checkPageNo
+	 * @param pageNo
+	 * @return if pageNo==null or pageNo<1 then return 1 else return pageNo
+	 */
+	public static int cpn(Integer pageNo) {
+		return (pageNo == null || pageNo < 1) ? 1 : pageNo;
+	}
+	
+	public SimplePage() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * 构造器
+	 * @param pageNo
+	 * @param pageSize
+	 * @param totalCount
+	 */
+	public SimplePage(int pageNo, int pageSize, int totalCount) {
+		setTotalCount(totalCount);
+		setPageSize(pageSize);
+		setPageNo(pageNo);
+		adjustPageNo();
+	}
+	
+	/**
+	 * 调整页码，使不超过最大页数
+	 */
+	public void adjustPageNo() {
+		if (pageNo == 1) {
+			return;
+		}
+		int tp = getTotalPage();
+		if (pageNo > tp) {
+			pageNo = tp;
+		}
+	}
+	
+	/**
+	 * 总共几条数据
+	 */
+	@Override
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	/**
+	 * 总共几页
+	 */
+	@Override
+	public int getTotalPage() {
+		int totalPage = totalCount / pageSize;
+		if (totalPage == 0 || totalCount % pageSize != 0) {
+			totalPage++;
+		}
+		return totalPage;
+	}
+
+	/**
+	 * 每页几条数据
+	 */
+	@Override
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	/**
+	 * 获得页码
+	 */
+	@Override
+	public int getPageNo() {
+		return pageNo;
+	}
+
+	/**
+	 * 是否第一页
+	 */
+	@Override
+	public boolean isFirstPage() {
+		// TODO Auto-generated method stub
+		return pageNo <= 1;
+	}
+
+	/**
+	 * 是否最后一页
+	 */
+	@Override
+	public boolean isLastPage() {
+		// TODO Auto-generated method stub
+		return pageNo >= getTotalPage();
+	}
+
+	/**
+	 * 下一页
+	 */
+	@Override
+	public int getNextPage() {
+		if (isLastPage()) {
+			return pageNo;
+		} else {
+			return pageNo + 1;
+		}
+	}
+
+	/**
+	 * 上一页
+	 */
+	@Override
+	public int getPrePage() {
+		if (isFirstPage()) {
+			return pageNo;
+		} else {
+			return pageNo - 1;
+		}
+	}
+	
+	protected int totalCount = 0;
+	protected int pageSize = 20;
+	protected int pageNo = 1;
+	
+	/**
+	 * if totalCount<0 then totalCount=0
+	 * @param totalCount
+	 */
+	public void setTotalCount(int totalCount) {
+		if (totalCount < 0) {
+			this.totalCount = 0;
+		} else {
+			this.totalCount = totalCount;
+		}
+	}
+	
+	/**
+	 * if pageSize< 1 then pageSize=DEF_COUNT
+	 * @param pageSize
+	 */
+	public void setPageSize(int pageSize) {
+		if (pageSize < 1) {
+			this.pageSize = DEF_COUNT;
+		} else {
+			this.pageSize = pageSize;
+		}
+	}
+	
+	/**
+	 * if pageNo < 1 then pageNo=1
+	 * @param pageNo
+	 */
+	public void setPageNo(int pageNo) {
+		if (pageNo < 1) {
+			this.pageNo = 1;
+		} else {
+			this.pageNo = pageNo;
+		}
+	}
+
+}

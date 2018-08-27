@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.his.core.dao.drug.Drug_recordDao">
+	<resultMap type="Drug_record" id="Drug_record">
+		<result column="code" property="code"/>
+		<result column="medical_code" property="medical_code"/>
+		<result column="drug_code" property="drug_code"/>
+		<result column="number" property="number"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	
+	<!-- 通过病历编号查询药品单列表，带分页 根据状态查询药品信息 根据药品编码查询 -->
+	<select id="findDrug_recordList" parameterType="Drug_record" resultMap="Drug_record">
+		select * from drug_record
+		<where>
+			<if test="medical_code != null">
+				and medical_code = #{medical_code}
+			</if>
+			<if test="status != 0">
+				and status = #{status}
+			</if>
+			<if test="drug_code != null">
+				and drug_code = #{drug_code}
+			</if>
+		</where>
+		order by id
+		<if test="startRow != null">
+			limit #{startRow}, #{pageSize}
+		</if>
+	</select>
+	
+	<!-- 通过病历编号查询药品单数量，带分页 根据状态查询药品信息 根据药品编码查询 -->
+	<select id="getDrug_recordCountByMedical_code" parameterType="Drug_record" resultType="Integer">
+		select count(1) from drug_record
+		<where>
+			<if test="medical_code != null">
+				and medical_code = #{medical_code}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="drug_code != null">
+				and drug_code = #{drug_code}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 通过药单编号查询药单信息 -->
+	<select id="findDrug_recordByCode" parameterType="String" resultMap="Drug_record">
+		select * from drug_record
+		<where>
+			code = #{code}
+		</where>
+	</select>
+	
+	<!-- 新增药单 -->
+	<insert id="insertDrug_record" parameterType="Drug_record">
+		insert into drug_record
+		<trim prefix="(" suffix=")">
+			code, medical_code, drug_code, number, status
+		</trim>
+		values
+		<trim prefix="(" suffix=")">
+			#{code}, #{medical_code}, #{drug_code}, #{number}, #{status}
+		</trim>
+	</insert>
+	
+	<!-- 修改药单 -->
+	<update id="updateDrug_record" parameterType="Drug_record">
+		update drug_record
+		<set>
+			<if test="medical_code != null">
+				medical_code = #{medical_code}
+			</if>
+			<if test="drug_code != null">
+				drug_code = #{drug_code}
+			</if>
+			<if test="number != null">
+				number = #{number}
+			</if>
+			<if test="status != null">
+				status = #{status}
+			</if>
+		</set>
+		<where>
+			code = #{code}
+		</where>
+	</update>
+	
+	<!-- 删除药单 -->
+	<delete id="deleteDrug_record" parameterType="String">
+		delete from drug_record
+		<where>
+			code = #{code}
+		</where>
+	</delete>
+	
+</mapper>
