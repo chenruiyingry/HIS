@@ -13,19 +13,19 @@
 	
 	<!-- jsp视图 -->
 	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/front_page/"></property>
+		<property name="prefix" value=""></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	
 	<!-- 映射器 -->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-		<property name="interceptors">
+		<!-- <property name="interceptors">
 			<list>
 				<bean class="cn.core.web.SpringmvcInterceptor">
-					<!-- <property name="adminId" value="1"></property> -->
+					<property name="adminId" value="1"></property>
 				</bean>
 			</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<!-- 适配器 -->

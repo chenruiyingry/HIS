@@ -23,7 +23,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  结果：
-    ${msg }
+    <form action="pay.action" method="post">
+    	patient_name: <input type="text" name="patient_name"><br>
+    	authCode: <input type="text" name="authCode"><br>
+    	totalAmount: <input type="text" name="totalAmount"><br>
+    	doctor_id: <input type="text" name="doctor_id"><br>
+    	<input type="submit" value="提交">
+    </form>
   </body>
 </html>

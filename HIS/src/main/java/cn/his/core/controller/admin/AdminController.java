@@ -18,7 +18,6 @@ public class AdminController {
 	@Autowired
 	private AdminService adminLoginService;
 	
-	@Autowired
 	private SessionProvider sessionProvider;
 	
 	/**
