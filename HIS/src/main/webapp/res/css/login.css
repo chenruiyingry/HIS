@@ -1,0 +1,140 @@
+html {
+	overflow: hidden;
+}
+body {
+	padding: 0px;
+	margin: 0px;
+}
+.main {
+	width: 100%;
+	background-color: #c7e0ff85;
+	position: absolute;
+}
+.changeLanguage {
+	position: absolute;
+	background-color: #d4e9fe00;
+	text-align: center;
+	right: 6%;
+	top: 10px;
+	width: 60px;
+	z-index: 3;
+}
+.changeLanguage a {
+	text-decoration: none;
+	color: rgb(189, 189, 189);
+}
+.changeLanguage a:hover {
+	color: #fff;
+}
+.changeLanguage a:before {
+	content: "";
+	position: absolute;
+	width: 0px;
+	height: 0px;
+	right: 5px;
+	top: 10px;
+	border-top: 3px solid rgb(189, 189, 189);
+	border-right: 3px solid rgb(0, 0, 0, 0);
+	border-left:  3px solid rgb(0, 0, 0, 0);
+}
+.changeLanguage a:hover:before {
+	border-top: 3px solid #fff;
+}
+.changeLanguage:hover .Lbar {
+	top: 20px;
+	border-radius: 3px;
+	background-color: rgba(248, 248, 248, 0.85);
+	box-shadow: rgba(255, 253, 253, 0.2) 3px 3px 5px;
+}
+.changeLanguage:hover .Lbar button{
+	color: rgba(120, 120, 120);
+}
+.Lbar {
+	position: absolute;
+	width: 100%;
+	top: -90px;
+	padding: 6px 0px;
+	transition: .3s;
+	background-color: rgba(248, 248, 248, 0);
+	box-shadow: rgba(0, 0, 0, 0) 3px 3px 5px;
+	z-index: 1;
+}
+.Lbar button {
+	border: none;
+	outline: none;
+	width: 100%;
+	padding: 8px;
+	background-color: rgb(237, 243, 249, 0);
+	color: rgba(0, 0, 0, 0);
+}
+.changeLanguage .Lbar button:hover {
+	background-color: #fff;
+	color: #000;
+	border-radius: 2px;
+}
+.title {
+	position: absolute;
+	right: 6%;
+	top: 12%;
+	z-index: 2;
+}
+.title h1 {
+	font-weight: 500;
+	font-size: 45px;
+}
+.title span {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	font-family: STZhongsong;
+}
+.hint {
+	display: none;
+}
+.loginbar {
+	width: 14%;
+	padding: 2% 3.5%;
+	background: rgba(248, 248, 248, 0.7);
+	box-shadow: rgba(0, 0, 0, 0.08) 1px 3px 1px;
+	position: absolute;
+	transition: .3s;
+	right: 6%;
+	top: 35%;
+	z-index: 2;
+}
+.loginbar h3 {
+	position: relative;
+	right: 5%;
+	color: rgb(120, 120, 120);
+	margin: 3% 0px 6%;
+	font-weight: 500;
+	font-size: 20px;
+}
+.loginbar input {
+	position: relative;
+	right: 5%;
+	height: 44px;
+	width: 100%;
+	padding: 0px 5%;
+	margin-bottom: 15px;
+	border: none;
+	font-size: 15px;
+	color: rgb(68, 68, 68);
+	background-color: rgb(255, 255, 255);
+	box-shadow: rgb(221, 221, 221) 0px -1px 0px inset;
+}
+.loginbar .submit {
+	width: 110%;
+	border-radius: 3px;
+	transition: 0.3s;
+	outline: none;
+	color: rgb(255, 255, 255);
+    background-color: rgb(230, 89, 78);
+	box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 4px;
+}
+.loginbar p {
+	width: 100%;
+    color: rgb(230, 89, 78);
+    margin: 0px 0px 15px;
+    text-align: center;
+}

@@ -1,9 +1,16 @@
 package cn.his.core.model.admin;
+
+import java.io.Serializable;
+
 /*
  * 管理员表
  */
-public class Admin {
+public class Admin implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;//用户名
 	private String password;//密码
 	

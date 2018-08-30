@@ -1,0 +1,24 @@
+.bg-image {
+	position: absolute;
+}
+.changeLanguage a {
+	color: rgb(120, 120, 120);
+}
+.changeLanguage a:hover {
+	color: #000;
+}
+.changeLanguage a:before {
+	border-top: 3px solid rgb(120, 120, 120);
+}
+.changeLanguage a:hover:before {
+	border-top: 3px solid #000;
+}
+.changeLanguage:hover .Lbar {
+	background-color: rgba(248, 248, 248, 0.7);
+	box-shadow: rgba(0, 0, 0, 0.08) 3px 3px 5px;
+}
+.title p {
+	position: absolute;
+	bottom: 0px;
+	margin: 0px;
+}

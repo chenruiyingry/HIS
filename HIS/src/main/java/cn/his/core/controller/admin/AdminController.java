@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.his.common.web.SessionProvider;
 import cn.his.core.model.admin.Admin;
@@ -16,8 +17,8 @@ import cn.his.core.service.admin.AdminService;
 public class AdminController {
 
 	@Autowired
-	private AdminService adminLoginService;
-	
+	private AdminService adminService;
+	@Autowired
 	private SessionProvider sessionProvider;
 	
 	/**
@@ -29,16 +30,30 @@ public class AdminController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/login.do")
+	@RequestMapping(value = "/admin/login.do", method=RequestMethod.POST)
 	public String login(HttpServletRequest request, HttpServletResponse response, String username, String password, ModelMap model) {
-		Admin admin = adminLoginService.getUserByUsername(username, password);
+		Admin admin = adminService.getUserByUsername(username, password);
 		if (admin != null) {
-			sessionProvider.setAttribute(request, response, "admin", admin.getUsername());
-			model.addAttribute("登录成功！");
-			return "r:/index.jsp";
-		} 
-		model.addAttribute("登录失败！");
-		return "login.jsp";
+			sessionProvider.setAttribute(request, response, "admin_session", admin);
+			return "redirect:/admin/toIndex.do";
+		} else {
+			model.addAttribute("username", username);
+			model.addAttribute("password", password);
+			model.addAttribute("msg", "用户名或密码错误");
+			return "login";
+		}
+	}
+	
+	/**
+	 * 退出登录
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/logout.do")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		sessionProvider.logout(request, response);
+		return "redirect:/admin/toLogin.do";
 	}
 	
 	/**
@@ -47,6 +62,15 @@ public class AdminController {
 	 */
 	@RequestMapping(value = "/admin/toLogin.do")
 	public String toLogin() {
-		return "admin/login.jsp";
+		return "login";
+	}
+	
+	/**
+	 * 去首页
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/toIndex.do")
+	public String toIndex() {
+		return "index";
 	}
 }
