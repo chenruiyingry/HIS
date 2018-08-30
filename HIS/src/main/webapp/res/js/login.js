@@ -87,3 +87,29 @@ function check() {
 		$("loginform").action = "../admin/login.do";
 		return true;
 }
+function check1() {
+	var username = $("username").value;
+	var userpwd = $("userpwd").value;
+	if (username.length < 1 || userpwd.length < 1) {
+		$("loginbar").style.cssText = "background: rgba(230, 89, 78, 0.65);";
+		$("si").style.cssText = "color: rgb(255, 255, 255);";
+		$("submit").style.cssText = "background-color: rgba(208, 208, 208, 0.80); box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;";
+		$("submit").disabled = true;
+	}
+	if (username.length < 1 && userpwd.length < 1) {
+		$("username").placeholder = "用户名不能为空";
+		$("userpwd").placeholder = "密码不能为空";
+		return false;
+	}
+	else if (username.length < 1 && userpwd.length >= 1) {
+		$("username").placeholder = "用户名不能为空";
+		return false;
+	}
+	else if (username.length >= 1 && userpwd.length < 1) {
+		$("userpwd").placeholder = "密码不能为空";
+		return false;
+	}
+	else
+		$("loginform").action = "../login.action";
+		return true;
+}

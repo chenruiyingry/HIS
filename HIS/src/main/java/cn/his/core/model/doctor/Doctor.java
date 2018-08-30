@@ -1,5 +1,6 @@
 package cn.his.core.model.doctor;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.his.core.model.Level;
@@ -11,7 +12,11 @@ import cn.his.core.model.patient.Patient;
 /*
  * 医生表
  */
-public class Doctor extends Page {
+public class Doctor extends Page implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String code;//医生编号
 	private String password;//密码
 	private String name;//姓名
