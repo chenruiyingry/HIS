@@ -9,19 +9,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 	<meta charset="UTF-8">
 	<title>Sign in</title>
-	<link rel="shortcut icon" href="res/img/favicon.ico">
-	<link rel="stylesheet" href="res/css/login_s.css">
-	<link rel="stylesheet" href="res/css/login.css">
+	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
+	<link rel="stylesheet" href="/HIS/res/css/login_s.css">
+	<link rel="stylesheet" href="/HIS/res/css/login.css">
 </head>
 <body>
-	<div class="slider" id="slider" style="--img-prev:url(img/1.jpg)"> 
+	<div class="slider" id="slider" style="--img-prev:url(/HIS/img/1.jpg)"> 
 	 	<div class="slider__content" id="slider-content">
 			<div class="slider__images">
-			 	<div class="slider__images-item slider__images-item--active" data-id="1"><img src="res/img/1.jpg"></div>
-			 	<div class="slider__images-item" data-id="2"><img src="res/img/2.jpg"></div>
-			 	<div class="slider__images-item" data-id="3"><img src="res/img/3.jpg"></div>
-			 	<div class="slider__images-item" data-id="4"><img src="res/img/4.jpg"></div>
-			 	<div class="slider__images-item" data-id="5"><img src="res/img/5.jpg"></div>
+			 	<div class="slider__images-item slider__images-item--active" data-id="1"><img src="/HIS/res/img/1.jpg"></div>
+			 	<div class="slider__images-item" data-id="2"><img src="/HIS/res/img/2.jpg"></div>
+			 	<div class="slider__images-item" data-id="3"><img src="/HIS/res/img/3.jpg"></div>
+			 	<div class="slider__images-item" data-id="4"><img src="/HIS/res/img/4.jpg"></div>
+			 	<div class="slider__images-item" data-id="5"><img src="/HIS/res/img/5.jpg"></div>
 			</div>
 			<div class="slider__text">
 			 	<div class="slider__text-item slider__text-item--active" data-id="1">
@@ -88,7 +88,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div class="title">
-			<h1 id="his">Hospital Information System</h1>
+			<img src="/HIS/res/img/login_logo_2.png" id="his">
+			<!-- <h1 id="his">Hospital Information System</h1> -->
 			<span id="timeShow_1"></span>
 			<span id="timeShow"></span>
 		</div>
@@ -102,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" src="res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script>
 		var bg = document.getElementById("bg-image");
 		var main = document.getElementById("main");
@@ -121,8 +122,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			submit.disabled = false;
 		});
 	</script>
-	<script type="text/javascript" src="res/js/login.js"></script>
-	<script type="text/javascript" src="res/js/login_s.js"></script>
-	<script type="text/javascript" src="res/js/login_sl.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/login.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/login_s.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/login_sl.js"></script>
 </body>
 </html>

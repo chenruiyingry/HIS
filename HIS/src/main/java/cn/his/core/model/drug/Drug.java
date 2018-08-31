@@ -13,9 +13,10 @@ public class Drug extends Page {
 	private double purchase_price;//进货价
 	private double sale_price;//售价
 	private int store ;//库存量
+	private String spec;//规格
 	public Drug(String code, String name, String function, String produce_date,
 			String effective_date, String manufacturer, String unit,
-			double purchase_price, double sale_price, int store) {
+			double purchase_price, double sale_price, int store, String spec) {
 		super();
 		this.code = code;
 		this.name = name;
@@ -27,6 +28,7 @@ public class Drug extends Page {
 		this.purchase_price = purchase_price;
 		this.sale_price = sale_price;
 		this.store = store;
+		this.spec = spec;
 	}
 	public Drug() {
 		super();
@@ -92,13 +94,18 @@ public class Drug extends Page {
 	public void setStore(int store) {
 		this.store = store;
 	}
+	public String getSpec() {
+		return spec;
+	}
+	public void setSpec(String spec) {
+		this.spec = spec;
+	}
 	@Override
 	public String toString() {
-		return "Drug [code=" + code + ", name=" + name + ", function="
-				+ function + ", produce_date=" + produce_date
-				+ ", effective_date=" + effective_date + ", manufacturer="
-				+ manufacturer + ", unit=" + unit + ", purchase_price="
-				+ purchase_price + ", sale_price=" + sale_price + ", store="
-				+ store + "]";
+		return "Drug [code=" + code + ", name=" + name + ", function=" + function + ", produce_date=" + produce_date
+				+ ", effective_date=" + effective_date + ", manufacturer=" + manufacturer + ", unit=" + unit
+				+ ", purchase_price=" + purchase_price + ", sale_price=" + sale_price + ", store=" + store + ", spec="
+				+ spec + "]";
 	}
+	
 }

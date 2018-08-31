@@ -4,8 +4,7 @@
 function ENLanguage() {
 	$A("title")[0].innerText = "Sign in";
 	$("EZ").innerHTML = "EN";
-	$("his").innerHTML = "Hospital Information System";
-	$("his").style.cssText = "letter-spacing: initial; right: 0px;";
+	$('his').src = '/HIS/res/img/login_logo_2.png';
 	$("si").innerHTML = "Sign in";
 	$("username").placeholder = "User ID";
 	$("userpwd").placeholder = "Password";
@@ -24,8 +23,7 @@ function ENLanguage() {
 function ZHLanguage() {
 	$A("title")[0].innerText = "登录";
 	$("EZ").innerHTML = "ZH";
-	$("his").innerHTML = "医院信息管理系统";
-	$("his").style.cssText = "letter-spacing: 20px; right: -20px; position: relative;";
+	$('his').src = '/HIS/res/img/login_logo_1.png';
 	$("si").innerHTML = "登录";
 	$("username").placeholder = "用户名";
 	$("userpwd").placeholder = "密码";

@@ -5,36 +5,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>HIS</title>
-	<link rel="shortcut icon" href="../res/img/favicon.ico">
-	<link rel="stylesheet" href="../res/css/font-awesome.min.css">
-	<link rel="stylesheet" href="../res/css/index.css">
-	<link rel="stylesheet" href="../res/css/homeHeader.css">
+	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
+	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/HIS/res/css/index.css">
 </head>
 <body>
-	<div class="head">
-		<div class="bar_b"></div>
-		<div class="half-head">
-			<p class="title">医院信息管理系统</p>
-			<p class="half-title">―― 后台管理</p>
-		</div>
-		<span class="timeShow_1" id="timeShow_1"></span>
-		<div class="half-head_1">
-			<a href="" class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
-			<div class="bar" id="bar">
-				<a href="">医生</a>
-				<a href="">病人</a>
-				<a href="">病房</a>
-				<a href="">药品</a>
-				<a href="">收费</a>
-			</div>
-			<p class="username">${admin_session.username }</p>
-			<a href="../admin/logout.do" class="sign-out"><i class="fa fa-sign-out"></i></a>
-		</div>
-	</div>
+	<jsp:include page="../admin/toHead.do"></jsp:include>
 	<div id="ta">
 		<div id="theArt">
 			<div class="artGroup slide artGroup_1">
-				<div class="artwork"> <img src="../res/img/6.jpg">
+				<div class="artwork"> <img src="/HIS/res/img/6.jpg">
 					<a href="">
 						<div class="detail">
 							<h3>医生管理</h3>
@@ -44,7 +24,7 @@
 				</div>
 			</div>
 			<div class="artGroup slide artGroup_2">
-				<div class="artwork"> <img src="../res/img/7.jpg">
+				<div class="artwork"> <img src="/HIS/res/img/7.jpg">
 					<a href="">
 						<div class="detail">
 							<h3>病人管理</h3>
@@ -54,7 +34,7 @@
 				</div>
 			</div>
 			<div class="artGroup slide artGroup_3">
-				<div class="artwork"> <img src="../res/img/10.jpg">
+				<div class="artwork"> <img src="/HIS/res/img/10.jpg">
 					<a href="">
 						<div class="detail">
 							<h3>门诊管理</h3>
@@ -64,9 +44,9 @@
 				</div>
 			</div>
 			<div class="artGroup slide artGroup_4">
-				<div class="artwork"> <img src="../res/img/8.jpg">
+				<div class="artwork"> <img src="/HIS/res/img/8.jpg">
 					<a href="">
-						<div class="detail">
+						<div class="detail"> 
 							<h3>病房管理</h3>
 							<p><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>通过病房编号查询病床编号、通过病床编号查询病床是否被占用。可以添加、更新、删除病房编号与病床编号。</p>
 						</div>
@@ -74,7 +54,7 @@
 				</div>
 			</div>
 			<div class="artGroup slide artGroup_5">
-				<div class="artwork"> <img src="../res/img/9.jpg">
+				<div class="artwork"> <img src="/HIS/res/img/9.jpg">
 					<a href="">
 						<div class="detail">
 							<h3>药品管理</h3>
@@ -84,7 +64,7 @@
 				</div>
 			</div>
 			<div class="artGroup slide artGroup_6">
-				<div class="artwork"> <img src="../res/img/11.jpg">
+				<div class="artwork"> <img src="/HIS/res/img/11.jpg">
 					<a href="">
 						<div class="detail">
 							<h3>收费管理</h3>
@@ -98,9 +78,9 @@
 			<p>@2018 HIS</p>
 		</div>
 	</div>
-	<script type="text/javascript" src="../res/js/modernizr.min.js"></script>
-	<script type="text/javascript" src="../res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="../res/js/index.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/modernizr.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/index.js"></script>
 	<script>
 		var ta = document.getElementById('ta');
 		ta.style.height = $(window).height()-72+"px";

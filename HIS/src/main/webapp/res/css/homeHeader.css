@@ -18,22 +18,27 @@ body {
 	position: relative;
 	width: 280px;
 }
-.title {
+/* .title {
 	position: absolute;
 	margin: 4px 0px;
 	font-size: 27px;
 	letter-spacing: 8px;
+} */
+.title {
+	width: 105%;
+    position: absolute;
 }
 .half-title {
 	position: absolute;
-	right: -110px;
-	font-size: 16px;
-	top: 0px;
+    right: -135px;
+    font-size: 22px;
+    top: -5px;
+    font-family: STXingkai;
 }
 .timeShow_1 {
 	position: absolute;
 	left: 47%;
-	margin: 10px 0px;
+	margin: 20px 0px;
 }
 .half-head_1 {
 	position: absolute;
@@ -45,14 +50,14 @@ body {
 	height: 29px;
 	width: 261px;
 	right: 0px;
-	top: 25px;
+	top: 30px;
 	z-index: 2;
 }
 .bar_a {
 	position: absolute;
 	right: 135px;
 	text-decoration: none;
-	top: 10px;
+	top: 20px;
 	background-color: #b7b7b754;
     border-radius: 3px;
     z-index: 3;
@@ -63,7 +68,7 @@ body {
 }
 .bar {
 	position: absolute;
-	top: 10px;
+	top: 20px;
 	width: 348px;
 	right: -100px;
 	transition: .5s;
@@ -79,16 +84,20 @@ body {
 	color: rgb(74, 74, 74);
 }
 .username {
-	position: absolute;
-	right:25px;
-	margin: 10px;
-	z-index: 3;
+	width: 90px;
+    position: absolute;
+    left: -130px;
+    margin: 20px 8px;
+    z-index: 3;
+    overflow: hidden;
+    text-align: center;
+    height: 29px;
 }
 .sign-out {
 	position: absolute;
 	z-index: 3;
 	right: 0px;
-	top: 11px;
+	top: 20px;
 	color: rgb(120, 120, 120);
 }
 .sign-out:hover {

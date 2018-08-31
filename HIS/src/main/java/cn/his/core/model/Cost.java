@@ -1,6 +1,13 @@
 package cn.his.core.model;
-public class Cost extends Page {
 
+import java.io.Serializable;
+
+public class Cost extends Page implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String code;//详细费用编号
 	private String medical_code;//病历编号
 	private double drug_cost;//药物费用

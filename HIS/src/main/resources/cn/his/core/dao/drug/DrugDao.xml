@@ -12,6 +12,7 @@
 		<result column="purchase_price" property="purchase_price"/>
 		<result column="sale_price" property="sale_price"/>
 		<result column="store" property="store"/>
+		<result column="spec" property="spec"/>
 	</resultMap>
 	
 	<!-- 获取药品列表，分页，通过名字模糊查询，通过制造方模糊查询，通过主治功能模糊查询 -->
@@ -103,6 +104,9 @@
 			</if>
 			<if test="store != null">
 				store = #{store}
+			</if>
+			<if test="spec != null">
+				spec = #{spec}
 			</if>
 			<where>
 				code = #{code}

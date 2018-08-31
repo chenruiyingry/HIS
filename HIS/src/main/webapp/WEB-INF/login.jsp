@@ -20,7 +20,8 @@
 			</div>
 		</div>
 		<div class="title">
-			<h1 id="his">Hospital Information System</h1>
+			<!-- <h1 id="his">Hospital Information System</h1> -->
+			<img src="../res/img/login_logo_2.png" id="his">
 			<p id="bom">—— Back Office Management</p>
 			<span id="timeShow_1"></span>
 			<span id="timeShow"></span>

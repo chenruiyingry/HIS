@@ -73,4 +73,9 @@ public class AdminController {
 	public String toIndex() {
 		return "index";
 	}
+	
+	@RequestMapping(value = "/admin/toHead.do")
+	public String toHead() {
+		return "head";
+	}
 }
