@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="/HIS/res/css/index.css">
 </head>
 <body>
-	<jsp:include page="../admin/toHead.do"></jsp:include>
+	<c:import url="/admin/toHead.do"></c:import>
 	<div id="ta">
 		<div id="theArt">
 			<div class="artGroup slide artGroup_1">

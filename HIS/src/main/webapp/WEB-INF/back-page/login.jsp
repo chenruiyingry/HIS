@@ -5,12 +5,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Sign in</title>
-	<link rel="shortcut icon" href="../res/img/favicon.ico">
-	<link rel="stylesheet" href="../res/css/login.css">
-	<link rel="stylesheet" href="../res/css/login_o.css">
+	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
+	<link rel="stylesheet" href="/HIS/res/css/login.css">
+	<link rel="stylesheet" href="/HIS/res/css/login_o.css">
 </head>
 <body>
-	<img class="bg-image" id="bg-image" src="../res/img/be5004e71963dbe7b2066098c2636721.jpg" alt="img">
+	<img class="bg-image" id="bg-image" src="/HIS/res/img/be5004e71963dbe7b2066098c2636721.jpg" alt="img">
 	<div class="main" id="main">
 		<div class="changeLanguage">
 			<a href="" id="EZ">EN</a>
@@ -21,7 +21,7 @@
 		</div>
 		<div class="title">
 			<!-- <h1 id="his">Hospital Information System</h1> -->
-			<img src="../res/img/login_logo_2.png" id="his">
+			<img src="/HIS/res/img/login_logo_2.png" id="his">
 			<p id="bom">—— Back Office Management</p>
 			<span id="timeShow_1"></span>
 			<span id="timeShow"></span>
@@ -36,7 +36,7 @@
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" src="../res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script>
 		var bg = document.getElementById("bg-image");
 		var main = document.getElementById("main");
@@ -56,7 +56,7 @@
 			submit.disabled = false;
 		});
 	</script>
-	<script type="text/javascript" src="../res/js/login.js"></script>
-	<script type="text/javascript" src="../res/js/login_l.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/login.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/login_l.js"></script>
 </body>
 </html>

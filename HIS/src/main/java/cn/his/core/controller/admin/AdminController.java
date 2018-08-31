@@ -74,6 +74,10 @@ public class AdminController {
 		return "index";
 	}
 	
+	/**
+	 * 页面头部
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/toHead.do")
 	public String toHead() {
 		return "head";
