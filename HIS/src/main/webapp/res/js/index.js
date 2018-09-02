@@ -21,7 +21,7 @@ $(function () {
 			});
 	}
 });
-(function (){
+/*(function (){
 	function $(id) {
 		return document.getElementById(id);
 	}
@@ -71,4 +71,4 @@ function mou() {
 	document.getElementById('bar').style.cssText = "z-index: -1; right: -100px;";
 	document.getElementById('bar_a').innerHTML = "<";
 	document.getElementById('bar_a').style.cssText = "width: 16.33px;";
-}
+}*/

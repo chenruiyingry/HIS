@@ -1,8 +1,14 @@
 package cn.his.core.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,101 +21,320 @@ import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 
+import cn.his.core.model.Cost;
+import cn.his.core.model.Cost.payment;
+import cn.his.core.model.Level;
+import cn.his.core.model.Ward;
+import cn.his.core.model.doctor.Department;
+import cn.his.core.model.doctor.Doctor;
+import cn.his.core.model.drug.Drug;
+import cn.his.core.model.drug.Drug_record;
+import cn.his.core.model.patient.Medical_record;
+import cn.his.core.model.patient.Patient;
+import cn.his.core.service.CostService;
+import cn.his.core.service.Register_costService;
+import cn.his.core.service.WardService;
+import cn.his.core.service.doctor.DepartmentService;
+import cn.his.core.service.doctor.DoctorService;
+import cn.his.core.service.drug.Drug_recordService;
+import cn.his.core.service.patient.Medical_recordService;
+import cn.his.core.service.patient.PatientService;
+
 @Controller
 public class CostController {
+	
+	@Autowired
+	private PatientService patientService;
+	@Autowired
+	private DoctorService doctorService;
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private Medical_recordService medical_recordService;
+	@Autowired
+	private Drug_recordService drug_recordService;
+	@Autowired
+	private CostService costService;
+	@Autowired
+	private Register_costService register_costService;
+	@Autowired
+	private WardService wardService;
 
 	private static AlipayTradeService tradeService;
-	
 	static {
 		Configs.init("properties/zfbinfo.properties");
-		
 		tradeService = new AlipayTradeServiceImpl.ClientBuilder().build();
 	}
 	
 	/**
-	 * 支付宝支付
+	 * 收款
+	 * @param level
+	 * @param bed_number
+	 * @param hospitalization_days
+	 * @param medicalcode
+	 * @param patientcode
+	 * @param tradeNo
+	 * @param pay
+	 * @param codes
+	 * @param others
+	 * @param authcode
+	 * @param totalnum
+	 * @param department
+	 * @param doctorcode
+	 * @param totalfee
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "pay.action", method = RequestMethod.POST)
-	public String alipay(ModelMap model, String patient_name, String authCode, double totalAmount, String doctor_id) {
-		// (必填) 商户网站订单系统中唯一订单号，64个字符以内，只能包含字母、数字、下划线，
-        // 需保证商户系统端不能重复，建议通过数据库sequence生成，
-        String outTradeNo = "HIS_PAY" + System.currentTimeMillis()
-                            + (long) (Math.random() * 10000000L);
+	public String pay(Level level, String bed_number, Integer hospitalization_days,String medicalcode, String patientcode, String tradeNo, String pay, String[] codes, String[] others, String authcode, Integer totalnum, String department, String doctorcode, double totalfee, ModelMap model) {
+		Cost cost = new Cost();
+		List<Cost> list = costService.findCostList(cost);
+		String costcode = list.get(list.size() - 1).getCode();
+		int cost_new = Integer.parseInt(costcode) + 1;
+		cost.setCode(String.valueOf(cost_new));
+    	cost.setTotal(totalfee);
+    	cost.setFlow_number(tradeNo);
+    	cost.setMedical_code(medicalcode);
+    	//药费
+    	double drug_cost = 0;
+    	for (int i = 0; i < codes.length; i++) {
+			Drug drug = drug_recordService.findDrug_recordByCode(codes[i]).getDrug();
+			drug_cost += drug.getSale_price();
+		}
+    	cost.setDrug_cost(drug_cost);
+		//支付宝支付
+    	if ("alipay".equals(pay)) {
+			String subject = patientService.findPatientByCode(patientcode).getName() + department + "医院消费";
+			String body = "共" + totalnum + "项，共" + totalfee + "元";
+			String storeId = "16210120";
+			String timeoutExpress = "5m";
+			//商品
+			List<GoodsDetail> goodsDetailList = new ArrayList<GoodsDetail>();
+			for (int i = 0; i < codes.length; i++) {
+				Drug_record drug_record = drug_recordService.findDrug_recordByCode(codes[i]);
+				Drug drug = drug_record.getDrug();
+				GoodsDetail goodsDetail = GoodsDetail.newInstance(drug.getCode(), drug.getName(), Math.round(drug.getSale_price()), drug_record.getNumber());
+				goodsDetailList.add(goodsDetail);
+			}
+			for (int i = 0; i < others.length; i++) {
+				if ("检查费".equals(others[i])) {
+					GoodsDetail goodsDetail = GoodsDetail.newInstance("101", "检查费", 50, 1);
+					cost.setExamination_cost(50);
+					goodsDetailList.add(goodsDetail);
+				}
+				if ("化验费".equals(others[i])) {
+					GoodsDetail goodsDetail = GoodsDetail.newInstance("102", "化验费", 100, 1);
+					cost.setAssay_cost(100);
+					goodsDetailList.add(goodsDetail);
+				}
+				if ("挂号费".equals(others[i])) {
+					double register_cost = register_costService.findRegister_costByLevel(level).getCost();
+					GoodsDetail goodsDetail = GoodsDetail.newInstance("103", "挂号费", Math.round(register_cost), 1);
+					cost.setRegister_cost(register_cost);
+					goodsDetailList.add(goodsDetail);
+				}
+				if ("住院费".equals(others[i])) {
+					Ward ward = new Ward();
+					ward.setBed_code(bed_number);
+					double price = wardService.findWardByBed_codeAndWard_code(ward).getPrice();
+					GoodsDetail goodsDetail = GoodsDetail.newInstance("104", "住院费", Math.round(price * hospitalization_days), 1);
+					cost.setHospitalization_cost(price * hospitalization_days);
+					goodsDetailList.add(goodsDetail);
+				}
+			}
+			// 创建条码支付请求builder，设置请求参数
+			AlipayTradePayRequestBuilder builder = new AlipayTradePayRequestBuilder()
+		            .setOutTradeNo(tradeNo).setSubject(subject).setAuthCode(authcode)
+		            .setTotalAmount(String.valueOf(totalfee)).setStoreId(storeId)
+		            .setBody(body).setOperatorId(doctorcode)
+		            .setGoodsDetailList(goodsDetailList).setTimeoutExpress(timeoutExpress);
+			// 调用tradePay方法获取当面付应答
+			AlipayF2FPayResult result = tradeService.tradePay(builder);
+			cost.setPayment(payment.ALIPAY);
+	        switch (result.getTradeStatus()) {
+	            case SUCCESS:
+	            	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	            	cost.setDate(dateFormat.format(new Date()));
+	            	if (costService.insertCost(cost)) {
+	            		model.addAttribute("msg", "支付宝收款成功，正在打印明细单..");
+		    	    	model.addAttribute("code", "success");
+		    	    	model.addAttribute("urlname", "收费页面");
+		    	    	model.addAttribute("url", "toFee.action");
+		    	    	model.addAttribute("time", 5);
+					} else {
+						model.addAttribute("msg", "系统异常，请联系技术人员！");
+		    	    	model.addAttribute("code", "error");
+		    	    	model.addAttribute("urlname", "结算页面");
+		    	    	model.addAttribute("url", "toFee.action");
+		    	    	model.addAttribute("time", 5);
+					}
+	            	return "message";
+	            case FAILED:
+	            	model.addAttribute("msg", "支付宝收款失败，请重新尝试");
+	    	    	model.addAttribute("code", "error");
+	    	    	model.addAttribute("urlname", "结算页面");
+	    	    	model.addAttribute("url", "fee.action?code=" + patientcode);
+	    	    	model.addAttribute("time", 5);
+	    	    	return "message";
+	            case UNKNOWN:
+	            	model.addAttribute("msg", "系统异常，请稍后再试");
+	    	    	model.addAttribute("code", "error");
+	    	    	model.addAttribute("urlname", "结算页面");
+	    	    	model.addAttribute("url", "fee.action?code=" + patientcode);
+	    	    	model.addAttribute("time", 5);
+	    	    	return "message";
+	            default:
+	            	model.addAttribute("msg", "不支持的交易状态，交易返回异常");
+	            	model.addAttribute("code", "error");
+	    	    	model.addAttribute("urlname", "结算页面");
+	    	    	model.addAttribute("url", "fee.action?code=" + patientcode);
+	    	    	model.addAttribute("time", 5);
+	            	return "message";
+	        }
+		}
+    	//微信支付
+		else if ("wxpay".equals(pay)) {
+			cost.setPayment(payment.WECHAT);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        	cost.setDate(dateFormat.format(new Date()));
+        	if (costService.insertCost(cost)) {
+        		model.addAttribute("msg", "收款完成");
+    	    	model.addAttribute("code", "success");
+    	    	model.addAttribute("urlname", "收费页面");
+    	    	model.addAttribute("url", "toFee.action");
+    	    	model.addAttribute("time", 5);
+			} else {
+				model.addAttribute("msg", "系统异常，请联系技术人员！");
+    	    	model.addAttribute("code", "error");
+    	    	model.addAttribute("urlname", "结算页面");
+    	    	model.addAttribute("url", "toFee.action");
+    	    	model.addAttribute("time", 5);
+			}
+			return "message";
+		}
+    	//银行卡支付
+		else if ("unionpay".equals(pay)) {
+			cost.setPayment(payment.CARD);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			cost.setDate(dateFormat.format(new Date()));
+			if (costService.insertCost(cost)) {
+				model.addAttribute("msg", "收款完成");
+		    	model.addAttribute("code", "success");
+		    	model.addAttribute("urlname", "收费页面");
+		    	model.addAttribute("url", "toFee.action");
+		    	model.addAttribute("time", 5);
+			} else {
+				model.addAttribute("msg", "系统异常，请联系技术人员！");
+		    	model.addAttribute("code", "error");
+		    	model.addAttribute("urlname", "收费页面");
+		    	model.addAttribute("url", "toFee.action");
+		    	model.addAttribute("time", 5);
+			}
+			return "message";
+		}
+    	//现金支付
+		else {
+			cost.setPayment(payment.CASH);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			cost.setDate(dateFormat.format(new Date()));
+			if (costService.insertCost(cost)) {
+				model.addAttribute("msg", "收款完成");
+		    	model.addAttribute("code", "success");
+		    	model.addAttribute("urlname", "收费页面");
+		    	model.addAttribute("url", "toFee.action");
+		    	model.addAttribute("time", 5);
+			} else {
+				model.addAttribute("msg", "状态异常，请联系技术人员！");
+		    	model.addAttribute("code", "error");
+		    	model.addAttribute("urlname", "收费页面");
+		    	model.addAttribute("url", "toFee.action");
+		    	model.addAttribute("time", 5);
+			}
+	    	return "message";
+		}
+	}
+	
 
-        // (必填) 订单标题，粗略描述用户的支付目的。如“xxx品牌xxx门店消费”
-        String subject = patient_name + "医院消费";
-
-        // (必填) 订单总金额，单位为元，不能超过1亿元
-        // 如果同时传入了【打折金额】,【不可打折金额】,【订单总金额】三者,则必须满足如下条件:【订单总金额】=【打折金额】+【不可打折金额】
-        //String totalAmount = "0.01";
-
-        // (必填) 付款条码，用户支付宝钱包手机app点击“付款”产生的付款条码
-        //String authCode = "281046143752104623"; // 条码示例，286648048691290423
-        // (可选，根据需要决定是否使用) 订单可打折金额，可以配合商家平台配置折扣活动，如果订单部分商品参与打折，可以将部分商品总价填写至此字段，默认全部商品可打折
-        // 如果该值未传入,但传入了【订单总金额】,【不可打折金额】 则该值默认为【订单总金额】- 【不可打折金额】
-        //        String discountableAmount = "1.00"; //
-
-        // (可选) 订单不可打折金额，可以配合商家平台配置折扣活动，如果酒水不参与打折，则将对应金额填写至此字段
-        // 如果该值未传入,但传入了【订单总金额】,【打折金额】,则该值默认为【订单总金额】-【打折金额】
-        //String undiscountableAmount = "0.0";
-
-        // 卖家支付宝账号ID，用于支持一个签约账号下支持打款到不同的收款账号，(打款到sellerId对应的支付宝账号)
-        // 如果该字段为空，则默认为与支付宝签约的商户的PID，也就是appid对应的PID
-        //String sellerId = "";
-
-        // 订单描述，可以对交易或商品进行一个详细地描述，比如填写"购买商品3件共20.00元"
-        String body = "购买商品3件共20.00元";
-
-        // 商户操作员编号，添加此参数可以为商户操作员做销售统计
-        //String operatorId = "test_operator_id";
-
-        // (必填) 商户门店编号，通过门店号和商家后台可以配置精准到门店的折扣信息，详询支付宝技术支持
-        String storeId = "123456789";
-
-        // 支付超时，线下扫码交易定义为5分钟
-        String timeoutExpress = "5m";
-
-        // 商品明细列表，需填写购买商品详细信息，
-        List<GoodsDetail> goodsDetailList = new ArrayList<GoodsDetail>();
-        // 创建一个商品信息，参数含义分别为商品id（使用国标）、名称、单价（单位为分）、数量，如果需要添加商品类别，详见GoodsDetail
-        GoodsDetail goods1 = GoodsDetail.newInstance("goods_id001", "xxx面包", 1000, 1);
-        // 创建好一个商品后添加至商品明细列表
-        goodsDetailList.add(goods1);
-
-        // 继续创建并添加第一条商品信息，用户购买的产品为“黑人牙刷”，单价为5.00元，购买了两件
-        GoodsDetail goods2 = GoodsDetail.newInstance("goods_id002", "xxx牙刷", 500, 2);
-        goodsDetailList.add(goods2);
-
-        // 创建条码支付请求builder，设置请求参数
-        AlipayTradePayRequestBuilder builder = new AlipayTradePayRequestBuilder()
-            .setOutTradeNo(outTradeNo).setSubject(subject).setAuthCode(authCode)
-            .setTotalAmount(String.valueOf(totalAmount)).setStoreId(storeId)
-            .setBody(body).setOperatorId(doctor_id)
-            .setGoodsDetailList(goodsDetailList).setTimeoutExpress(timeoutExpress);
-
-        // 调用tradePay方法获取当面付应答
-        AlipayF2FPayResult result = tradeService.tradePay(builder);
-        switch (result.getTradeStatus()) {
-            case SUCCESS:
-//                log.info("支付宝支付成功: )");
-            	model.addAttribute("msg", "支付宝支付成功");
-            	return "index";
-
-            case FAILED:
-//                log.error("支付宝支付失败!!!");
-            	model.addAttribute("msg", "支付宝支付失败");
-            	return "index";
-
-            case UNKNOWN:
-//                log.error("系统异常，订单状态未知!!!");
-            	model.addAttribute("msg", "系统异常，订单状态未知");
-            	return "index";
-
-            default:
-//                log.error("不支持的交易状态，交易返回异常!!!");
-            	model.addAttribute("msg", "不支持的交易状态，交易返回异常");
-            	return "index";
-        }
+	
+	/**
+	 * 去收费页面
+	 * @return
+	 */
+	@RequestMapping(value = "fee.action")
+	public String fee(String code, ModelMap model) {
+		Patient patient = patientService.findPatientByCode(code);
+		if (patient == null) {
+			model.addAttribute("msg", "查无此人，请核对卡号！");
+			return "tofee";
+		} else {
+			String outTradeNo = "HIS_PAY" + System.currentTimeMillis() + (long) (Math.random() * 10000000L);
+			Doctor doctor = doctorService.findDoctorByCode(patient.getDoctor_code());
+			Department department = departmentService.findDepartmentByCode(doctor.getDepartment());
+			Medical_record medical_record = new Medical_record();
+			medical_record.setPatient_code(code);
+			List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);
+			medical_record = medical_records.get(medical_records.size() - 1);
+			HashMap<String, Double> others = new HashMap<String, Double>();
+			double totalfee = 0.00;
+			int totalnum = 0;
+			for (Drug_record drug_record2 : medical_record.getDrug_record()) {
+				totalnum += 1;
+				totalfee += drug_record2.getDrug().getSale_price();
+			}
+			if (doctor != null) {
+				double register_cost = register_costService.findRegister_costByLevel(doctor.getLevel()).getCost();
+				others.put("挂号费", register_cost);
+				totalfee += register_cost;
+				totalnum += 1;
+			}
+			if (medical_record.isAssay()) {
+				others.put("化验费", 100.00);
+				totalfee += 100;
+				totalnum += 1;
+			}
+			if (medical_record.isExamination()) {
+				others.put("检查费", 50.00);
+				totalfee += 50;
+				totalnum += 1;
+			}
+			if (medical_record.isHospitalization()) {
+				int hospitaldays = medical_record.getHospitalization_days();
+				Ward ward = new Ward();
+				ward.setBed_code(medical_record.getBed_number());
+				double price = wardService.findWardByBed_codeAndWard_code(ward).getPrice();
+				others.put("住院费", hospitaldays * price);
+				totalfee += hospitaldays * price;
+				totalnum += 1;
+			}
+			model.addAttribute("patient", patient);
+			model.addAttribute("doctor", doctor);
+			model.addAttribute("department", department);
+			model.addAttribute("druglist", medical_record.getDrug_record());
+			model.addAttribute("others", others);
+			model.addAttribute("totalfee", totalfee);
+			model.addAttribute("totalnum", totalnum);
+			model.addAttribute("tradeNo", outTradeNo);
+			model.addAttribute("medical_record", medical_record);
+			return "fee_s";
+		}
+	}
+	
+	/**
+	 * 去填写病人编号页面
+	 * @return
+	 */
+	@RequestMapping(value = "toFee.action")
+	public String toFee() {
+		return "tofee";
+	}
+	
+	@RequestMapping(value = "msg.action")
+	public String toMsg(ModelMap model) {
+		model.addAttribute("msg", "支付宝支付成功");
+    	model.addAttribute("code", "error");
+    	model.addAttribute("urlname", "收费页面");
+    	model.addAttribute("url", "toFee.action");
+    	model.addAttribute("time", 5);
+		return "message";
 	}
 }

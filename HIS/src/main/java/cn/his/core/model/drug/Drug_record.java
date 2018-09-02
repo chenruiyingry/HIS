@@ -13,6 +13,11 @@ public class Drug_record extends Page {
 	private int number;//数量
 	private int status;//缴费/取回情况
 	private Drug drug;//药物信息实体类
+	private double totalmoney;
+
+	public double getTotalmoney() {
+		return totalmoney = drug.getSale_price() * number;
+	}
 
 	public Drug_record(String code, String medical_code, String drug_code, int number, int status, Drug drug) {
 		super();

@@ -21,12 +21,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <div class="head">
-		<div class="bar_b"></div>
+  	<div class="head">
+		<div class="bar_c">
+			<div class="bar_b"></div>
+			<div class="bar_c_a"></div>
+		</div>
 		<div class="half-head">
-<!-- 			<p class="title">医院信息管理系统</p> -->
 			<img src="/HIS/res/img/logo.png" class="title">
-			<p class="half-title">―― 后台管理</p>
+			<p class="half-title">— ${name }</p>
 		</div>
 		<span class="timeShow_1" id="timeShow_1"></span>
 		<div class="half-head_1">
@@ -38,8 +40,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="">药品</a>
 				<a href="">收费</a>
 			</div>
-			<p class="username">${admin_session.username }</p>
-			<a href="/HIS/admin/logout.do" class="sign-out"><i class="fa fa-sign-out"></i></a>
+			<img class="auther_head" id="auther_head" src="/HIS/res/img/author_head.gif" alt="img">
+			<p class="username_1" id="username_1">123456789</p>
+			<a href="" class="sign-out"><i class="fa fa-sign-out"></i></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>

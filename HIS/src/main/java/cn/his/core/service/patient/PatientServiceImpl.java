@@ -57,11 +57,15 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public Patient findPatientByCode(String code) {
 		Patient patient = patientDao.findPatientByCode(code);
-		Medical_record medical_record = new Medical_record();
-		medical_record.setPatient_code(code);
-		List<Medical_record> medical_records = medical_recordDao.findMedical_recordList(medical_record);
-		patient.setMedical_record(medical_records);
-		return patient;
+		if (patient == null) {
+			return null;
+		} else {
+			Medical_record medical_record = new Medical_record();
+			medical_record.setPatient_code(code);
+			List<Medical_record> medical_records = medical_recordDao.findMedical_recordList(medical_record);
+			patient.setMedical_record(medical_records);
+			return patient;
+		}
 	}
 
 	@Override

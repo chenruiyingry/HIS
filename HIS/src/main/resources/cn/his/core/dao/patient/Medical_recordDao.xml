@@ -26,10 +26,10 @@
 				code = #{code}
 			</if>
 			<if test="patient_code != null">
-				patient_code = #{patient_code}
+				and patient_code = #{patient_code}
 			</if>
 			<if test="doctor_code != null">
-				doctor_code = #{doctor_code}
+				and doctor_code = #{doctor_code}
 			</if>
 		</where>
 		order by id

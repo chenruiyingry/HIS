@@ -41,7 +41,7 @@ public class Cost extends Page implements Serializable{
 	}
 	
 	public Cost(String code, String medical_code, double drug_cost, double hospitalization_cost, double assay_cost,
-			double examination_cost, double register_cost, double total, cn.his.core.model.Cost.payment payment,
+			double examination_cost, double register_cost, double total, payment payment,
 			String flow_number, String date) {
 		super();
 		this.code = code;
