@@ -95,11 +95,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="loginbar" id="loginbar">
 			<h3 id="si">Sign in</h3>
-			<form action="" onsubmit="return check1()" method="post">
-				<input type="text" placeholder="User ID" id="username" value="${username }" name="username">
+			<form action="login.action" onsubmit="return check1()" method="post">
+				<input type="text" placeholder="User ID" id="username" value="${username }" name="code">
 				<input type="password" placeholder="Password" id="userpwd" value="${password }" name="password">
-				<input type="submit" value="Sign In" onmouseover="mov()" onmouseout="mou()" class="submit" id="submit">
 				<p>${msg }</p>
+				<input type="submit" value="Sign In" onmouseover="mov()" onmouseout="mou()" class="submit" id="submit">
 			</form>
 		</div>
 	</div>

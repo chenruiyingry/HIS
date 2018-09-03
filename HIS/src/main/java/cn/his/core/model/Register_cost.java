@@ -5,10 +5,10 @@ package cn.his.core.model;
 public class Register_cost {
 	
 	private int id;//id
-	private Level level;//医师级别
+	private String level;//医师级别
 	private double cost;//挂号费用
 	
-	public Register_cost(Level level, double cost) {
+	public Register_cost(String level, double cost) {
 		super();
 		this.level = level;
 		this.cost = cost;
@@ -23,10 +23,10 @@ public class Register_cost {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Level getLevel() {
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(Level level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 	public double getCost() {

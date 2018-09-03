@@ -13,7 +13,12 @@
 	<select id="findWardByBed_codeAndWard_code" parameterType="Ward" resultMap="Ward">
 		select * from ward
 		<where>
-			bed_code = #{bed_code} and ward_code = #{ward_code}
+			<if test="bed_code != null">
+				bed_code = #{bed_code}
+			</if>
+			<if test="ward_code != null">
+				and ward_code = #{ward_code}
+			</if>
 		</where>
 	</select>
 	

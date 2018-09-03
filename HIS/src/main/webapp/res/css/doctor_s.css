@@ -1,0 +1,114 @@
+.main {
+	width: auto;
+	height: 100%;
+	padding: 0px 7%;
+	background-color: #f5f5f5;
+}
+.main_bar {
+	position: relative;
+	width: 100%;
+    height: 100%;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    background-color: #fff;
+}
+.plus_a {
+    position: absolute;
+    top: 8%;
+    left: 5%;
+    color: #389394;
+}
+.search {
+	position: absolute;
+    width: 20%;
+    right: 5%;
+    top: 8%;
+}
+.search .text {
+    width: 79%;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    padding: 6px 3%;
+    background-color: #efefef;
+    border: none;
+    outline: none;
+}
+.search .submit {
+    position: absolute;
+    width: 15%;
+    background-color: #ffa2a200;
+    border: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 6px 0px;
+    outline: none;
+    z-index: 2;
+}
+.search .fa-search {
+    position: absolute;
+    color: #fff;
+    background-color: #ff8a8a;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    width: 15%;
+    height: 100%;
+    text-align: center;
+    line-height: 165%;
+}
+.main_content {
+    position: absolute;
+    top: 18%;
+    padding: 0px 5%;
+    width: 90%;
+    height: 73%;
+    overflow: hidden;
+}
+.main_content a {
+	text-decoration: none;
+}
+.main_content table {
+	width: 100%;
+}
+.main_content_td11 {
+	width: 10%;
+}
+.main_content_td11 img {
+	width: 50%;
+	padding-top: 3px;
+    border-radius: 50%;
+}
+.tr_1 td {
+	padding-bottom: 38px;
+}
+.tr_1:before {
+	content: "";
+	position: absolute;
+	width: 90%;
+	top: 55px;
+	height: 1px;
+	background-color: rgba(120, 120, 120, 0.72);
+}
+.td_1 {
+	position: relative;
+}
+.td_1_d {
+    position: absolute;
+    top: 0px;
+    right: -5px;
+    width: 10%;
+    height: 100%;
+    transition: .3s;
+    background-color: #ff8a8a;
+}
+.td_1_d a {
+    position: absolute;
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    z-index: -1;
+    width: 400%;
+    letter-spacing: 5px;
+    padding-top: 25px;
+    transition: .3s;
+    font-size: 20px;
+}

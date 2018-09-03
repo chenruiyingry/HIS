@@ -31,8 +31,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script>
-		var main = document.getElementById('main');
-		main.style.height = $(window).height()-72+"px";
+		var ta = document.getElementById('main');
+		ta.style.height = $(window).height()-72+"px";
 		$(document).ready(function (){
 			$('.bar_c_a').mouseover(function (){
 				$('.auther_head').css({"width":"29px", "top":"20px", "right":"95px",});

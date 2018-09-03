@@ -16,32 +16,12 @@ public class Cost extends Page implements Serializable{
 	private double examination_cost;//检查费用
 	private double register_cost;//挂号费用
 	private double total;//总费用
-	private payment payment;//支付方式
+	private String payment;//支付方式
 	private String flow_number;//流水号
 	private String date;//生成日期
 	
-	public enum payment {
-		CASH{
-			public String getName() {return "现金";}
-		},
-		CARD{
-			public String getName() {return "银行卡";}
-		},
-		WECHAT{
-			public String getName() {return "微信支付";}
-		},
-		ALIPAY{
-			public String getName() {return "支付宝";}
-		},
-		OTHERS{
-			public String getName() {return "其他";}
-		};
-				
-		public abstract String getName();
-	}
-	
 	public Cost(String code, String medical_code, double drug_cost, double hospitalization_cost, double assay_cost,
-			double examination_cost, double register_cost, double total, payment payment,
+			double examination_cost, double register_cost, double total, String payment,
 			String flow_number, String date) {
 		super();
 		this.code = code;
@@ -110,10 +90,10 @@ public class Cost extends Page implements Serializable{
 	public void setTotal(double total) {
 		this.total = total;
 	}
-	public payment getPayment() {
+	public String getPayment() {
 		return payment;
 	}
-	public void setPayment(payment payment) {
+	public void setPayment(String payment) {
 		this.payment = payment;
 	}
 	public String getFlow_number() {

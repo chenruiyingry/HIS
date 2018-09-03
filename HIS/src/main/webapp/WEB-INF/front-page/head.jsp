@@ -41,8 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="">收费</a>
 			</div>
 			<img class="auther_head" id="auther_head" src="/HIS/res/img/author_head.gif" alt="img">
-			<p class="username_1" id="username_1">123456789</p>
-			<a href="" class="sign-out"><i class="fa fa-sign-out"></i></a>
+			<p class="username_1" id="username_1">${doctorsession.name }</p>
+			<a href="logout.action" class="sign-out"><i class="fa fa-sign-out"></i></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>

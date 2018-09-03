@@ -22,8 +22,6 @@ import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 
 import cn.his.core.model.Cost;
-import cn.his.core.model.Cost.payment;
-import cn.his.core.model.Level;
 import cn.his.core.model.Ward;
 import cn.his.core.model.doctor.Department;
 import cn.his.core.model.doctor.Doctor;
@@ -86,7 +84,7 @@ public class CostController {
 	 * @return
 	 */
 	@RequestMapping(value = "pay.action", method = RequestMethod.POST)
-	public String pay(Level level, String bed_number, Integer hospitalization_days,String medicalcode, String patientcode, String tradeNo, String pay, String[] codes, String[] others, String authcode, Integer totalnum, String department, String doctorcode, double totalfee, ModelMap model) {
+	public String pay(String level, String bed_number, Integer hospitalization_days, String medicalcode, String patientcode, String tradeNo, String pay, String[] codes, String[] others, String authcode, Integer totalnum, String department, String doctorcode, double totalfee, ModelMap model) {
 		Cost cost = new Cost();
 		List<Cost> list = costService.findCostList(cost);
 		String costcode = list.get(list.size() - 1).getCode();
@@ -150,7 +148,7 @@ public class CostController {
 		            .setGoodsDetailList(goodsDetailList).setTimeoutExpress(timeoutExpress);
 			// 调用tradePay方法获取当面付应答
 			AlipayF2FPayResult result = tradeService.tradePay(builder);
-			cost.setPayment(payment.ALIPAY);
+			cost.setPayment("ALIPAY");
 	        switch (result.getTradeStatus()) {
 	            case SUCCESS:
 	            	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -194,7 +192,7 @@ public class CostController {
 		}
     	//微信支付
 		else if ("wxpay".equals(pay)) {
-			cost.setPayment(payment.WECHAT);
+			cost.setPayment("WECHAT");
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         	cost.setDate(dateFormat.format(new Date()));
         	if (costService.insertCost(cost)) {
@@ -214,7 +212,7 @@ public class CostController {
 		}
     	//银行卡支付
 		else if ("unionpay".equals(pay)) {
-			cost.setPayment(payment.CARD);
+			cost.setPayment("CARD");
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			cost.setDate(dateFormat.format(new Date()));
 			if (costService.insertCost(cost)) {
@@ -234,7 +232,7 @@ public class CostController {
 		}
     	//现金支付
 		else {
-			cost.setPayment(payment.CASH);
+			cost.setPayment("CASH");
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			cost.setDate(dateFormat.format(new Date()));
 			if (costService.insertCost(cost)) {
@@ -301,6 +299,7 @@ public class CostController {
 				int hospitaldays = medical_record.getHospitalization_days();
 				Ward ward = new Ward();
 				ward.setBed_code(medical_record.getBed_number());
+				ward.setWard_code(medical_record.getWard_number());
 				double price = wardService.findWardByBed_codeAndWard_code(ward).getPrice();
 				others.put("住院费", hospitaldays * price);
 				totalfee += hospitaldays * price;

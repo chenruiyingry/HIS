@@ -7,7 +7,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.his.core.model.Cost;
-import cn.his.core.model.Cost.payment;
 import cn.his.core.service.CostService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,7 +27,7 @@ public class TestCostService{
 		cost.setFlow_number("12315646513");
 		cost.setHospitalization_cost(2000);
 		cost.setMedical_code("1001000");
-		cost.setPayment(payment.ALIPAY);
+		cost.setPayment("ALIPAY");
 		cost.setRegister_cost(20);
 		cost.setTotal(25000);
 		System.out.println(cost);

@@ -2,7 +2,6 @@ package cn.his.core.service;
 
 import java.util.List;
 
-import cn.his.core.model.Level;
 import cn.his.core.model.Register_cost;
 
 public interface Register_costService {
@@ -12,7 +11,7 @@ public interface Register_costService {
 	 * @param 
 	 * @return
 	 */
-	public Register_cost findRegister_costByLevel(Level level);
+	public Register_cost findRegister_costByLevel(String level);
 
 	/**
 	 * 添加医师级别

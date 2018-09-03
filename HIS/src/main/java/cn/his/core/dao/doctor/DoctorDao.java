@@ -26,6 +26,7 @@ public interface DoctorDao {
 	 * @return
 	 */
 	public Doctor findDoctorByCode(String code);
+	
 
 	/**
 	 * 添加医生

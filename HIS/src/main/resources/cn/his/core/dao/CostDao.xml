@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.his.core.dao.CostDao">
-	<resultMap type="Cost" id="Cost">
+	<resultMap type="cn.his.core.model.Cost" id="Cost">
 		<result column="code" property="code"/>
 		<result column="medical_code" property="medical_code"/>
 		<result column="drug_cost" property="drug_cost"/>
@@ -10,7 +10,7 @@
 		<result column="examination_cost" property="examination_cost"/>
 		<result column="register_cost" property="register_cost"/>
 		<result column="total" property="total"/>
-		<result column="payment" property="payment" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="payment" property="payment"/>
 		<result column="flow_number" property="flow_number"/>
 		<result column="date" property="date"/>
 	</resultMap>
@@ -41,7 +41,8 @@
 	
 	<!-- 查询某病历号的所有缴费单 -->
 	<select id="findCostList" parameterType="Cost" resultMap="Cost">
-			select * from Cost
+			select code , medical_code , drug_cost , hospitalization_cost , assay_cost ,
+			examination_cost , register_cost , total , payment , flow_number , date from Cost
 		<where>
 			<if test="medical_code != null">
 				and medical_code = #{medical_code}

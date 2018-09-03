@@ -18,6 +18,14 @@ public interface DoctorService {
 	 * @return
 	 */
 	public Doctor findDoctorByCode(String code);
+	
+	/**
+	 * 通过密码和医生编号查询
+	 * @param code
+	 * @param password
+	 * @return
+	 */
+	public Doctor login(String code, String password);
 
 	/**
 	 * 添加医生

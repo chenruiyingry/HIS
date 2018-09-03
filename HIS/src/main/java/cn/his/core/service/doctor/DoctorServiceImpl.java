@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.his.common.page.Pagination;
+import cn.his.common.utils.Md5Utils;
 import cn.his.core.dao.doctor.DoctorDao;
 import cn.his.core.dao.patient.Medical_recordDao;
 import cn.his.core.dao.patient.PatientDao;
@@ -46,6 +47,16 @@ public class DoctorServiceImpl implements DoctorService {
 		doctor.setMedical_record(medical_records);
 		doctor.setPatient(patients);
 		return doctor;
+	}
+	
+	public Doctor login(String code, String password) {
+		Doctor doctor = doctorDao.findDoctorByCode(code);
+		if (doctor != null) {
+			if (Md5Utils.md5(password).equals(doctor.getPassword())) {
+				return doctor;
+			}
+		}
+		return null;
 	}
 
 	@Override

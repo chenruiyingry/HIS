@@ -38,12 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td class="main_header_td13 main_header_attribute">医生</td>
 						<td class="main_header_td14 main_header_box">${doctor.name }</td>
 						<input type="hidden" name="medicalcode" value="${medical_record.code }">
-						<input type="hidden" name="bedcode" value="${medical_record.bed_number }">
-						<input type="hidden" name="hospitalday" value="${medical_record.hospitalization_days }">
+						<input type="hidden" name="bed_number" value="${medical_record.bed_number }">
+						<input type="hidden" name="hospitalization_days" value="${medical_record.hospitalization_days }">
 						<input type="hidden" name="tradeNo" value="${tradeNo }">
 						<input type="hidden" name="patientcode" value="${patient.code }">
 						<input type="hidden" name="patientname" value="${patient.name }">
-						<input type="hidden" name="doctorlevel" value="${doctor.level }">
+						<input type="hidden" name="level" value="${doctor.level }">
 					</tr>
 				</table>
 			</div>
@@ -164,5 +164,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/fee_s.js"></script>
+	<script>
+	var ta = document.getElementById('main');
+	ta.style.height = $(window).height()-72+"px";
+	$(document).ready(function (){
+		$('.bar_c_a').mouseover(function (){
+			$('.auther_head').css({"width":"29px", "top":"20px", "right":"95px",});
+			$('.username_1').css({"left":"-88px", "z-index":"2",});
+		});
+		$('.bar_c_a').mouseout(function (){
+			$('.auther_head').css({"width":"40px", "top":"10px", "right":"55px",});
+			$('.username_1').css({"left":"-150px", "z-index":"-1",});
+		});
+	});
+	</script>
 </body>
 </html>

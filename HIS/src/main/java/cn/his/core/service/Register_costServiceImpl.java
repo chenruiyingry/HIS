@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.his.core.dao.Register_costDao;
-import cn.his.core.model.Level;
 import cn.his.core.model.Register_cost;
 
 @Service
@@ -20,7 +19,7 @@ public class Register_costServiceImpl implements Register_costService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Register_cost findRegister_costByLevel(Level level) {
+	public Register_cost findRegister_costByLevel(String level) {
 		return register_costDao.findRegister_costByLevel(level);
 	}
 

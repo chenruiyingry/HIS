@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<span class="timeShow_1" id="timeShow_1"></span>
 		<div class="half-head_1">
-			<a href="" class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
+			<a href="" class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"></a>
 			<div class="bar" id="bar">
 				<a href="">医生</a>
 				<a href="">病人</a>

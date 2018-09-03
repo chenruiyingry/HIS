@@ -3,7 +3,6 @@ package cn.his.core.model.doctor;
 import java.io.Serializable;
 import java.util.List;
 
-import cn.his.core.model.Level;
 import cn.his.core.model.Page;
 import cn.his.core.model.Sex;
 import cn.his.core.model.patient.Medical_record;
@@ -32,7 +31,7 @@ public class Doctor extends Page implements Serializable {
 	private String qualification;//资格证书编码
 	private String license;//执业证书编码
 	private String department_code;//科室
-	private Level level;//医师级别
+	private String level;//医师级别
 	private String title;//职称
 	private String duty;//职务
 	private String hiredate;//入职时间
@@ -48,7 +47,7 @@ public class Doctor extends Page implements Serializable {
 	
 	public Doctor(String code, String password, String name, Sex sex, String native_place, String nation, String birth,
 			String degree, String graduate, String address, String phone, String email, String qualification,
-			String license, String department, Level level, String title, String duty, String hiredate, String major,
+			String license, String department, String level, String title, String duty, String hiredate, String major,
 			String remark, boolean isWork, String work_time, boolean isFirst, String image_url, String introduction,
 			List<Patient> patient, List<Medical_record> medical_record) {
 		super();
@@ -182,10 +181,10 @@ public class Doctor extends Page implements Serializable {
 	public void setDepartment(String department_code) {
 		this.department_code = department_code;
 	}
-	public Level getLevel() {
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(Level level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 	public String getTitle() {
