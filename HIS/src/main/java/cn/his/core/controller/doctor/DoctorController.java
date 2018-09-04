@@ -56,7 +56,7 @@ public class DoctorController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "logout.action")
+	@RequestMapping(value = "/logout.action")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		sessionProvider.logout(request, response);
 		return "login_s";
@@ -66,7 +66,7 @@ public class DoctorController {
 	 * 头部
 	 * @return
 	 */
-	@RequestMapping(value = "toHead.action")
+	@RequestMapping(value = "/toHead.action")
 	public String toHead(String name, ModelMap model) {
 		if ("fee".equals(name)) {
 			model.addAttribute("name", "收费系统");

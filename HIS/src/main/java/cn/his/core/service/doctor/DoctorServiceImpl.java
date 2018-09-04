@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.his.common.page.Pagination;
 import cn.his.common.utils.Md5Utils;
+import cn.his.core.dao.doctor.DepartmentDao;
 import cn.his.core.dao.doctor.DoctorDao;
 import cn.his.core.dao.patient.Medical_recordDao;
 import cn.his.core.dao.patient.PatientDao;
@@ -28,6 +29,9 @@ public class DoctorServiceImpl implements DoctorService {
 	
 	@Resource
 	private PatientDao patientDao;
+	
+	@Resource
+	private DepartmentDao departmentDao;
 
 	@Override
 	public boolean insertDoctor(Doctor doctor) {
@@ -77,6 +81,20 @@ public class DoctorServiceImpl implements DoctorService {
 		Patient patient = new Patient();
 		Medical_record medical_record = new Medical_record();
 		for (Doctor doctor2 : doctors) {
+			doctor2.setDepartment(departmentDao.findDepartmentByCode(doctor2.getDepartment()).getName());
+			if ("CHIEF".equals(doctor2.getLevel())) {
+				doctor2.setLevel("主任医师");
+			} else if ("ASSOCIATECHIEF".equals(doctor2.getLevel())) {
+				doctor2.setLevel("副主任医师");
+			} else if ("ATTENDING".equals(doctor2.getLevel())) {
+				doctor2.setLevel("主治医师");
+			} else if ("RESIDENT".equals(doctor2.getLevel())) {
+				doctor2.setLevel("住院医师");
+			} else if ("PHYSICIAN".equals(doctor2.getLevel())) {
+				doctor2.setLevel("医师");
+			} else if ("FELDSHER".equals(doctor2.getLevel())) {
+				doctor2.setLevel("医士");
+			} 
 			patient.setDoctor_code(doctor2.getCode());
 			doctor2.setPatient(patientDao.findPatientList(patient));
 			medical_record.setDoctor_code(doctor2.getCode());

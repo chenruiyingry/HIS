@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cn.his.core.model.Sex;
 import cn.his.core.model.patient.Patient;
 import cn.his.core.service.patient.PatientService;
 
@@ -27,7 +26,7 @@ public class TestPatientService {
 		patient.setPast_illness("过敏");
 		patient.setPhone("13152526252");
 		patient.setPresent_illness("感冒");
-		patient.setSex(Sex.WOMAN);
+		patient.setSex("WOMAN");
 		patient.setStatus(1);
 		System.out.println(patient.toString());
 		patientService.insertPatient(patient);
@@ -64,7 +63,7 @@ public class TestPatientService {
 		patient.setPast_illness("发骚");
 		patient.setPhone("13123236252");
 		patient.setPresent_illness("头疼");
-		patient.setSex(Sex.WOMAN);
+		patient.setSex("WOMAN");
 		patient.setStatus(2);
 		System.out.println(patient.toString());
 		patientService.updatePatient(patient);

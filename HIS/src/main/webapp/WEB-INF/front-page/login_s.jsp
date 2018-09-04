@@ -1,8 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/login.css">
 </head>
 <body>
-	<div class="slider" id="slider" style="--img-prev:url(/HIS/img/1.jpg)"> 
+	<div class="slider" id="slider" style="--img-prev:url(/HIS/res/img/1.jpg)"> 
 	 	<div class="slider__content" id="slider-content">
 			<div class="slider__images">
 			 	<div class="slider__images-item slider__images-item--active" data-id="1"><img src="/HIS/res/img/1.jpg"></div>

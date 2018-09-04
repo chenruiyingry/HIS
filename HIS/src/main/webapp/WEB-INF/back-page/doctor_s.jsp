@@ -14,13 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/paging.css">
 	<link rel="stylesheet" href="/HIS/res/css/doctor_s.css">
-	<link rel="stylesheet" href="/HIS/res/css/homeHeader.css">
 </head>
 <body>
-	<c:import url="/admin/toHead.do"></c:import>
+	<c:import url="/admin/toHead.do?name=doctor"></c:import>
 	<div class="main" id="main">
 		<div class="main_bar">
-			<a href="doctor_i.html" class="plus_a"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+			<a href="/HIS/admin/toAdd.do" class="plus_a" title="新增医生"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 			<div class="search">
 				<form action="">
 					<input type="text" placeholder="请输入搜索关键字" class="text">
@@ -41,64 +40,60 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>是否值班</td>
 						<td class="main_content_td10">工作时间</td>
 					</tr>
-					<tr><!-- 循环 -->
-						<td class="main_content_td11">
-							<a href=""><img src="/HIS/res/img/author_head.gif" alt="img"></a>
-						</td>
-						<td><a href="">0123456789</a></td>
-						<td><a href="">胡椒粉</a></td>
-						<td>男</td>
-						<td>12345678901</td>
-						<td>神经科</td>
-						<td>主治医师</td>
-						<td>主任</td>
-						<td>是</td>
-						<td class="td_1">09：00 ~ 12：00
-							<div class="td_1_d">
-								<a href=""  class="td_1_d_a">删除</a>
-							</div>
-						</td>
-					</tr>
+					<c:forEach items="${pagination.list }" var="doctor">
+						<tr><!-- 循环 -->
+							<td class="main_content_td11">
+								<a href="/HIS/admin/doctor.do?code=${doctor.code }"><img src="/HIS/res/img/author_head.gif" alt="img"></a>
+							</td>
+							<td><a href="/HIS/admin/doctor.do?code=${doctor.code }">${doctor.code }</a></td>
+							<td><a href="/HIS/admin/doctor.do?code=${doctor.code }">${doctor.name }</a></td>
+							<td><c:if test="${doctor.sex eq 'MAN' }">男</c:if>
+							<c:if test="${doctor.sex eq 'WOMAN' }">女</c:if></td>
+							<td>${doctor.phone }</td>
+							<td>${doctor.department }</td>
+							<td>${doctor.level }</td>
+							<td>${doctor.title }</td>
+							<td>
+							<c:if test="${doctor.worknow }">是</c:if>
+							<c:if test="${!doctor.worknow }">否</c:if>
+							</td>
+							<td class="td_1">${doctor.work_time } ~ ${doctor.outwork_time }
+								<div class="td_1_d js_${doctor.id }">
+									<a href=""  class="td_1_d_a js_a_${doctor.id }">删除</a>
+								</div>
+								<div class="lookdetails"><a href="/HIS/admin/doctor.do?code=${doctor.code }">查看</a></div>
+							</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<div class="paging">
 				<div class="container middle">
 					<div class="pagination">
-					  <ul>
-					      <li><a href="#"></a></li>
-					      <li class="active"><a href="#"></a></li>
-					      <li><a href="#"></a></li>
-					      <li><a href="#"></a></li>
-					      <li><a href="#"></a></li>
-					      <li><a href="#"></a></li>
-					      <li><a href="#"></a></li>
-					  </ul>
+					  <c:forEach items="${pagination.pageView }" var="page">
+						  ${page }
+					  </c:forEach>
 					</div>
-					<form action="">
-						<div class="goto">
-							到第<input type="text" class="pages">页
-							<input type="submit" value="确定" class="define">
-						</div>
-					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>
-	<script>
-		var main = document.getElementById('main');
-		main.style.height = $(window).height()-72+"px";
-		$(document).ready(function (){
-			$('.td_1_d').mouseover(function (){
-				$('.td_1_d').css({"width": "40%",});
-				$('.td_1_d_a').css({"z-index": "1", "width": "100%",});
+	<c:forEach items="${pagination.list }" var="doctor">
+		<script>
+			var main = document.getElementById('main');
+			main.style.height = $(window).height()-72+"px";
+			$(document).ready(function (){
+				$('.js_${doctor.id }').mouseover(function (){
+					$('.js_${doctor.id }').css({"width": "32%",});
+					$('.js_a_${doctor.id }').css({"z-index": "1", "width": "100%",});
+				});
+				$('.js_${doctor.id }').mouseout(function (){
+					$('.js_${doctor.id }').css({"width": "10%",});
+					$('.js_a_${doctor.id }').css({"z-index": "-1", "width": "400%",});
+				});
 			});
-			$('.td_1_d').mouseout(function (){
-				$('.td_1_d').css({"width": "10%",});
-				$('.td_1_d_a').css({"z-index": "-1", "width": "400%",});
-			});
-		});
-	</script>
+		</script>
+	</c:forEach>
 </body>
 </html>

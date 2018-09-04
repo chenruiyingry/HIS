@@ -11,135 +11,92 @@
   margin: 0px auto;
   counter-reset: pagination;
 }
-.container:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-.container ul {
-  width: 100%;
-  padding: 0px;
-}
 .middle {
   position: relative;
   width: 32rem;
 }
-.pagination ul li {
-  position: relative;
-  opacity: 1;
-  list-style: none;
-  display: inline;
-  padding-left: 0px;
+.pagefont {
+	border: solid 1px #d6d6d6;
+    border-radius: 0.2rem;
+    color: #7d7d7d;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    top: -1px;
 }
-.pagination li {
-  counter-increment: pagination;
+.pagination strong {
+	border: solid 1px #d6d6d6;
+    border-radius: 0.2rem;
+    color: #7d7d7d;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    padding: 0.5rem 0.9rem;
 }
-.pagination li:hover a {
-  color: #fdfdfd;
-  background-color: #ff8a8a;
-  border: solid 1px #ff8a8a;
+.page_b span {
+	border: solid 1px #d6d6d6;
+    border-radius: 0.2rem;
+    color: #7d7d7d;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    padding: 0.5rem 0.9rem;
 }
-.pagination li.active a {
-  color: #fdfdfd;
-  background-color: #ff8a8a;
-  border: solid 1px #ff8a8a;
+.pagination a {
+	border: solid 1px #d6d6d6;
+    border-radius: 0.2rem;
+    color: #7d7d7d;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    padding: 0.5rem 0.9rem;
 }
-.pagination li:first-child {
-  float: left;
+.pagination a:hover {
+	color: #fdfdfd;
+    background-color: #ff8a8a;
+    border: solid 1px #ff8a8a;
 }
-.pagination li:first-child a:after {
-  content: "Previous";
+.pagination .active {
+	color: #fdfdfd;
+    background-color: #ff8a8a;
+    border: solid 1px #ff8a8a;
 }
-.pagination li:nth-child(2) {
-  counter-reset: pagination;
+.pagination input {
+	width: 24px;
+    height: 37px;
+	margin: 0px 5px;
+	padding: 0px 5px;
+	border: 1px solid rgba(120, 120, 120, 0.73);
+	border-radius: 3px;
+	outline: none;
+	font-size: 15px;
+	text-align: center;
 }
-.pagination li:last-child {
-  float: right;
+.pagination .define {
+    border: 1px solid #ff8a8a;
+    border-radius: 3px;
+    color: #ff8a8a;
+    background-color: #fff;
+    -webkit-transition: all 300ms ease-in-out;
+    transition: 300ms ease-in-out;
+    width: 67px;
+    position: absolute;
+    top: 16px;
+    right: -42px;
+    height: 39px;
+    font-size: 16px;
 }
-.pagination li:last-child a:after {
-  content: "Next";
-}
-.pagination li a {
-  border: solid 1px #d6d6d6;
-  border-radius: 0.2rem;
-  color: #7d7d7d;
-  text-decoration: none;
-  text-transform: uppercase;
-  display: inline-block;
-  text-align: center;
-  padding: 0.5rem 0.9rem;
-}
-.pagination li a:after {
-  content: " " counter(pagination) " ";
-}
-.middle li a {
-  display: none;
-}
-.middle li:first-child a {
-  display: inline-block;
-}
-.middle li:first-child a:after {
-  content: "<";
-}
-.middle li:last-child a {
-  display: inline-block;
-}
-.middle li:last-child a:after {
-  content: ">";
-}
-.middle li:nth-child(2) a {
-  display: inline-block;
-}
-.middle li:nth-child(3) a {
-  display: inline-block;
-}
-.middle li:nth-child(4) a {
-  display: inline-block;
-}
-.middle li:nth-child(5) a {
-  display: inline-block;
-}
-.middle li:nth-last-child(2) a {
-  display: inline-block;
-}
-.middle li:nth-last-child(3) {
-  display: inline-block;
-}
-.middle li:nth-last-child(3):after {
-  padding: 0 1rem;
-  content: "...";
-}
-.goto {
-  position: absolute;
-  top: 0px;
-  font-size: 14px;
-  padding-top: 32px;
-  right: -200px;
-  width: 180px;
-  height: 40px;
-  line-height: 20px;
-}
-.pages {
-  width: 30px;
-  height: 30px;
-  margin: 0px 5px;
-  padding: 0px 5px;
-  border: 1px solid rgba(120, 120, 120, 0.73);
-  border-radius: 3px;
-  outline: none;
-}
-.define {
-  padding: 7px 20px;
-  margin-left: 10px;
-  border: 1px solid #ff8a8a;
-  border-radius: 3px;
-  color: #ff8a8a;
-  background-color: #fff;
-  -webkit-transition: all 300ms ease-in-out;
-  transition: 300ms ease-in-out;
-}
-.define:hover {
+.pagination .define:hover {
   border: 1px solid #fff;
   color: #fff;
   background-color: #ff8a8a;
+}
+.pagination lable {
+	font-size: 14px;
 }

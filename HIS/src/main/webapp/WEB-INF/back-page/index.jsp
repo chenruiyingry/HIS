@@ -1,5 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +15,12 @@
 	<link rel="stylesheet" href="/HIS/res/css/index.css">
 </head>
 <body>
-	<c:import url="/admin/toHead.do"></c:import>
+	<c:import url="/admin/toHead.do?name=index"></c:import>
 	<div id="ta">
 		<div id="theArt">
 			<div class="artGroup slide artGroup_1">
 				<div class="artwork"> <img src="/HIS/res/img/6.jpg">
-					<a href="">
+					<a href="/HIS/admin/doctorList.do">
 						<div class="detail">
 							<h3>医生管理</h3>
 							<p><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>通过医生编号查询到医生信息列表，以及查询、添加、更新、删除医生信息。</p>

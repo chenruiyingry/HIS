@@ -3,7 +3,6 @@ package cn.his.core.model.patient;
 import java.util.List;
 
 import cn.his.core.model.Page;
-import cn.his.core.model.Sex;
 
 /*
  * 病人信息表
@@ -12,7 +11,7 @@ public class Patient extends Page {
 	private String code;//编号
 	private String doctor_code;//医生编号
 	private String name;//姓名
-	private Sex sex;//性别
+	private String sex;//性别
 	private int age;//年龄
 	private String phone;//联系电话
 	private String insurance_type;//医保类型
@@ -22,7 +21,7 @@ public class Patient extends Page {
 	private int status;//病人状态
 	private List<Medical_record> medical_record;
 	
-	public Patient(String code, String doctor_code, String name, Sex sex, int age, String phone, String insurance_type,
+	public Patient(String code, String doctor_code, String name, String sex, int age, String phone, String insurance_type,
 			String present_illness, String past_illness, String allergy, int status, List<Medical_record> medical_record) {
 		super();
 		this.code = code;
@@ -61,10 +60,10 @@ public class Patient extends Page {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Sex getSex() {
+	public String getSex() {
 		return sex;
 	}
-	public void setSex(Sex sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 	public int getAge() {

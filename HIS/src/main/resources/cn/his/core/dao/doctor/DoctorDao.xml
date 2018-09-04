@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.his.core.dao.doctor.DoctorDao">
 	<resultMap type="Doctor" id="Doctor">
+		<id column="id" property="id"/>
 		<result column="code" property="code"/>
 		<result column="password" property="password"/>
 		<result column="name" property="name"/>
@@ -23,8 +24,9 @@
 		<result column="hiredate" property="hiredate"/>
 		<result column="major" property="major"/>
 		<result column="remark" property="remark"/>
-		<result column="isWork" property="isWork"/>
+		<result column="worknow" property="worknow"/>
 		<result column="work_time" property="work_time"/>
+		<result column="outwork_time" property="outwork_time"></result>
 		<result column="isFirst" property="isFirst"/>
 		<result column="image_url" property="image_url"/>
 		<result column="introduction" property="introduction"/>
@@ -59,8 +61,8 @@
 	
 	<!-- 通过医生代码查询医生信息 -->
 	<select id="findDoctorByCode" parameterType="String" resultMap="Doctor">
-		select code, password, name, sex, native_place, nation, birth, degree, graduate, address, phone, email, qualification,
-		license, department_code, level, title, duty, hiredate, major, remark, isWork, work_time, isFirst, image_url,
+		select id, code, password, name, sex, native_place, nation, birth, degree, graduate, address, phone, email, qualification,
+		license, department_code, level, title, duty, hiredate, major, remark, worknow, work_time, outwork_time, isFirst, image_url,
 		introduction from doctor 
 		<where>
 			code = #{code}
@@ -72,14 +74,14 @@
 		insert into doctor 
 		<trim prefix="(" suffix=")">
 			code, password, name, sex, native_place, nation, birth, degree, graduate, address, phone, email, qualification,
-			license, department_code, level, title, duty, hiredate, major, remark, isWork, work_time, isFirst, image_url,
+			license, department_code, level, title, duty, hiredate, major, remark, worknow, work_time, outwork_time, isFirst, image_url,
 			introduction
 		</trim>
 		values
 		<trim prefix="(" suffix=")">
 			#{code}, #{password}, #{name}, #{sex}, #{native_place}, #{nation}, #{birth}, #{degree}, #{graduate}, #{address},
 			#{phone}, #{email}, #{qualification}, #{license}, #{department_code}, #{level}, #{title}, #{duty}, #{hiredate}, 
-			#{major}, #{remark}, #{isWork}, #{work_time}, #{isFirst}, #{image_url}, #{introduction}
+			#{major}, #{remark}, #{worknow}, #{work_time}, #{outwork_time}, #{isFirst}, #{image_url}, #{introduction}
 		</trim>
 	</insert>
 	
@@ -147,11 +149,14 @@
 			<if test="remark != null">
 				remark = #{remark},
 			</if>
-			<if test="isWork != null">
-				isWork = #{isWork},
+			<if test="worknow != null">
+				worknow = #{worknow},
 			</if>
 			<if test="work_time != null">
 				work_time = #{work_time},
+			</if>
+			<if test="outwork_time != null">
+				outwork_time = #{outwork_time},
 			</if>
 			<if test="isFirst != null">
 				isFirst = #{isFirst},

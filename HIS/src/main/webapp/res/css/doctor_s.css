@@ -58,16 +58,19 @@
 .main_content {
     position: absolute;
     top: 18%;
-    padding: 0px 5%;
+    padding: 0px 5% 0px 3%;
     width: 90%;
     height: 73%;
     overflow: hidden;
 }
 .main_content a {
 	text-decoration: none;
+	color: #000000;
+	font-weight: 500;
 }
 .main_content table {
 	width: 100%;
+	text-align: center;
 }
 .main_content_td11 {
 	width: 10%;
@@ -83,22 +86,29 @@
 .tr_1:before {
 	content: "";
 	position: absolute;
-	width: 90%;
+	width: 92%;
 	top: 55px;
 	height: 1px;
 	background-color: rgba(120, 120, 120, 0.72);
+	left: 5%;
+}
+.main_content_td10 {
+	left: -61px;
+    position: relative;
 }
 .td_1 {
 	position: relative;
+	left: -40px;
 }
 .td_1_d {
     position: absolute;
     top: 0px;
-    right: -5px;
+    right: -75px;
     width: 10%;
     height: 100%;
     transition: .3s;
     background-color: #ff8a8a;
+    z-index: 2;
 }
 .td_1_d a {
     position: absolute;
@@ -111,4 +121,10 @@
     padding-top: 25px;
     transition: .3s;
     font-size: 20px;
+    left: 5px;
+}
+.lookdetails {
+	display: inline;
+    position: relative;
+    left: 8%;
 }

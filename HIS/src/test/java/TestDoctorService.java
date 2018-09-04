@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.his.common.page.Pagination;
 import cn.his.common.utils.Md5Utils;
-import cn.his.core.model.Sex;
 import cn.his.core.model.doctor.Doctor;
 import cn.his.core.service.doctor.DoctorService;
 
@@ -29,7 +28,7 @@ public class TestDoctorService {
 		doctor.setCode("222225");
 		doctor.setPassword(Md5Utils.md5("root"));
 		doctor.setName("王晓伟");
-		doctor.setSex(Sex.MAN);
+		doctor.setSex("MAN");
 		doctor.setNative_place("广东佛山");
 		doctor.setNation("汉");
 		doctor.setBirth(dateStr);
@@ -47,7 +46,6 @@ public class TestDoctorService {
 		doctor.setHiredate(dateStr);
 		doctor.setMajor("医学");
 		doctor.setRemark("明天上班");
-		doctor.setWork(true);
 		doctor.setWork_time(dateStr);
 		doctor.setImage_url("localhost/123.jpg");
 		doctor.setIntroduction("牛逼的医生");

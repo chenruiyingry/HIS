@@ -1,133 +1,121 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>医生信息</title>
-	<link rel="shortcut icon" href="res/img/favicon.ico">
-	<link rel="stylesheet" href="res/css/font-awesome.min.css">
-	<link rel="stylesheet" href="res/css/doctor_i.css">
-	<link rel="stylesheet" href="res/css/homeHeader.css">
+	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
+	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
+	<link rel="stylesheet" href="/HIS/res/css/doctor_i.css">
 </head>
 <body>
-	<div class="head">
-		<div class="bar_c">
-			<div class="bar_b"></div>
-			<div class="bar_c_a"></div>
-		</div>
-		<div class="half-head">
-			<p class="title">医院信息管理系统</p>
-			<p class="half-title">—— 医生信息</p>
-		</div>
-		<span class="timeShow_1" id="timeShow_1"></span>
-		<div class="half-head_1">
-			<a href="" class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
-			<div class="bar" id="bar">
-				<a href="doctor.html">医生</a>
-				<a href="">病人</a>
-				<a href="">病房</a>
-				<a href="">药品</a>
-				<a href="">收费</a>
-			</div>
-			<p class="username">Ginbing</p>
-			<a href="" class="sign-out"><i class="fa fa-sign-out"></i></a>
-		</div>
-	</div>
-	<form action="" id="myform">
+	<c:import url="/admin/toHead.do?name=doctor"></c:import>
+	<form action="" id="myform" enctype="multipart/form-data">
 	<div class="main" id="main">
 		<div class="main_bar">
 			<button type="button" onclick="modify()">修改</button>
-			<a href="doctor_s.html" class="arrow-left_a faz"><i class="fa fa-arrow-left fa-2x faz" aria-hidden="true"></i></a>
+			<a href="/HIS/admin/doctorList.do" class="arrow-left_a faz" title="返回医生列表"><i class="fa fa-arrow-left fa-2x faz" aria-hidden="true"></i></a>
 			<i class="fa fa-check fa-2x faz" aria-hidden="true"></i>
 			<i class="fa fa-times fa-2x faz" aria-hidden="true"></i>
 			<input type="submit" value="" class="submit faz">
 			<input type="reset" value="" class="reset faz">
 			<div class="photo">
-				<img src="img/author_head.gif" alt="img">
+				<img src="/HIS/res/img/author_head.gif" alt="img" id="allImgUrl">
+				<input type="hidden" name="url" id="path"/>
+				<input type="file" name="pic" onchange="uploadPic()" class="img"/>
 			</div>
 			<table>
 				<tr>
 					<td class="td_4">姓名</td>
-					<td><input type="text" class="td_3" value="Ginbing"></td>
+					<td><input type="text" name="name" class="td_3" value="${doctor.name }"></td>
 					<td>性别</td>
 					<td>
-						<input type="text" class="td_3 td_3_gdd">
-						<input type="radio" name="gender" class="gender duty"><span class="male mf">男</span>
-						<input type="radio" name="gender" class="gender duty"><span class="famale mf">女</span>
+						<input type="text" name="sex" class="td_3 td_3_gdd" value="${doctor.sex }">
+						<input type="radio" name="sex" class="gender duty" <c:if test="${doctor.sex eq '男' }">checked="checked"</c:if>><span class="male mf">男</span>
+						<input type="radio" name="sex" class="gender duty" <c:if test="${doctor.sex eq '女' }">checked="checked"</c:if>><span class="famale mf">女</span>
 					</td>
 				</tr>
 				<tr>
 					<td>民族</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="nation" value="${doctor.nation }"></td>
 					<td>籍贯</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="native_place" value="${doctor.native_place }"></td>
 				</tr>
 				<tr>
 					<td>生日</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="date" class="td_3 date" name="birth" value="${doctor.birth }"></td>
 					<td>医生编号</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="code" value="${doctor.code }"></td>
 				</tr>
 				<tr>
 					<td>最高学位</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="degree" value="${doctor.degree }"></td>
 					<td>毕业院校</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="graduate" value="${doctor.graduate }"></td>
 				</tr>
 				<tr>
 					<td>联系地址</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="address" value="${doctor.address }"></td>
 					<td>联系电话</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="phone" value="${doctor.phone }"></td>
 					<td>电子邮箱</td>
-					<td><input type="text" class="td_1 td_3"></td>
+					<td><input type="text" class="td_1 td_3" name="email" value="${doctor.email }"></td>
 				</tr>
 				<tr>
 					<td>资格证书编码</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="qualification" value="${doctor.qualification }"></td>
 					<td>执业证书编码</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="license" value="${doctor.license }"></td>
 					<td>科室</td>
 					<td id="department">
-						<input type="text" class="td_1 td_3 td_3_gdd">
-						<select name="" id="" class="td_3 td_3_department">
-							<option value="">1</option>
-							<option value="">2</option>
+						<input type="text" class="td_1 td_3 td_3_gdd" name="department_code" value="${doctor.department_code }">
+						<select name="department_code" class="td_3 td_3_department">
+							<c:forEach items="${departmentlist }" var="department">
+								<option value="${department.code }" <c:if test="${doctor.department_code eq department.name }">selected="selected"</c:if>>${department.name }</option>
+							</c:forEach>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>医师级别</td>
-					<td><input type="text" class="td_3"></td>
+					<td>
+						<input type="text" class="td_3 td_3_gdd" name="level" value="${doctor.level }">
+						<select name="level" class="td_3 td_3_level">
+							<option value="CHIEF" <c:if test="${doctor.level eq '主任医师' }">selected="selected"</c:if>>主任医师</option>
+							<option value="ASSOCIATECHIEF" <c:if test="${doctor.level eq '副主任医师' }">selected="selected"</c:if>>副主任医师</option>
+							<option value="ATTENDING" <c:if test="${doctor.level eq '主治医师' }">selected="selected"</c:if>>主治医师</option>
+							<option value="RESIDENT" <c:if test="${doctor.level eq '住院医师' }">selected="selected"</c:if>>住院医师</option>
+							<option value="PHYSICIAN" <c:if test="${doctor.level eq '医师' }">selected="selected"</c:if>>医师</option>
+							<option value="FELDSHER" <c:if test="${doctor.level eq '医士' }">selected="selected"</c:if>>医士</option>
+						</select>
+					</td>
 					<td>职称</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="title" value="${doctor.title }"></td>
 					<td>职务</td>
-					<td><input type="text" class="td_1 td_3"></td>
+					<td><input type="text" class="td_1 td_3" name="duty" value="${doctor.duty }"></td>
 				</tr>
 				<tr>
 					<td>入职时间</td>
-					<td><input class="td_3 date" type="date" name="user_date" /></td>
+					<td><input class="td_3 date" type="date" name="hiredate" value="${doctor.hiredate }"/></td>
 					<td>从事专业</td>
-					<td><input type="text" class="td_3"></td>
+					<td><input type="text" class="td_3" name="major" value="${doctor.major }"></td>
 					<td>备注</td>
-					<td rowspan="2"><textarea class="td_2 td_3"></textarea></td>
+					<td rowspan="2">
+					<textarea class="td_2 td_3" name="remark">${doctor.remark }</textarea></td>
 				</tr>
 				<tr>
 					<td>是否值班</td>
 					<td>
-						<input type="text" class="td_3 td_3_gdd">
-						<input type="radio" name="duty" class="duty gender"><span class="male mf yn">是</span>
-						<input type="radio" name="duty" class="duty gender"><span class="famale mf yn">否</span>
+						<input type="text" class="td_3 td_3_gdd" value="<c:if test="${doctor.worknow }">是</c:if><c:if test="${!doctor.worknow }">否</c:if>" >
+						<input type="radio" name="worknow" class="duty gender" <c:if test="${doctor.worknow }">checked="checked"</c:if>><span class="male mf yn">是</span>
+						<input type="radio" name="worknow" class="duty gender" <c:if test="${!doctor.worknow }">checked="checked"</c:if>><span class="famale mf yn">否</span>
 					</td>
 					<td>工作时间</td>
 					<td class="td_3_datetime">
-						<input class="td_3 datetime" type="datetime-local" name="user_date" /> - 
-						<input class="td_3 datetime" type="datetime-local" name="user_date" />
+						<input class="td_3 datetime" type="datetime-local" name="work_time"  value="${doctor.work_time }"/> - 
+						<input class="td_3 datetime" type="datetime-local" name="outwork_time" value="${doctor.outwork_time }"/>
 					</td>
 				</tr>
 			</table>
@@ -138,8 +126,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	</form>
-	<script type="text/javascript" src="res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="res/js/doctor_i.js"></script>
-	<script type="text/javascript" src="res/js/homeHeader.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/doctor_i.js"></script>
+	<script type="text/javascript">
+		function uploadPic(){
+			//定义参数
+			var options = {
+				url : "/HIS/doctor/uploadPic.do",
+				dataType : "json",
+				type :  "post",
+				success : function(data){
+					//回调 二个路径  
+					//url
+					//path
+					$("#allImgUrl").attr("src",data.url);
+					$("#path").val(data.path);
+				}
+			};	
+			//jquery.form使用方式
+			$("#myform").ajaxSubmit(options);
+		}
+		
+		if (${code eq "yesyes" }) {
+			$(document).ready(function (){
+				$('button').click();
+			});
+		}
+	</script>
 </body>
 </html>

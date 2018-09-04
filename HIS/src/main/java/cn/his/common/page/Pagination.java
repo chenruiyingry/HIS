@@ -92,14 +92,14 @@ public class Pagination extends SimplePage {
 			 pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo=1'\"><font size=2>首页</font></a>");
 			 pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo-1)+"'\"><font size=2>上一页</font></a>");
 		} else {
-			pageView.add("<font size=2>首页</font>");
-			pageView.add("<font size=2>上一页</font>");
+			pageView.add("<font class='pagefont' size=2>首页</font>");
+			pageView.add("<font class='pagefont' size=2>上一页</font>");
 		}
 		
 		if (this.getTotalPage() <= 10) {
 			 for (int i = 0; i < this.getTotalPage(); i++) {
 				 if((i+1)==this.pageNo){
-					 pageView.add("<strong>" + this.pageNo + "</strong>");
+					 pageView.add("<strong class='active'>" + this.pageNo + "</strong>");
 					 i = i + 1;
 					 if(this.pageNo == this.getTotalPage()) break;
 				 }
@@ -167,9 +167,9 @@ public class Pagination extends SimplePage {
 			pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo+1)+"'\"><font size=2>下一页</font></a>");
 			pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+this.getTotalPage()+"'\"><font size=2>尾页</font></a>");
 		} else {
-			pageView.add("<font size=2>下一页</font>");
-			pageView.add("<font size=2>尾页</font>");
+			pageView.add("<font class='pagefont' size=2>下一页</font>");
+			pageView.add("<font class='pagefont' size=2>尾页</font>");
 		}
-		pageView.add("共<var>" + getTotalPage() + "</var>页 到第<input type='text' id='PAGENO'  size='3' />页 <input type='button' id='skip' class='hand btn60x20' value='确定' onclick=\"javascript:window.location.href = '" + url + "?" + params + "&pageNo=' + $('#PAGENO').val() \"/>");
+		pageView.add("<lable>共" + getTotalPage() + "页 到第</lable><input type='text' id='PAGENO'  size='3' /><lable>页</lable> <input type='button' id='skip' class='define' value='确定' onclick=\"javascript:window.location.href = '" + url + "?" + params + "&pageNo=' + $('#PAGENO').val() \"/>");
 	}	
 }

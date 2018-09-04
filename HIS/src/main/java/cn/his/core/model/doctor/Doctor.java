@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import cn.his.core.model.Page;
-import cn.his.core.model.Sex;
 import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;
 
@@ -16,10 +15,11 @@ public class Doctor extends Page implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private Integer id;//id;
 	private String code;//医生编号
 	private String password;//密码
 	private String name;//姓名
-	private Sex sex;//性别
+	private String sex;//性别
 	private String native_place;//籍贯
 	private String nation;//民族
 	private String birth;//生日
@@ -27,7 +27,7 @@ public class Doctor extends Page implements Serializable {
 	private String graduate;//毕业院校
 	private String address;//联系地址
 	private String phone;//联系电话
-	private String email;//弟子邮件
+	private String email;//电子邮件
 	private String qualification;//资格证书编码
 	private String license;//执业证书编码
 	private String department_code;//科室
@@ -37,18 +37,19 @@ public class Doctor extends Page implements Serializable {
 	private String hiredate;//入职时间
 	private String major;//从事专业
 	private String remark;//备注
-	private boolean isWork;//是否值班
+	private boolean worknow;//是否值班
 	private String work_time;//工作时间
+	private String outwork_time;//下班时间
 	private boolean isFirst;//是否第一次登陆
 	private String image_url;//照片连接
 	private String introduction;//简介
 	private List<Patient> patient;//病人实体
 	private List<Medical_record> medical_record;//病历表实体
 	
-	public Doctor(String code, String password, String name, Sex sex, String native_place, String nation, String birth,
+	public Doctor(String code, String password, String name, String sex, String native_place, String nation, String birth,
 			String degree, String graduate, String address, String phone, String email, String qualification,
 			String license, String department, String level, String title, String duty, String hiredate, String major,
-			String remark, boolean isWork, String work_time, boolean isFirst, String image_url, String introduction,
+			String remark, boolean work, String work_time, boolean isFirst, String image_url, String introduction,
 			List<Patient> patient, List<Medical_record> medical_record) {
 		super();
 		this.code = code;
@@ -72,7 +73,7 @@ public class Doctor extends Page implements Serializable {
 		this.hiredate = hiredate;
 		this.major = major;
 		this.remark = remark;
-		this.isWork = isWork;
+		this.worknow = work;
 		this.work_time = work_time;
 		this.isFirst = isFirst;
 		this.image_url = image_url;
@@ -91,6 +92,14 @@ public class Doctor extends Page implements Serializable {
 	public void setMedical_record(List<Medical_record> medical_record) {
 		this.medical_record = medical_record;
 	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -109,10 +118,10 @@ public class Doctor extends Page implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Sex getSex() {
+	public String getSex() {
 		return sex;
 	}
-	public void setSex(Sex sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 	public String getNative_place() {
@@ -217,11 +226,11 @@ public class Doctor extends Page implements Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public boolean isWork() {
-		return isWork;
+	public boolean isWorknow() {
+		return worknow;
 	}
-	public void setWork(boolean isWork) {
-		this.isWork = isWork;
+	public void setWorknow(boolean worknow) {
+		this.worknow = worknow;
 	}
 	public String getWork_time() {
 		return work_time;
@@ -229,6 +238,22 @@ public class Doctor extends Page implements Serializable {
 	public void setWork_time(String work_time) {
 		this.work_time = work_time;
 	}
+	public String getDepartment_code() {
+		return department_code;
+	}
+
+	public void setDepartment_code(String department_code) {
+		this.department_code = department_code;
+	}
+
+	public String getOutwork_time() {
+		return outwork_time;
+	}
+
+	public void setOutwork_time(String outwork_time) {
+		this.outwork_time = outwork_time;
+	}
+
 	public boolean isFirst() {
 		return isFirst;
 	}
@@ -261,7 +286,7 @@ public class Doctor extends Page implements Serializable {
 				+ graduate + ", address=" + address + ", phone=" + phone + ", email=" + email + ", qualification="
 				+ qualification + ", license=" + license + ", department=" + department_code + ", level=" + level
 				+ ", title=" + title + ", duty=" + duty + ", hiredate=" + hiredate + ", major=" + major + ", remark="
-				+ remark + ", isWork=" + isWork + ", work_time=" + work_time + ", isFirst=" + isFirst + ", image_url="
+				+ remark + ", isWork=" + worknow + ", work_time=" + work_time + ", isFirst=" + isFirst + ", image_url="
 				+ image_url + ", introduction=" + introduction + ", patient=" + patient + ", medical_record="
 				+ medical_record + "]";
 	}

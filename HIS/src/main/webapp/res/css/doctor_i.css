@@ -37,6 +37,13 @@
 	width: 100%;
 	height: 100%;
 }
+.img {
+	position: relative;
+    left: 190px;
+    top: -26px;
+    z-index: 2;
+    display: none;
+}
 .main_bar table {
 	position: absolute;
 	top: 10%;
@@ -74,6 +81,7 @@
     width: 60%;
     height: 50%;
     padding: 0px 5px;
+    text-align: center;
 }
 .td_1 {
 	width: 75%;
@@ -139,6 +147,9 @@
 .td_3_department {
     display: none;
     width: 79%;
+}
+.td_3_level {
+	display: none;
 }
 .date::-webkit-inner-spin-button {
     height: 100%;
