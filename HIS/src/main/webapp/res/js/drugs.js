@@ -4,7 +4,7 @@ $(document).ready(function (){
 	$('.main_a').mouseout(function (){
 		$('.main_right_bottom').css({"height": "70%",});
 		$('.main_right_top').css({"height": "0%",});
-		$('.drop_b').css({"z-index": "3", "padding-top": "3%",});
+		$('.drop_b').css({"z-index": "3", "padding-top": "2%",});
 		$('.submit_bar').css({"height": "15%",});
 		$('.submit_2').css({"margin-bottom": "5%", "left": "10%", "width": "80%", "height": "35px", "background-color": "rgb(255, 138, 138)",});
 		$('.submit_2').val("添加");

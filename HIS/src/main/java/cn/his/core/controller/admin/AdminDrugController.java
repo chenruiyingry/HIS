@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -24,7 +25,6 @@ public class AdminDrugController {
 	@RequestMapping(value = "/admin/durglist.do")
 	public String druglist(String name, Integer pageNo, ModelMap model) {
 		Drug drug = new Drug();
-		drug.setName(name);
 		StringBuilder params = new StringBuilder();
 		if (StringUtils.isNotBlank(name)) {
 			drug.setName(name);
@@ -48,9 +48,15 @@ public class AdminDrugController {
 		ResponseUtils.renderJson(response, jsonString);
 	}
 	
-	@RequestMapping(value = "/admin/addDurg.do")
+	@RequestMapping(value = "/admin/addDurg.do", method = RequestMethod.POST)
 	public String addDrug(Drug drug) {
 		drugService.insertDrug(drug);
+		return "redirect:/admin/durglist.do";
+	}
+	
+	@RequestMapping(value = "/admin/updateDrug.do")
+	public String updateDrug(Drug drug) {
+		drugService.updateDrug(drug);
 		return "redirect:/admin/durglist.do";
 	}
 }

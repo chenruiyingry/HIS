@@ -79,12 +79,12 @@ public class AdminController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/toHead.do")
-	public String toHead(String name, ModelMap model) {
-		if ("index".equals(name)) {
+	public String toHead(String headname, ModelMap model) {
+		if ("index".equals(headname)) {
 			model.addAttribute("name", "后台管理");
-		} else if ("doctor".equals(name)) {
+		} else if ("doctor".equals(headname)) {
 			model.addAttribute("name", "医生管理");
-		} else if ("drug".equals(name)) {
+		} else if ("drug".equals(headname)) {
 			model.addAttribute("name", "药品管理");
 		}
 		return "head";

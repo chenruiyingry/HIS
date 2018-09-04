@@ -16,12 +16,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/homeHeader.css">
 </head>
 <body>
-	<c:import url="/admin/toHead.do?name=drug"></c:import>
+	<c:import url="/admin/toHead.do">
+		<c:param name="headname" value="drug"></c:param>
+	</c:import>
 	<div class="main" id="main">
 		<div class="main_bar">
 			<div class="search">
-				<form action="">
-					<input type="text" placeholder="请输入搜索关键字" class="text">
+				<form action="/HIS/admin/durglist.do">
+					<input type="text" placeholder="请输入搜索关键字" class="text" name="name">
 					<input type="submit" value="" class="submit">
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</form>
@@ -35,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:forEach items="${pagination.list }" var="drug">
 					<div class="main_content js_${drug.id }"><!-- 循环 -->
 						<p class="name">${drug.name }</p>
-						<p class="effect"><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>${drug.function }</p>
+						<p class="effect"><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>${drug.funcction }</p>
 					</div>
 				</c:forEach>
 			</div>
@@ -44,11 +46,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					${page }
 				</c:forEach>
 			</div>
-			<form action="">
+			<form action="/HIS/admin/updateDrug.do">
 			<div class="main_right_top">
 				<div class="drop drop_t">
 					<p>药名</p>
 					<input class="drop_t_i" type="text" name="name" id="name">
+				</div>
+				<div class="drop drop_t">
+					<p>主治功能</p>
+					<input class="drop_t_i" type="text" name="funcction" id="funcction">
 				</div>
 				<div class="drop drop_t">
 					<p>生产方</p>
@@ -63,18 +69,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="drop_t_i" type="text" name="sale_price" id="sale_price">
 				</div>
 				<div class="drop drop_t">
-					<p>计量单位</p>
-					<input class="drop_t_i" type="text" name="unit" id="unit">
-				</div>
-				<div class="drop drop_t">
 					<p>库存量</p>
 					<input class="drop_t_i" type="text" name="store" id="store">
 				</div>
+				<input type="hidden" name="code" id="code">
 				<input type="button" value="修改" class="button_1 button_2">
 				<input type="submit" value="确定" class="submit_3 button_2">
 			</div>
 			</form>
-			<form action="/HIS/admin/addDurg.do">
+			<form action="/HIS/admin/addDurg.do" method="post">
 			<div class="main_right_bottom">
 				<div class="drop drop_b">
 					<p class="drop_b_p">药名</p>
@@ -82,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">主治功能</p>
-					<input class="drop_b_i" type="text" name="function">
+					<input class="drop_b_i" type="text" name="funcction">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">生产方</p>
@@ -99,6 +102,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="drop drop_b">
 					<p class="drop_b_p">计量单位</p>
 					<input class="drop_b_i" class="drop_b_i" type="text" name="unit">
+				</div>
+				<div class="drop drop_b">
+					<p class="drop_b_p">规格</p>
+					<input class="drop_b_i" class="drop_b_i" type="text" name="spec">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">生产日期</p>
@@ -140,11 +147,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					},
 					dataType: "json",
 					success: function(data) {
+						$("#code").val(data.code);
 						$("#name").val(data.name);
 						$("#manufacturer").val(data.manufacturer);
 						$("#purchase_price").val(data.purchase_price);
 						$("#sale_price").val(data.sale_price);
-						$("#unit").val(data.unit);
+						$("#funcction").val(data.funcction);
 						$("#store").val(data.store);
 					}
 				})

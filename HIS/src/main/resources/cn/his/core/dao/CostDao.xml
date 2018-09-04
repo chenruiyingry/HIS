@@ -76,31 +76,31 @@
 		update Cost
 		<set>
 			<if test="medical_code != null">
-				medical_code = #{medical_code}
+				medical_code = #{medical_code},
 			</if>
 			<if test="drug_cost != null">
-				drug_cost = #{drug_cost}
+				drug_cost = #{drug_cost},
 			</if>
 			<if test="hospitalization_cost != null">
-				hospitalization_cost = #{hospitalization_cost}
+				hospitalization_cost = #{hospitalization_cost},
 			</if>
 			<if test="assay_cost != null">
-				assay_cost = #{assay_cost}
+				assay_cost = #{assay_cost},
 			</if>
 			<if test="examination_cost != null">
-				examination_cost = #{examination_cost}
+				examination_cost = #{examination_cost},
 			</if>
 			<if test="register_cost != null">
-				register_cost = #{register_cost}
+				register_cost = #{register_cost},
 			</if>
 			<if test="totalt != null">
-				total = #{total}
+				total = #{total},
 			</if>
 			<if test="payment != null">
-				payment = #{payment}
+				payment = #{payment},
 			</if>
 			<if test="flow_number != null">
-				flow_number = #{flow_number}
+				flow_number = #{flow_number},
 			</if>
 			<if test="date != null">
 				date = #{date}

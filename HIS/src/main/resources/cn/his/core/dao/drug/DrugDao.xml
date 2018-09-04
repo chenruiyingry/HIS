@@ -5,7 +5,7 @@
 		<id column="id" property="id"/>
 		<result column="code" property="code"/>
 		<result column="name" property="name"/>
-		<result column="function" property="function"/>
+		<result column="function" property="funcction"/>
 		<result column="produce_date" property="produce_date"/>
 		<result column="effective_date" property="effective_date"/>
 		<result column="manufacturer" property="manufacturer"/>
@@ -27,8 +27,8 @@
 			<if test="manufacturer != null">
 				and manufacturer like "%"#{manufacturer}"%"
 			</if>
-			<if test="function != null">
-				and function like "%"#{function}"%"
+			<if test="funcction != null">
+				and function like "%"#{funcction}"%"
 			</if>
 		</where>
 		order by id desc
@@ -48,8 +48,8 @@
 			<if test="manufacturer != null">
 				and manufacturer like "%"#{manufacturer}"%"
 			</if>
-			<if test="function != null">
-				and function like "%"#{function}"%"
+			<if test="funcction != null">
+				and function like "%"#{funcction}"%"
 			</if>
 		</where>
 	</select>
@@ -70,7 +70,7 @@
 		</trim>
 		values
 		<trim prefix="(" suffix=")">
-			#{code}, #{name}, #{function}, #{produce_date}, #{effective_date}, #{manufacturer}, #{unit}, 
+			#{code}, #{name}, #{funcction}, #{produce_date}, #{effective_date}, #{manufacturer}, #{unit}, 
 			#{purchase_price}, #{sale_price}, #{store}
 		</trim>
 	</insert>
@@ -80,34 +80,22 @@
 		update drug
 		<set>
 			<if test="name != null">
-				name = #{name}
-			</if>
-			<if test="function != null">
-				function = #{function}
-			</if>
-			<if test="produce_date != null">
-				produce_date = #{produce_date}
-			</if>
-			<if test="effective_date != null">
-				effective_date = #{effective_date}
+				name = #{name},
 			</if>
 			<if test="manufacturer != null">
-				manufacturer = #{manufacturer}
+				manufacturer = #{manufacturer},
 			</if>
-			<if test="unit != null">
-				unit = #{unit}
+			<if test="funcction != null">
+				function = #{funcction},
 			</if>
 			<if test="purchase_price != null">
-				purchase_price = #{purchase_price}
+				purchase_price = #{purchase_price},
 			</if>
 			<if test="sale_price != null">
-				sale_price = #{sale_price}
+				sale_price = #{sale_price},
 			</if>
 			<if test="store != null">
 				store = #{store}
-			</if>
-			<if test="spec != null">
-				spec = #{spec}
 			</if>
 			<where>
 				code = #{code}

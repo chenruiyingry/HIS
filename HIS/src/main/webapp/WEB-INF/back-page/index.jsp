@@ -15,7 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/index.css">
 </head>
 <body>
-	<c:import url="/admin/toHead.do?name=index"></c:import>
+	<c:import url="/admin/toHead.do">
+		<c:param name="headname" value="index"></c:param>
+	</c:import>
 	<div id="ta">
 		<div id="theArt">
 			<div class="artGroup slide artGroup_1">
@@ -60,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="artGroup slide artGroup_5">
 				<div class="artwork"> <img src="/HIS/res/img/9.jpg">
-					<a href="">
+					<a href="/HIS/admin/durglist.do">
 						<div class="detail">
 							<h3>药品管理</h3>
 							<p><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>通过药物编号查询到药物信息列表，以及添加药物信息、更新药物信息、删除药物信息。</p>

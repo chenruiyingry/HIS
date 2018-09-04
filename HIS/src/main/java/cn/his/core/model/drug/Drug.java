@@ -6,7 +6,7 @@ public class Drug extends Page {
 	private int id;//id
 	private String code;//药物编号
 	private String name;//药物名字
-	private String function;//药物主治功能
+	private String funcction;//药物主治功能
 	private String produce_date;//生产日期
 	private String effective_date;//有效日期
 	private String manufacturer;//制造商
@@ -21,7 +21,7 @@ public class Drug extends Page {
 		super();
 		this.code = code;
 		this.name = name;
-		this.function = function;
+		this.funcction = function;
 		this.produce_date = produce_date;
 		this.effective_date = effective_date;
 		this.manufacturer = manufacturer;
@@ -50,14 +50,17 @@ public class Drug extends Page {
 	public String getName() {
 		return name;
 	}
+	public String getFuncction() {
+		return funcction;
+	}
+	public void setFuncction(String funcction) {
+		this.funcction = funcction;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getFunction() {
-		return function;
-	}
 	public void setFunction(String function) {
-		this.function = function;
+		this.funcction = function;
 	}
 	public String getProduce_date() {
 		return produce_date;
@@ -109,7 +112,7 @@ public class Drug extends Page {
 	}
 	@Override
 	public String toString() {
-		return "Drug [code=" + code + ", name=" + name + ", function=" + function + ", produce_date=" + produce_date
+		return "Drug [code=" + code + ", name=" + name + ", function=" + funcction + ", produce_date=" + produce_date
 				+ ", effective_date=" + effective_date + ", manufacturer=" + manufacturer + ", unit=" + unit
 				+ ", purchase_price=" + purchase_price + ", sale_price=" + sale_price + ", store=" + store + ", spec="
 				+ spec + "]";

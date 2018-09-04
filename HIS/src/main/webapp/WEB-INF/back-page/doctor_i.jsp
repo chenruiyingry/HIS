@@ -11,7 +11,9 @@
 	<link rel="stylesheet" href="/HIS/res/css/doctor_i.css">
 </head>
 <body>
-	<c:import url="/admin/toHead.do?name=doctor"></c:import>
+	<c:import url="/admin/toHead.do">
+		<c:param name="headname" value="doctor"></c:param>
+	</c:import>
 	<form action="/HIS/admin/editDoctor.do" id="myform" enctype="multipart/form-data" class="myform">
 	<input type="hidden" name="id" value="${doctor.id }">
 	<div class="main" id="main">
