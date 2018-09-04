@@ -1,19 +1,6 @@
-var main = document.getElementById('main');
-main.style.height = $(window).height()-72+"px";
 $(document).ready(function (){
-	$('.main_content').mouseover(function (){
-		$('.main_right_bottom').css({"height": "5%",});
-		$('.main_right_top').css({"height": "61%",});
-		$('.drop_b').css({"z-index": "-1", "padding-top": "0%",});
-		$('.submit_bar').css({"height": "100%",});
-		$('.submit_2').css({"margin-bottom": "0%", "left": "0px", "width": "100%", "height": "40px", "background-color": "#57a0d2cf",});
-		$('.submit_2').val("返回");
-		$('.button_1').css({"z-index": "3","background-color": "rgb(255, 138, 138)",});
-		$('.main_content').css({"box-shadow": "rgba(0, 0, 0, 0.43) -3px 3px 5px", "left": "3px",});
-	});
-	$('.main_content').mouseout(function (){
-		$('.main_content').css({"box-shadow": "rgba(0, 0, 0, 0.43) 0px 0px 0px", "left": "0%",});
-	});
+	
+	
 	$('.main_a').mouseout(function (){
 		$('.main_right_bottom').css({"height": "70%",});
 		$('.main_right_top').css({"height": "0%",});
@@ -33,7 +20,7 @@ $(document).ready(function (){
 		$('.submit_bar').css({"height": "100%",});
 		$('.submit_2').css({"margin-bottom": "0%", "left": "0px", "width": "100%", "height": "40px", "background-color": "#57a0d2cf",});
 		$('.submit_2').val("返回");
-		$('.button_1').css({"background-color": "#f67272",});
+		$('.button_1').css({"background-color": "#f67272", "z-index": "2",});
 	});
 	$('.submit_3').mouseover(function (){
 		$('.main_right_bottom').css({"height": "5%",});

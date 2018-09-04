@@ -3,6 +3,7 @@ package cn.his.core.model.drug;
 import cn.his.core.model.Page;
 
 public class Drug extends Page {
+	private int id;//id
 	private String code;//药物编号
 	private String name;//药物名字
 	private String function;//药物主治功能
@@ -33,6 +34,12 @@ public class Drug extends Page {
 	public Drug() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getCode() {
 		return code;

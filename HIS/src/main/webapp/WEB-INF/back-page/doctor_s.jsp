@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/doctor_s.css">
 </head>
 <body>
-	<c:import url="/admin/toHead.do?namename=doctor"></c:import>
+	<c:import url="/admin/toHead.do?name=doctor"></c:import>
 	<div class="main" id="main">
 		<div class="main_bar">
 			<a href="/HIS/admin/toAdd.do" class="plus_a" title="新增医生"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>

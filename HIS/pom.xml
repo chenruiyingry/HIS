@@ -194,6 +194,11 @@
 	    <artifactId>cglib</artifactId>
 	    <version>3.2.6</version>
 	</dependency>
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.49</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>HIS</finalName>

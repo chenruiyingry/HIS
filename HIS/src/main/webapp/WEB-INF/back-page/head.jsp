@@ -30,7 +30,7 @@
 		<div class="half-head_1">
 			<a class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
 			<div class="bar" id="bar">
-				<a href="javascript:void(0)" onclick="window.location.href='/HIS/admin/doctorList.do'">医生</a>
+				<a href="/HIS/admin/doctorList.do">医生</a>
 				<a href="">病人</a>
 				<a href="">病房</a>
 				<a href="">药品</a>
@@ -40,6 +40,7 @@
 			<a href="/HIS/admin/logout.do" class="sign-out"><i class="fa fa-sign-out"></i></a>
 		</div>
 	</div>
+	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>
   </body>
 </html>

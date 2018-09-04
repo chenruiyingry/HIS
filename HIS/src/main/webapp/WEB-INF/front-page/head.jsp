@@ -45,6 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<a href="logout.action" class="sign-out"><i class="fa fa-sign-out"></i></a>
 		</div>
 	</div>
+	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>
   </body>
 </html>

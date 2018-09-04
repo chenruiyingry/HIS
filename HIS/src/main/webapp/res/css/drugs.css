@@ -62,6 +62,7 @@
 	position: relative;
     width: 98%;
     margin: 1%;
+    margin-bottom: 2%;
     height: 70px;
     background-color: rgba(245, 245, 245);
     overflow: hidden;
@@ -168,6 +169,7 @@
 }
 .button_1 {    
     z-index: 3;  
+    padding: 0px;
     background-color: rgb(255, 138, 138, 0);   
 }
 .submit_3 {
@@ -182,6 +184,36 @@
 .pagin a {
 	position: absolute;
 	color: rgba(87, 160, 210, 0.81);
+	text-decoration: none;
+	display: none;
+}
+.pagin .previouspage {
+	position: absolute;
+	left: 5%;
+	display: block;
+}
+.pagin .nextpage {
+	position: absolute;
+	right: 5%;
+	display: block;
+}
+.pagin lable {
+	display: none;
+}
+.pagin .nopage {
+	display: none;
+}
+.pagin .define {
+	display: none;
+}
+.pagin .lastpage {
+	display: none;
+}
+.pagin .firstpage {
+	display: none;
+}
+.pagin .active {
+	display: none;
 }
 .pagin .fa_left {
 	left: 2%;

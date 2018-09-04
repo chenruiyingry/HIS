@@ -40,12 +40,27 @@
 	window.onload=function(){time()}
 })();
 function mov() {
-	document.getElementById('bar').style.cssText = "z-index: 1; right: 130px;";
+	document.getElementById('bar').style.cssText = "z-index: 3; right: 130px;";
 	document.getElementById('bar_a').innerHTML = "&nbsp>";
 	document.getElementById('bar_a').style.cssText = "width: 370px;";
 }
 function mou() {
-	document.getElementById('bar').style.cssText = "z-index: -1; right: -100px;";
+	document.getElementById('bar').style.cssText = "z-index: -1; right: -185px;";
 	document.getElementById('bar_a').innerHTML = "<";
 	document.getElementById('bar_a').style.cssText = "width: 16.33px;";
 }
+$(document).ready(function (){
+	$('.bar').mouseover(function (){
+		$('.bar').css({"right": "130px", "z-index": "3",});
+		$('.bar_a').html("&nbsp>");
+		$('.bar_a').css({"width": "370px", "color": "#E25D5D",});
+	});
+	$('.bar_c_a').mouseover(function (){
+		$('.auther_head').css({"width":"29px", "top":"20px", "right":"95px",});
+		$('.username_1').css({"left":"-88px", "z-index":"3",});
+	});
+	$('.bar_c_a').mouseout(function (){
+		$('.auther_head').css({"width":"40px", "top":"10px", "right":"55px",});
+		$('.username_1').css({"left":"-150px", "z-index":"-1",});
+	});
+});
