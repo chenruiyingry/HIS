@@ -82,7 +82,7 @@ public class TestDoctorService {
 	
 	@Test
 	public void TestDeleteDoctor() throws Exception {
-		if (doctorService.deleteDoctorByCode("222223")) {
+		if (doctorService.deleteDoctorByCode(1)) {
 			System.out.println("删除成功");
 		}
 	}

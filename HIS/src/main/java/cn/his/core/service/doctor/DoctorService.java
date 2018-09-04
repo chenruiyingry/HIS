@@ -37,7 +37,7 @@ public interface DoctorService {
 	 * 删除医生信息
 	 * @param dcode
 	 */
-	public boolean deleteDoctorByCode(String code);
+	public boolean deleteDoctorByCode(int id);
 	
 	/**
 	 * 更新医生信息

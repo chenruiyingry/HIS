@@ -43,7 +43,7 @@
 				department_code = #{department_code}
 			</if>
 		</where>
-		order by id
+		order by id desc
 		<if test="startRow != null">
 			limit #{startRow},#{pageSize}
 		</if>
@@ -89,6 +89,9 @@
 	<update id="updateDoctor" parameterType="Doctor">
 		update doctor 
 		<set>
+			<if test="code != null">
+				code = #{code},
+			</if>
 			<if test="name != null">
 				name = #{name},
 			</if>
@@ -169,15 +172,15 @@
 			</if>
 		</set>
 		<where>
-			code = #{code}
+			id = #{id}
 		</where>
 	</update>
 	
 	<!-- 通过医生代码删除医生信息 -->
-	<delete id="deleteDoctorByCode" parameterType="String">
+	<delete id="deleteDoctorByCode" parameterType="Integer">
 		delete from doctor
 		<where>
-			code = #{code}
+			id = #{id}
 		</where>
 	</delete>
 </mapper>

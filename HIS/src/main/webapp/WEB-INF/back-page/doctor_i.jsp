@@ -12,7 +12,8 @@
 </head>
 <body>
 	<c:import url="/admin/toHead.do?name=doctor"></c:import>
-	<form action="" id="myform" enctype="multipart/form-data">
+	<form action="/HIS/admin/editDoctor.do" id="myform" enctype="multipart/form-data" class="myform">
+	<input type="hidden" name="id" value="${doctor.id }">
 	<div class="main" id="main">
 		<div class="main_bar">
 			<button type="button" onclick="modify()">修改</button>
@@ -22,19 +23,26 @@
 			<input type="submit" value="" class="submit faz">
 			<input type="reset" value="" class="reset faz">
 			<div class="photo">
-				<img src="/HIS/res/img/author_head.gif" alt="img" id="allImgUrl">
-				<input type="hidden" name="url" id="path"/>
-				<input type="file" name="pic" onchange="uploadPic()" class="img"/>
+				<c:if test="${!empty doctor.allUrl }">
+					<a href="javascript:void(0)" onclick="javascript:document.getElementById('file').click()" class="addlink"></a>
+					<img src="${doctor.allUrl }" alt="img" id="allImgUrl">
+				</c:if>
+				<c:if test="${empty doctor.allUrl }">
+					<a href="javascript:void(0)" onclick="javascript:document.getElementById('file').click()" class="addlink"></a>
+					<img src="/HIS/res/img/add.png" alt="img" id="allImgUrl">
+				</c:if>
+				<input type="hidden" name="image_url" id="path" value="${doctor.image_url }"/>
+				<input type="file" name="pic" class="img" id="file" onchange="uploadPic()"/>
 			</div>
 			<table>
 				<tr>
 					<td class="td_4">姓名</td>
-					<td><input type="text" name="name" class="td_3" value="${doctor.name }"></td>
+					<td><input type="text" class="td_3" name="name" value="${doctor.name }"></td>
 					<td>性别</td>
 					<td>
-						<input type="text" name="sex" class="td_3 td_3_gdd" value="${doctor.sex }">
-						<input type="radio" name="sex" class="gender duty" <c:if test="${doctor.sex eq '男' }">checked="checked"</c:if>><span class="male mf">男</span>
-						<input type="radio" name="sex" class="gender duty" <c:if test="${doctor.sex eq '女' }">checked="checked"</c:if>><span class="famale mf">女</span>
+						<input type="text" class="td_3 td_3_gdd" value="${doctor.sex }">
+						<input type="radio" name="sex" value="MAN" class="gender duty" <c:if test="${doctor.sex eq '男' }">checked="checked"</c:if>><span class="male mf">男</span>
+						<input type="radio" name="sex" value="WOMAN" class="gender duty" <c:if test="${doctor.sex eq '女' }">checked="checked"</c:if>><span class="famale mf">女</span>
 					</td>
 				</tr>
 				<tr>
@@ -70,7 +78,7 @@
 					<td><input type="text" class="td_3" name="license" value="${doctor.license }"></td>
 					<td>科室</td>
 					<td id="department">
-						<input type="text" class="td_1 td_3 td_3_gdd" name="department_code" value="${doctor.department_code }">
+						<input type="text" class="td_1 td_3 td_3_gdd" value="${doctor.department_code }">
 						<select name="department_code" class="td_3 td_3_department">
 							<c:forEach items="${departmentlist }" var="department">
 								<option value="${department.code }" <c:if test="${doctor.department_code eq department.name }">selected="selected"</c:if>>${department.name }</option>
@@ -81,7 +89,7 @@
 				<tr>
 					<td>医师级别</td>
 					<td>
-						<input type="text" class="td_3 td_3_gdd" name="level" value="${doctor.level }">
+						<input type="text" class="td_3 td_3_gdd" value="${doctor.level }">
 						<select name="level" class="td_3 td_3_level">
 							<option value="CHIEF" <c:if test="${doctor.level eq '主任医师' }">selected="selected"</c:if>>主任医师</option>
 							<option value="ASSOCIATECHIEF" <c:if test="${doctor.level eq '副主任医师' }">selected="selected"</c:if>>副主任医师</option>
@@ -127,8 +135,9 @@
 	</div>
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/doctor_i.js"></script>
-	<script type="text/javascript">
+	<script>
 		function uploadPic(){
 			//定义参数
 			var options = {
@@ -146,11 +155,12 @@
 			//jquery.form使用方式
 			$("#myform").ajaxSubmit(options);
 		}
-		
 		if (${code eq "yesyes" }) {
 			$(document).ready(function (){
 				$('button').click();
+				$('.addlink').css({"z-index": "2",});
 			});
+			document.getElementById("myform").action = "/HIS/admin/addDoctor.do";
 		}
 	</script>
 </body>

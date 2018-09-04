@@ -16,13 +16,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/doctor_s.css">
 </head>
 <body>
-	<c:import url="/admin/toHead.do?name=doctor"></c:import>
+	<c:import url="/admin/toHead.do?namename=doctor"></c:import>
 	<div class="main" id="main">
 		<div class="main_bar">
 			<a href="/HIS/admin/toAdd.do" class="plus_a" title="新增医生"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
 			<div class="search">
-				<form action="">
-					<input type="text" placeholder="请输入搜索关键字" class="text">
+				<form action="/HIS/admin/doctorList.do">
+					<input type="text" placeholder="请输入搜索关键字" class="text" name="name">
 					<input type="submit" value="" class="submit">
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</form>
@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:forEach items="${pagination.list }" var="doctor">
 						<tr><!-- 循环 -->
 							<td class="main_content_td11">
-								<a href="/HIS/admin/doctor.do?code=${doctor.code }"><img src="/HIS/res/img/author_head.gif" alt="img"></a>
+								<a href="/HIS/admin/doctor.do?code=${doctor.code }"><img src="${doctor.allUrl }" alt="img"></a>
 							</td>
 							<td><a href="/HIS/admin/doctor.do?code=${doctor.code }">${doctor.code }</a></td>
 							<td><a href="/HIS/admin/doctor.do?code=${doctor.code }">${doctor.name }</a></td>
@@ -59,12 +59,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</td>
 							<td class="td_1">${doctor.work_time } ~ ${doctor.outwork_time }
 								<div class="td_1_d js_${doctor.id }">
-									<a href=""  class="td_1_d_a js_a_${doctor.id }">删除</a>
+									<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteDoctor.do?id=${doctor.id }'" class="td_1_d_a js_a_${doctor.id }">删除</a>
 								</div>
 								<div class="lookdetails"><a href="/HIS/admin/doctor.do?code=${doctor.code }">查看</a></div>
 							</td>
 						</tr>
 					</c:forEach>
+					<c:if test="${empty pagination.list }">
+						<p class="selectnone">查无相关信息，请重新尝试！！</p>
+					</c:if>
 				</table>
 			</div>
 			<div class="paging">
@@ -79,10 +82,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		var main = document.getElementById('main');
+		main.style.height = $(window).height()-72+"px";
+	</script>
 	<c:forEach items="${pagination.list }" var="doctor">
 		<script>
-			var main = document.getElementById('main');
-			main.style.height = $(window).height()-72+"px";
 			$(document).ready(function (){
 				$('.js_${doctor.id }').mouseover(function (){
 					$('.js_${doctor.id }').css({"width": "32%",});

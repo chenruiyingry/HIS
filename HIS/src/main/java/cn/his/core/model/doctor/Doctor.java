@@ -85,7 +85,10 @@ public class Doctor extends Page implements Serializable {
 	public Doctor() {
 		// TODO Auto-generated constructor stub
 	}
-	
+	//获取全路径
+	public String getAllUrl() {
+		return "http://localhost:8080/img/" + image_url;
+	}
 	public List<Medical_record> getMedical_record() {
 		return medical_record;
 	}

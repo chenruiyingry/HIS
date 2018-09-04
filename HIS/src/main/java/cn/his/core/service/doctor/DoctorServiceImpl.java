@@ -69,8 +69,8 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 	
 	@Override
-	public boolean deleteDoctorByCode(String code) {
-		return doctorDao.deleteDoctorByCode(code);
+	public boolean deleteDoctorByCode(int id) {
+		return doctorDao.deleteDoctorByCode(id);
 	}
 
 	@Transactional(readOnly = true)

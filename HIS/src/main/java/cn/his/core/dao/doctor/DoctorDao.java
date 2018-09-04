@@ -47,5 +47,5 @@ public interface DoctorDao {
 	 * @param dcode
 	 * @return TODO
 	 */
-	public boolean deleteDoctorByCode(String code);
+	public boolean deleteDoctorByCode(int code);
 }

@@ -6,7 +6,7 @@ $(document).ready(function (){
 		$('.td_3').removeAttr('readonly');
 		$('.td_3').css({"border": "1px solid rgb(120, 120, 120)", "border-radius": "3px",});
 		$('.td_3_gdd').css({"display": "none",});
-		$('.img').css({"display": "inline",});
+		$('.addlink').css({"z-index": "2",});
 		$('.gender').css({"display": "inline",});
 		$('.td_3_department').css({"display": "block",});
 		$('.td_3_level').css({"display": "block","width": "64%",});
