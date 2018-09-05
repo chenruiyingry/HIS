@@ -39,7 +39,7 @@ public class TestDoctorService {
 		doctor.setEmail("123456@163.com");
 		doctor.setQualification("abc123456");
 		doctor.setLicense("des123456");
-		doctor.setDepartment("1234");
+		doctor.setDepartment_code("1234");
 		doctor.setFirst(true);
 		doctor.setTitle("扫地");
 		doctor.setDuty("医生");

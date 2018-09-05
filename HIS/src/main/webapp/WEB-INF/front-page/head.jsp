@@ -27,22 +27,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="bar_c_a"></div>
 		</div>
 		<div class="half-head">
-			<img src="/HIS/res/img/logo.png" class="title">
+			<a href="/HIS/toIndex.action"><img src="/HIS/res/img/logo.png" class="title"></a>
 			<p class="half-title">— ${name }</p>
 		</div>
 		<span class="timeShow_1" id="timeShow_1"></span>
 		<div class="half-head_1">
-			<a href="" class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
+			<a class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
 			<div class="bar" id="bar">
-				<a href="">医生</a>
-				<a href="">病人</a>
-				<a href="">病房</a>
-				<a href="">药品</a>
-				<a href="">收费</a>
+				<a href="">挂号</a>
+				<a href="">诊疗</a>
+				<a href="/HIS/toFee.action">收费</a>
+				<a href="">取药</a>
+				<a href="/HIS/toUpdate.action">修改密码</a>
 			</div>
-			<img class="auther_head" id="auther_head" src="/HIS/res/img/author_head.gif" alt="img">
+			<a href="toUpdate.action" class="update"></a>
+			<img class="auther_head" id="auther_head" src="${doctorsession.allUrl }" alt="img">
 			<p class="username_1" id="username_1">${doctorsession.name }</p>
-			<a href="logout.action" class="sign-out"><i class="fa fa-sign-out"></i></a>
+			<a href="/HIS/logout.action" class="sign-out"><i class="fa fa-sign-out"></i></a>
+			<a href="/HIS/toUpdate.action"></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>

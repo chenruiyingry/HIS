@@ -115,7 +115,7 @@ public class AdminDoctorController {
 	@RequestMapping(value = "/admin/doctor.do")
 	public String toDoctorInfo(String code, ModelMap model) throws ParseException {
 		Doctor doctor = doctorService.findDoctorByCode(code);
-		doctor.setDepartment(departmentService.findDepartmentByCode(doctor.getDepartment()).getName());
+		doctor.setDepartment_code(departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName());
 		if ("CHIEF".equals(doctor.getLevel())) {
 			doctor.setLevel("主任医师");
 		} else if ("ASSOCIATECHIEF".equals(doctor.getLevel())) {

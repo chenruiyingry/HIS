@@ -267,7 +267,7 @@ public class CostController {
 		} else {
 			String outTradeNo = "HIS_PAY" + System.currentTimeMillis() + (long) (Math.random() * 10000000L);
 			Doctor doctor = doctorService.findDoctorByCode(patient.getDoctor_code());
-			Department department = departmentService.findDepartmentByCode(doctor.getDepartment());
+			Department department = departmentService.findDepartmentByCode(doctor.getDepartment_code());
 			Medical_record medical_record = new Medical_record();
 			medical_record.setPatient_code(code);
 			List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);

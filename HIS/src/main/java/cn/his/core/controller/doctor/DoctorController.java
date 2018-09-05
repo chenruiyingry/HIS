@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.his.common.utils.Md5Utils;
 import cn.his.common.web.SessionProvider;
 import cn.his.core.model.doctor.Doctor;
 import cn.his.core.service.doctor.DoctorService;
@@ -42,12 +43,24 @@ public class DoctorController {
 	public String login(String code, String password, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		Doctor doctor = doctorService.login(code, password);
 		if (doctor != null) {
+			if (doctor.isFirst()) {
+				return "redirect:/toUpdate.action";
+			}
 			sessionProvider.setAttribute(request, response, "doctorsession", doctor);
-			return "index";
+			return "redirect:/toIndex.action";
 		} else {
 			model.addAttribute("msg", "用户名或密码错误");
 			return "login_s";
 		}
+	}
+	
+	/**
+	 * 去首页
+	 * @return
+	 */
+	@RequestMapping(value = "/toIndex.action")
+	public String toIndex() {
+		return "index_s";
 	}
 	
 	/**
@@ -71,8 +84,50 @@ public class DoctorController {
 		if ("fee".equals(name)) {
 			model.addAttribute("name", "收费系统");
 		} else if ("frontindex".equals(name)) {
-			model.addAttribute("name", "前台首页");
-		} 
+			model.addAttribute("name", "首页");
+		} else if ("password".equals(name)) {
+			model.addAttribute("name", "修改密码");
+		}
 		return "head";
+	}
+	
+	/**
+	 * 去更新密码页面
+	 * @return
+	 */
+	@RequestMapping(value = "/toUpdate.action")
+	public String toUpdatePassword() {
+		return "updatepassword";
+	}
+	
+	/**
+	 * 更新密码
+	 * @param code
+	 * @param pw
+	 * @param pw1
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/updatepasswd.action")
+	public String updatePassWord(String code, String pw, String pw1, ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		Doctor doctor = doctorService.login(code, pw);
+		Doctor doctor1 = new Doctor();
+		doctor1.setId(doctor.getId());
+		doctor1.setCode(code);
+		doctor1.setPassword(Md5Utils.md5(pw1));
+		if (doctor == null) {
+			model.addAttribute("msg", "原密码错误");
+			return "updatepassword";
+		} else {
+			doctor1.setFirst(false);
+			doctorService.updateDoctor(doctor1);
+			sessionProvider.logout(request, response);
+			model.addAttribute("msg", "修改密码成功");
+			model.addAttribute("code", "success");
+			model.addAttribute("url", "/HIS/toLogin.action");
+			model.addAttribute("urlname", "登陆页面");
+			model.addAttribute("time", 3);
+			return "message";
+		}
 	}
 }

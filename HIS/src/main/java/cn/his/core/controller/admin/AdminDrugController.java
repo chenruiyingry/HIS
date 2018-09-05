@@ -37,10 +37,11 @@ public class AdminDrugController {
 		pagination.pageView(url, params.toString());
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("pageNo", Pagination.cpn(pageNo));
+		model.addAttribute("name", name);
 		return "drugs";
 	}
 	
-	@RequestMapping(value = "/admin/drug.do")
+	@RequestMapping(value = "/admin/drug.do", method = RequestMethod.POST)
 	public void drug(String code, HttpServletResponse response) {
 		Drug drug = drugService.findDrugByCode(code);
 		JSONObject jsonObject = new JSONObject();

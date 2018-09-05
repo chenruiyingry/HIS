@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td class="main_header_td5 main_header_attribute">姓名</td>
 						<td class="main_header_td6 main_header_box">${patient.name }</td>
 						<td class="main_header_td7 main_header_attribute">性别</td>
-						<td class="main_header_td8 main_header_box">${patient.sex.name }</td>
+						<td class="main_header_td8 main_header_box"><c:if test="${patient.sex eq 'MAN' }">男</c:if><c:if test="${patient.sex eq 'WOMAN' }">女</c:if></td>
 						<td class="main_header_td9 main_header_attribute">年龄</td>
 						<td class="main_header_td10 main_header_box">${patient.age }</td>
 						<td class="main_header_td11 main_header_attribute">科室</td>

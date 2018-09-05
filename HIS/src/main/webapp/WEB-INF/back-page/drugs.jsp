@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="main_bar">
 			<div class="search">
 				<form action="/HIS/admin/durglist.do">
-					<input type="text" placeholder="请输入搜索关键字" class="text" name="name">
+					<input type="text" placeholder="请输入搜索关键字" class="text" name="name" value="${name }">
 					<input type="submit" value="" class="submit">
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</form>
@@ -163,5 +163,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 		</script>
 	</c:forEach>
+	<script type="text/javascript">
+	$(document).ready(function (){
+		$(".previouspage").html("<i class='fa fa-arrow-left fa-2x' aria-hidden='true' title='上一页'></i>");
+		$(".nextpage").html("<i class='fa fa-arrow-right fa-2x' aria-hidden='true' title='下一页'></i>");
+	});
+	</script>
 </body>
 </html>

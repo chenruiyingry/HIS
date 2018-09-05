@@ -22,8 +22,9 @@
 			<div class="bar_c_a"></div>
 		</div>
 		<div class="half-head">
-<!-- 			<p class="title">医院信息管理系统</p> -->
-			<img src="/HIS/res/img/logo.png" class="title">
+			<a href="/HIS/admin/toIndex.do">
+				<img src="/HIS/res/img/logo.png" class="title">
+			</a>
 			<p class="half-title">―― ${name }</p>
 		</div>
 		<span class="timeShow_1" id="timeShow_1"></span>

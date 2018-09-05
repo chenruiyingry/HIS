@@ -187,12 +187,6 @@ public class Doctor extends Page implements Serializable {
 	public void setLicense(String license) {
 		this.license = license;
 	}
-	public String getDepartment() {
-		return department_code;
-	}
-	public void setDepartment(String department_code) {
-		this.department_code = department_code;
-	}
 	public String getLevel() {
 		return level;
 	}

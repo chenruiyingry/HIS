@@ -121,9 +121,16 @@ body {
 .sign-out:hover {
 	color: #E25D5D;
 }
+.update {
+    padding: 14px 55px;
+    position: absolute;
+    left: -133px;
+    top: 20px;
+}
 .auther_head {
 	position: absolute;
 	width: 40px;
+	height: 40px;
 	top: 10px;
 	right: 55px;
 	border-radius: 50%;

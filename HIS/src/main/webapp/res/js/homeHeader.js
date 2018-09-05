@@ -56,11 +56,17 @@ $(document).ready(function (){
 		$('.bar_a').css({"width": "370px", "color": "#E25D5D",});
 	});
 	$('.bar_c_a').mouseover(function (){
-		$('.auther_head').css({"width":"29px", "top":"20px", "right":"95px",});
+		$('.auther_head').css({"width":"29px", "height": "29px", "top":"20px", "right":"95px",});
+		$('.username_1').css({"left":"-88px", "z-index":"3",});
+		$('.update').css({"z-index": "4",});
+	});
+	$('.update').mouseover(function (){
+		$('.auther_head').css({"width":"29px", "height": "29px", "top":"20px", "right":"95px",});
 		$('.username_1').css({"left":"-88px", "z-index":"3",});
 	});
-	$('.bar_c_a').mouseout(function (){
-		$('.auther_head').css({"width":"40px", "top":"10px", "right":"55px",});
+	$('.update').mouseout(function (){
+		$('.auther_head').css({"width":"40px", "height": "40px", "top":"10px", "right":"55px",});
 		$('.username_1').css({"left":"-150px", "z-index":"-1",});
+		$('.update').css({"z-index": "0",});
 	});
 });

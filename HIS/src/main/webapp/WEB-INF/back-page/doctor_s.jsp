@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><c:if test="${doctor.sex eq 'MAN' }">男</c:if>
 							<c:if test="${doctor.sex eq 'WOMAN' }">女</c:if></td>
 							<td>${doctor.phone }</td>
-							<td>${doctor.department }</td>
+							<td>${doctor.department_code }</td>
 							<td>${doctor.level }</td>
 							<td>${doctor.title }</td>
 							<td>

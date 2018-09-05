@@ -89,8 +89,8 @@ public class Pagination extends SimplePage {
 		pageView = new ArrayList<String>();
 		
 		if (this.pageNo != 1) {
-			 pageView.add("<a class='firstpage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo=1'\"><font size=2>首页</font></a>");
-			 pageView.add("<a class='previouspage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo-1)+"'\"><font size=2>上一页</font></a>");
+			 pageView.add("<a class='firstpage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo=1'\"><font class='firstpagefont' size=2>首页</font></a>");
+			 pageView.add("<a class='previouspage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo-1)+"'\"><font class='previouspagefont' size=2>上一页</font></a>");
 		} else {
 			pageView.add("<font class='pagefont firstpage' size=2>首页</font>");
 			pageView.add("<font class='pagefont previouspage' size=2>上一页</font>");
@@ -164,8 +164,8 @@ public class Pagination extends SimplePage {
 			pageView.add("<a href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.getTotalPage())+"'\">"+(this.getTotalPage())+"</a>");
 		}
 		if (this.pageNo != this.getTotalPage()) {
-			pageView.add("<a class='nextpage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo+1)+"'\"><font size=2>下一页</font></a>");
-			pageView.add("<a class='lastpage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+this.getTotalPage()+"'\"><font size=2>尾页</font></a>");
+			pageView.add("<a class='nextpage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+(this.pageNo+1)+"'\"><font class='nextpagefont' size=2>下一页</font></a>");
+			pageView.add("<a class='lastpage' href=\"javascript:void(0);\" onclick=\"javascript:window.location.href='" + url + "?" + params + "&pageNo="+this.getTotalPage()+"'\"><font class='lastpagefont' size=2>尾页</font></a>");
 		} else {
 			pageView.add("<font class='pagefont nextpage' size=2>下一页</font>");
 			pageView.add("<font class='pagefont lastpage' size=2>尾页</font>");

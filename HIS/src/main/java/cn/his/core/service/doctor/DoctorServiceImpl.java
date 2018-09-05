@@ -81,7 +81,7 @@ public class DoctorServiceImpl implements DoctorService {
 		Patient patient = new Patient();
 		Medical_record medical_record = new Medical_record();
 		for (Doctor doctor2 : doctors) {
-			doctor2.setDepartment(departmentDao.findDepartmentByCode(doctor2.getDepartment()).getName());
+			doctor2.setDepartment_code(departmentDao.findDepartmentByCode(doctor2.getDepartment_code()).getName());
 			if ("CHIEF".equals(doctor2.getLevel())) {
 				doctor2.setLevel("主任医师");
 			} else if ("ASSOCIATECHIEF".equals(doctor2.getLevel())) {
