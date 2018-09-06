@@ -6,7 +6,7 @@
 		<result column="patient_code" property="patient_code"/>
 		<result column="doctor_code" property="doctor_code"/>
 		<result column="isAssay" property="isAssay"/>
-		<result column="Assay_result" property="Assay_result"/>
+		<result column="assay_result" property="assay_result"/>
 		<result column="isExamination" property="isExamination"/>
 		<result column="examination_result" property="examination_result"/>
 		<result column="diagnostic_result" property="diagnostic_result"/>
@@ -58,12 +58,12 @@
 	<insert id="insertMedical_record" parameterType="Medical_record">
 		insert into medical_record
 		<trim prefix="(" suffix=")">
-		code , patient_code , doctor_code , isAssay , Assay_result , isExamination , examination_result , 
+		code , patient_code , doctor_code , isAssay , assay_result , isExamination , examination_result , 
 		diagnostic_result , treatment , isHospitalization , ward_number , bed_number , hospitalization_days , date
 		</trim>
 		values 
 		<trim prefix="(" suffix=")">
-		#{code} , #{patient_code} , #{doctor_code} , #{isAssay} , #{Assay_result} , #{isExamination} , #{examination_result} , 
+		#{code} , #{patient_code} , #{doctor_code} , #{isAssay} , #{assay_result} , #{isExamination} , #{examination_result} , 
 		#{diagnostic_result} , #{treatment} , #{isHospitalization} , #{ward_number} , #{bed_number} , #{hospitalization_days} , #{date}
 		</trim>
 	</insert>
@@ -79,7 +79,7 @@
 				isAssay = #{isAssay},
 			</if>
 			<if test="Assay_result != null">
-				Assay_result = #{Assay_result},
+				assay_result = #{assay_result},
 			</if>
 			<if test="isExamination != null">
 				isExamination = #{isExamination},

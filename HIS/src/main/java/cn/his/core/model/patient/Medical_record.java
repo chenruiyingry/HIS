@@ -9,7 +9,7 @@ public class Medical_record extends Page {
 	private String patient_code;//病人编号
 	private String doctor_code;//医生编号
 	private boolean isAssay;//是否化验
-	private String Assay_result;//化验结果
+	private String assay_result;//化验结果
 	private boolean isExamination;//是否检查
 	private String examination_result;//检查结果
 	private String diagnostic_result;//诊断结果
@@ -19,6 +19,7 @@ public class Medical_record extends Page {
 	private String bed_number;//病床号
 	private int hospitalization_days;//住院天数
 	private String date;//病历生成天数
+	private String department;
 	private List<Drug_record> drug_record;//药物信息实体类
 	
 	public Medical_record(String code, String patient_code, String doctor_code, boolean isAssay, String assay_result,
@@ -30,7 +31,7 @@ public class Medical_record extends Page {
 		this.patient_code = patient_code;
 		this.doctor_code = doctor_code;
 		this.isAssay = isAssay;
-		Assay_result = assay_result;
+		this.assay_result = assay_result;
 		this.isExamination = isExamination;
 		this.examination_result = examination_result;
 		this.diagnostic_result = diagnostic_result;
@@ -41,6 +42,14 @@ public class Medical_record extends Page {
 		this.hospitalization_days = hospitalization_days;
 		this.date = date;
 		this.drug_record = drug_record;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public Medical_record() {
@@ -73,10 +82,10 @@ public class Medical_record extends Page {
 		this.isAssay = isAssay;
 	}
 	public String getAssay_result() {
-		return Assay_result;
+		return assay_result;
 	}
 	public void setAssay_result(String assay_result) {
-		Assay_result = assay_result;
+		this.assay_result = assay_result;
 	}
 	public boolean isExamination() {
 		return isExamination;
@@ -142,7 +151,7 @@ public class Medical_record extends Page {
 	@Override
 	public String toString() {
 		return "Medical_record [code=" + code + ", patient_code=" + patient_code + ", doctor_code=" + doctor_code
-				+ ", isAssay=" + isAssay + ", Assay_result=" + Assay_result + ", isExamination=" + isExamination
+				+ ", isAssay=" + isAssay + ", Assay_result=" + assay_result + ", isExamination=" + isExamination
 				+ ", examination_result=" + examination_result + ", diagnostic_result=" + diagnostic_result
 				+ ", treatment=" + treatment + ", isHospitalization=" + isHospitalization + ", ward_number="
 				+ ward_number + ", bed_number=" + bed_number + ", hospitalization_days=" + hospitalization_days

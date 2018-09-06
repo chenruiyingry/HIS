@@ -22,8 +22,8 @@
 			<a href="/HIS/admin/doctorList.do" class="arrow-left_a faz" title="返回医生列表"><i class="fa fa-arrow-left fa-2x faz" aria-hidden="true"></i></a>
 			<a href="javascript:void(0)" onclick="javascript:document.getElementById('submit').click()" class="arrow-left_b faz" title="确定"><i class="fa fa-check fa-2x faz" aria-hidden="true"></i></a>
 			<a href="javascript:void(0)" onclick="javascript:document.getElementById('reset').click()" class="arrow-left_c faz" title="重置"><i class="fa fa-times fa-2x faz" aria-hidden="true"></i></a>
-			<input type="submit" value="" class="submit faz">
-			<input type="reset" value="" class="reset faz">
+			<input type="submit" value="" class="submit faz" id="submit">
+			<input type="reset" value="" class="reset faz" id="reset">
 			<div class="photo">
 				<c:if test="${!empty doctor.allUrl }">
 					<a href="javascript:void(0)" onclick="javascript:document.getElementById('file').click()" class="addlink"></a>

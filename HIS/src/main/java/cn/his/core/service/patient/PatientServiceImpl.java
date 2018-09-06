@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.his.common.page.Pagination;
+import cn.his.core.dao.doctor.DepartmentDao;
+import cn.his.core.dao.doctor.DoctorDao;
 import cn.his.core.dao.patient.Medical_recordDao;
 import cn.his.core.dao.patient.PatientDao;
+import cn.his.core.model.doctor.Doctor;
 import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;
 
@@ -19,9 +22,12 @@ public class PatientServiceImpl implements PatientService {
 	
 	@Resource
 	private PatientDao patientDao;
-	
 	@Resource
 	private Medical_recordDao medical_recordDao;
+	@Resource
+	private DoctorDao doctorDao;
+	@Resource
+	private DepartmentDao departmentDao;
 	
 	@Transactional(readOnly = true)
 	@Override
@@ -66,6 +72,11 @@ public class PatientServiceImpl implements PatientService {
 			Medical_record medical_record = new Medical_record();
 			medical_record.setPatient_code(code);
 			List<Medical_record> medical_records = medical_recordDao.findMedical_recordList(medical_record);
+			for (Medical_record medical_record2 : medical_records) {
+				Doctor doctor = doctorDao.findDoctorByCode(medical_record2.getDoctor_code());
+				medical_record2.setDoctor_code(doctor.getName());
+				medical_record2.setDepartment(departmentDao.findDepartmentByCode(doctor.getDepartment_code()).getName());
+			}
 			patient.setMedical_record(medical_records);
 			return patient;
 		}

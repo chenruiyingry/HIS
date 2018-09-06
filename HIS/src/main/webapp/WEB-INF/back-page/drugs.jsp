@@ -23,15 +23,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="main_bar">
 			<div class="search">
 				<form action="/HIS/admin/durglist.do">
-					<input type="text" placeholder="请输入搜索关键字" class="text" name="name" value="${name }">
+					<input type="text" placeholder="请输入搜索关键字" class="text" name="name">
 					<input type="submit" value="" class="submit">
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</form>
 			</div>
-			<!-- <div class="pagin">分页
-				<a href="" class="fa_left" title="上一页"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></a>
-				<a href="" class="fa_right" title="下一页"><i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i></a>
-			</div> -->
 			<div class="main_a"></div>
 			<div class="main_left">
 				<c:forEach items="${pagination.list }" var="drug">
@@ -46,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					${page }
 				</c:forEach>
 			</div>
-			<form action="/HIS/admin/updateDrug.do">
+			<form action="/HIS/admin/updateDrug.do" onSubmit="return check1()">
 			<div class="main_right_top">
 				<div class="drop drop_t">
 					<p>药名</p>
@@ -54,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="drop drop_t">
 					<p>主治功能</p>
-					<input class="drop_t_i" type="text" name="funcction" id="funcction">
+					<input class="drop_t_i" type="text" name="function" id="funcction">
 				</div>
 				<div class="drop drop_t">
 					<p>生产方</p>
@@ -77,43 +73,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="submit" value="确定" class="submit_3 button_2">
 			</div>
 			</form>
-			<form action="/HIS/admin/addDurg.do" method="post">
+			<form action="/HIS/admin/addDurg.do" method="post" onSubmit="return check2()">
 			<div class="main_right_bottom">
 				<div class="drop drop_b">
 					<p class="drop_b_p">药名</p>
-					<input class="drop_b_i" type="text" name="name">
+					<input class="drop_b_i" type="text" name="name" id="name1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">主治功能</p>
-					<input class="drop_b_i" type="text" name="funcction">
+					<input class="drop_b_i" type="text" name="funcction" id="funcction1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">生产方</p>
-					<input class="drop_b_i" type="text" name="manufacturer">
+					<input class="drop_b_i" type="text" name="manufacturer" id="manufacturer1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">进货价</p>
-					<input class="drop_b_i" type="text" name="purchase_price">
+					<input class="drop_b_i" type="text" name="purchase_price" id="purchase_price1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">售价</p>
-					<input class="drop_b_i" type="text" name="sale_price">
+					<input class="drop_b_i" type="text" name="sale_price" id="sale_price1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">计量单位</p>
-					<input class="drop_b_i" class="drop_b_i" type="text" name="unit">
+					<input class="drop_b_i" type="text" name="unit" id="unit1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">规格</p>
-					<input class="drop_b_i" class="drop_b_i" type="text" name="spec">
+					<input class="drop_b_i"  type="text" name="spec" id="spec1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">生产日期</p>
-					<input class="drop_b_i" type="date" name="produce_date">
+					<input class="drop_b_i" type="date" name="produce_date" id="produce_date1">
 				</div>
 				<div class="drop drop_b">
 					<p class="drop_b_p">有效日期</p>
-					<input class="drop_b_i" type="date" name="effective_date">
+					<input class="drop_b_i" type="date" name="effective_date" id="effective_date1">
 				</div>
 				<div class="submit_bar"></div>
 				<input type="submit" value="添加" class="submit submit_2">
@@ -121,6 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</div>
 	</div>
+    <script type="text/javascript" src="/HIS/res/js/drugIsNull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/drugs.js"></script>
 	<script type="text/javascript">
@@ -163,11 +160,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 		</script>
 	</c:forEach>
-	<script type="text/javascript">
-	$(document).ready(function (){
-		$(".previouspage").html("<i class='fa fa-arrow-left fa-2x' aria-hidden='true' title='上一页'></i>");
-		$(".nextpage").html("<i class='fa fa-arrow-right fa-2x' aria-hidden='true' title='下一页'></i>");
-	});
-	</script>
 </body>
 </html>

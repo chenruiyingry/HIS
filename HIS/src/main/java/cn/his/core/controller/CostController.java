@@ -275,10 +275,13 @@ public class CostController {
 			HashMap<String, Double> others = new HashMap<String, Double>();
 			double totalfee = 0.00;
 			int totalnum = 0;
-			for (Drug_record drug_record2 : medical_record.getDrug_record()) {
-				totalnum += 1;
-				totalfee += drug_record2.getDrug().getSale_price();
+			if (medical_record.getDrug_record() != null) {
+				for (Drug_record drug_record2 : medical_record.getDrug_record()) {
+					totalnum += 1;
+					totalfee += drug_record2.getDrug().getSale_price();
+				}
 			}
+			
 			if (doctor != null) {
 				double register_cost = register_costService.findRegister_costByLevel(doctor.getLevel()).getCost();
 				others.put("挂号费", register_cost);

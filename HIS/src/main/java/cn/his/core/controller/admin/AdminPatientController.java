@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.his.common.page.Pagination;
+import cn.his.core.model.doctor.Doctor;
 import cn.his.core.model.patient.Patient;
 import cn.his.core.service.patient.PatientService;
 
@@ -45,5 +46,11 @@ public class AdminPatientController {
 		Patient patient = patientService.findPatientByCode(code);
 		model.addAttribute("patient", patient);
 		return "patient_i";
+	}
+	
+	@RequestMapping(value = "/admin/deletePatient.do")
+	public String deletePatient(String code) {
+		patientService.deletePatient(code);
+		return "redirect:/admin/patientList.do";
 	}
 }

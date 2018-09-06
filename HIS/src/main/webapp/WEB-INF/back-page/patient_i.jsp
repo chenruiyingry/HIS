@@ -62,46 +62,41 @@
 					<td><input type="text" class="td_3" name="allergy" value="${patient.allergy }"></td>
 				</tr>
 			</table>
-			<div class="introduction">
-					<table>
-						<tr class="tr_1">
-							<td>病历编号</td>
-							<td>科室</td>
-							<td>医生姓名</td>
-							<td>化验结果</td>
-							<td>检查结果</td>
-							<td>治疗方法</td>
-							<td>是否住院</td>
-							<td>时间</td>
-						</tr>
-						<tr>
-							<td>12334</td>
-							<td>生化</td>
-							<td>张三</td>
-							<td>无</td>
-							<td>无</td>
-							<td>吃药</td>
-							<td>否</td>
-							<td>2018-08-28</td>
-						</tr>
-					</table>
-					<!-- <tr>
-							<td>12334</td>
-							<td>生化</td>
-							<td>张三</td>
-							<td>无</td>
-							<td>无</td>
-							<td>吃药</td>
-							<td>否</td>
-							<td>2018-08-28</td>
-						</tr> -->
-					<c:forEach items="${pagination.list }" var="patient">
-							
+			<div class="main_content main_b">
+				<table class="table1">
+					<tr>
+						<td class="main_content_td1 main_content_attribute" colspan="9">病历信息</td>
+					</tr>
+					<tr>
+						<td class="main_content_td3 main_content_attribute">病历编号</td>
+						<td class="main_content_td4 main_content_attribute">医生姓名</td>
+						<td class="main_content_td5 main_content_attribute">科室</td>
+						<td class="main_content_td6 main_content_attribute">化验结果</td>
+						<td class="main_content_td7 main_content_attribute">检查结果</td>
+						<td class="main_content_td8 main_content_attribute">诊断结果</td>
+						<td class="main_content_td9 main_content_attribute">治疗方法</td>
+						<td class="main_content_td10 main_content_attribute">住院天数</td>
+						<td class="main_content_td11 main_content_attribute">时间</td>
+					</tr>
+				</table>
+				<div class="main_content_2">
+				<table class="table2">
+					<!-- 医药费 -->
+					<c:forEach var="medical_record" items="${patient.medical_record }">
+						<tr><!-- 循环 -->
+						<td class="main_content_td3 main_content_attribute_2"><a href="">${medical_record.code }</a></td>
+						<td class="main_content_td4 main_content_attribute_2">${medical_record.doctor_code }</td>
+						<td class="main_content_td5 main_content_attribute_2">${medical_record.department }</td>
+						<td class="main_content_td6 main_content_attribute_2">${medical_record.assay_result }</td>
+						<td class="main_content_td7 main_content_attribute_2">${medical_record.examination_result }</td>
+						<td class="main_content_td8 main_content_attribute_2">${medical_record.diagnostic_result }</td>
+						<td class="main_content_td9 main_content_attribute_2">${medical_record.treatment }</td>
+						<td class="main_content_td10 main_content_attribute_2">${medical_record.hospitalization_days }</td>
+						<td class="main_content_td11 main_content_attribute_2">${medical_record.date }</td>
+					</tr>
 					</c:forEach>
-					<%-- <c:if test="${empty pagination.list }">
-						<p class="selectnone">查无相关信息，请重新尝试！！</p>
-					</c:if> --%>
-					
+				</table>
+				</div>
 			</div>
 		</div>
 	</div>
