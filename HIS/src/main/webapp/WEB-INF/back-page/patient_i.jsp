@@ -80,22 +80,22 @@
 					</tr>
 				</table>
 				<div class="main_content_2">
-				<table class="table2">
-					<!-- 医药费 -->
-					<c:forEach var="medical_record" items="${patient.medical_record }">
-						<tr><!-- 循环 -->
-						<td class="main_content_td3 main_content_attribute_2"><a href="">${medical_record.code }</a></td>
-						<td class="main_content_td4 main_content_attribute_2">${medical_record.doctor_code }</td>
-						<td class="main_content_td5 main_content_attribute_2">${medical_record.department }</td>
-						<td class="main_content_td6 main_content_attribute_2">${medical_record.assay_result }</td>
-						<td class="main_content_td7 main_content_attribute_2">${medical_record.examination_result }</td>
-						<td class="main_content_td8 main_content_attribute_2">${medical_record.diagnostic_result }</td>
-						<td class="main_content_td9 main_content_attribute_2">${medical_record.treatment }</td>
-						<td class="main_content_td10 main_content_attribute_2">${medical_record.hospitalization_days }</td>
-						<td class="main_content_td11 main_content_attribute_2">${medical_record.date }</td>
-					</tr>
-					</c:forEach>
-				</table>
+					<table class="table2">
+						<!-- 医药费 -->
+						<c:forEach var="medical_record" items="${patient.medical_record }">
+							<tr><!-- 循环 -->
+							<td class="main_content_td3 main_content_attribute_2"><a href="">${medical_record.code }</a></td>
+							<td class="main_content_td4 main_content_attribute_2">${medical_record.doctor_code }</td>
+							<td class="main_content_td5 main_content_attribute_2">${medical_record.department }</td>
+							<td class="main_content_td6 main_content_attribute_2">${medical_record.assay_result }</td>
+							<td class="main_content_td7 main_content_attribute_2">${medical_record.examination_result }</td>
+							<td class="main_content_td8 main_content_attribute_2">${medical_record.diagnostic_result }</td>
+							<td class="main_content_td9 main_content_attribute_2">${medical_record.treatment }</td>
+							<td class="main_content_td10 main_content_attribute_2">${medical_record.hospitalization_days }</td>
+							<td class="main_content_td11 main_content_attribute_2">${medical_record.date }</td>
+						</tr>
+						</c:forEach>
+					</table>
 				</div>
 			</div>
 		</div>

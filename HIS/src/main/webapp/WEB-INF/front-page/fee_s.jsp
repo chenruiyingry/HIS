@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 			</div>
 			<div class="main_content main_b">
-				<table>
+				<table class="table1">
 					<tr>
 						<td class="main_content_td1 main_content_attribute" colspan="3">费用项目</td>
 						<td class="main_content_td2 main_content_attribute" colspan="7">金额</td>
@@ -65,39 +65,43 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td class="main_content_td11 main_content_attribute">优惠比例</td>
 						<td class="main_content_td12 main_content_attribute">发票类型</td>
 					</tr>
-					<!-- 医药费 -->
-					<c:forEach var="drug" items="${druglist }">
-						<tr><!-- 循环 -->
-						<input type="checkbox" name="codes" checked="checked" style="display: none;" value="${drug.code }">
-						<td>${drug.drug.name }</td>
-						<td>${drug.drug.spec }/${drug.drug.unit }</td>
-						<td>${drug.drug.sale_price }</td>
-						<td>${drug.number }</td>
-						<td>${drug.drug.unit }</td>
-						<td>${drug.totalmoney }</td>
-						<td>0.00</td>
-						<td>${drug.totalmoney }</td>
-						<td>100.00%</td>
-						<td>医药费</td>
-					</tr>
-					</c:forEach>
-					<!-- 其他费用 -->
-					<c:forEach var="other" items="${others }">
-						<tr><!-- 循环 -->
-						<td>${other.key }</td>
-						<td></td>
-						<td>${other.value }</td>
-						<td>1</td>
-						<td>次</td>
-						<td>${other.value }</td>
-						<td>0.00</td>
-						<td>${other.value }</td>
-						<td>100.00%</td>
-						<td>${other.key }</td>
-						<input type="checkbox" name="others" value="${other.key }" checked="checked" style="display: none;">
-					</tr>
-					</c:forEach>
 				</table>
+				<div class="main_content_2">
+					<table class="table2">
+						<!-- 医药费 -->
+						<c:forEach var="drug" items="${druglist }">
+							<tr><!-- 循环 -->
+							<input type="checkbox" name="codes" checked="checked" style="display: none;" value="${drug.code }">
+							<td class="main_content_td3 main_content_attribute2">${drug.drug.name }</td>
+							<td class="main_content_td4 main_content_attribute2">${drug.drug.spec }/${drug.drug.unit }</td>
+							<td class="main_content_td5 main_content_attribute2">${drug.drug.sale_price }</td>
+							<td class="main_content_td6 main_content_attribute2">${drug.number }</td>
+							<td class="main_content_td7 main_content_attribute2">${drug.drug.unit }</td>
+							<td class="main_content_td8 main_content_attribute2">${drug.totalmoney }</td>
+							<td class="main_content_td9 main_content_attribute2">0.00</td>
+							<td class="main_content_td10 main_content_attribute2">${drug.totalmoney }</td>
+							<td class="main_content_td11 main_content_attribute2">100.00%</td>
+							<td class="main_content_td12 main_content_attribute2">医药费</td>
+						</tr>
+						</c:forEach>
+						<!-- 其他费用 -->
+						<c:forEach var="other" items="${others }">
+							<tr><!-- 循环 -->
+							<td>${other.key }</td>
+							<td></td>
+							<td>${other.value }</td>
+							<td>1</td>
+							<td>次</td>
+							<td>${other.value }</td>
+							<td>0.00</td>
+							<td>${other.value }</td>
+							<td>100.00%</td>
+							<td>${other.key }</td>
+							<input type="checkbox" name="others" value="${other.key }" checked="checked" style="display: none;">
+						</tr>
+						</c:forEach>
+					</table>
+				</div>
 			</div>
 			<div class="main_footer main_b">
 				<table>
