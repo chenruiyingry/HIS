@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -38,6 +36,11 @@ import cn.his.core.service.drug.Drug_recordService;
 import cn.his.core.service.patient.Medical_recordService;
 import cn.his.core.service.patient.PatientService;
 
+/**
+ * 前台收费模块
+ * @author chenruiying
+ *
+ */
 @Controller
 public class CostController {
 	
@@ -328,15 +331,5 @@ public class CostController {
 	@RequestMapping(value = "toFee.action")
 	public String toFee() {
 		return "tofee";
-	}
-	
-	@RequestMapping(value = "msg.action")
-	public String toMsg(ModelMap model) {
-		model.addAttribute("msg", "支付宝支付成功");
-    	model.addAttribute("code", "error");
-    	model.addAttribute("urlname", "收费页面");
-    	model.addAttribute("url", "toFee.action");
-    	model.addAttribute("time", 5);
-		return "message";
 	}
 }

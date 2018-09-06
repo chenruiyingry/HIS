@@ -16,12 +16,24 @@ import cn.his.common.web.ResponseUtils;
 import cn.his.core.model.drug.Drug;
 import cn.his.core.service.drug.DrugService;
 
+/**
+ * 后台药品模块
+ * @author chenruiying
+ *
+ */
 @Controller
 public class AdminDrugController {
 
 	@Autowired
 	private DrugService drugService;
 	
+	/**
+	 * 药品列表
+	 * @param name
+	 * @param pageNo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/durglist.do")
 	public String druglist(String name, Integer pageNo, ModelMap model) {
 		Drug drug = new Drug();
@@ -41,6 +53,11 @@ public class AdminDrugController {
 		return "drugs";
 	}
 	
+	/**
+	 * 药品详细信息
+	 * @param code
+	 * @param response
+	 */
 	@RequestMapping(value = "/admin/drug.do", method = RequestMethod.POST)
 	public void drug(String code, HttpServletResponse response) {
 		Drug drug = drugService.findDrugByCode(code);
@@ -49,12 +66,22 @@ public class AdminDrugController {
 		ResponseUtils.renderJson(response, jsonString);
 	}
 	
+	/**
+	 * 添加药品
+	 * @param drug
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/addDurg.do", method = RequestMethod.POST)
 	public String addDrug(Drug drug) {
 		drugService.insertDrug(drug);
 		return "redirect:/admin/durglist.do";
 	}
 	
+	/**
+	 * 更新药品信息
+	 * @param drug
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/updateDrug.do")
 	public String updateDrug(Drug drug) {
 		drugService.updateDrug(drug);

@@ -31,6 +31,11 @@ import cn.his.core.model.doctor.Doctor;
 import cn.his.core.service.doctor.DepartmentService;
 import cn.his.core.service.doctor.DoctorService;
 
+/**
+ * 后台医生模块
+ * @author chenruiying
+ *
+ */
 @Controller
 public class AdminDoctorController {
 
@@ -63,6 +68,11 @@ public class AdminDoctorController {
 		return "doctor_s";
 	}
 	
+	/**
+	 * 删除医生
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/deleteDoctor.do")
 	public String deleteDoctor(int id) {
 		doctorService.deleteDoctorByCode(id);
@@ -87,24 +97,18 @@ public class AdminDoctorController {
 		for (int i = 0; i < 3; i++) {
 			format += r.nextInt(10);
 		}
-		
 		//实例化一个Jersey
 		Client client = new Client();
-		
 		String path = "his/" + format + "." + ext;
-		
 		String url = "http://localhost:8080/img/" + path;
 		//设置请求路径
 		WebResource resource = client.resource(url);
-		
 		//发送开始
 		try {
 			resource.put(String.class, pic.getBytes());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		//返回二个路径
 		JSONObject jo = new JSONObject();
 		jo.put("url", url);
@@ -112,6 +116,13 @@ public class AdminDoctorController {
 		ResponseUtils.renderJson(response, jo.toString());
 	}
 	
+	/**
+	 * 医生信息
+	 * @param code
+	 * @param model
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/admin/doctor.do")
 	public String toDoctorInfo(String code, ModelMap model) throws ParseException {
 		Doctor doctor = doctorService.findDoctorByCode(code);
@@ -142,6 +153,11 @@ public class AdminDoctorController {
 		return "doctor_i";
 	}
 	
+	/**
+	 * 去添加医生
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/toAdd.do")
 	public String toAddDoctor(ModelMap model) {
 		model.addAttribute("code", "yesyes");
@@ -150,12 +166,22 @@ public class AdminDoctorController {
 		return "doctor_i";
 	}
 	
+	/**
+	 * 修改医生信息
+	 * @param doctor
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/editDoctor.do")
 	public String editDoctor(Doctor doctor) {
 		doctorService.updateDoctor(doctor);
 		return "redirect:/admin/doctorList.do";
 	}
 	
+	/**
+	 * 添加医生
+	 * @param doctor
+	 * @return
+	 */
 	@RequestMapping(value = "admin/addDoctor.do")
 	public String addDoctor(Doctor doctor) {
 		doctor.setWork_time(doctor.getWork_time().replace("T", " "));

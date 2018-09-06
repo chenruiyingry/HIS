@@ -13,6 +13,11 @@ import cn.his.common.web.SessionProvider;
 import cn.his.core.model.doctor.Doctor;
 import cn.his.core.service.doctor.DoctorService;
 
+/**
+ * 前台医生模块
+ * @author chenruiying
+ *
+ */
 @Controller
 public class DoctorController {
 
@@ -55,15 +60,6 @@ public class DoctorController {
 	}
 	
 	/**
-	 * 去首页
-	 * @return
-	 */
-	@RequestMapping(value = "/toIndex.action")
-	public String toIndex() {
-		return "index_s";
-	}
-	
-	/**
 	 * 退出登陆
 	 * @param request
 	 * @param response
@@ -73,22 +69,6 @@ public class DoctorController {
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		sessionProvider.logout(request, response);
 		return "login_s";
-	}
-	
-	/**
-	 * 头部
-	 * @return
-	 */
-	@RequestMapping(value = "/toHead.action")
-	public String toHead(String name, ModelMap model) {
-		if ("fee".equals(name)) {
-			model.addAttribute("name", "收费系统");
-		} else if ("frontindex".equals(name)) {
-			model.addAttribute("name", "首页");
-		} else if ("password".equals(name)) {
-			model.addAttribute("name", "修改密码");
-		}
-		return "head";
 	}
 	
 	/**
@@ -130,5 +110,45 @@ public class DoctorController {
 			model.addAttribute("time", 3);
 			return "message";
 		}
+	}
+	
+	/**
+	 * 去首页
+	 * @return
+	 */
+	@RequestMapping(value = "/toIndex.action")
+	public String toIndex() {
+		return "index_s";
+	}
+	
+	/**
+	 * 头部
+	 * @return
+	 */
+	@RequestMapping(value = "/toHead.action")
+	public String toHead(String name, ModelMap model) {
+		if ("fee".equals(name)) {
+			model.addAttribute("name", "收费系统");
+		} else if ("frontindex".equals(name)) {
+			model.addAttribute("name", "首页");
+		} else if ("password".equals(name)) {
+			model.addAttribute("name", "修改密码");
+		}
+		return "head";
+	}
+	
+	/**
+	 * 信息板
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "msg.action")
+	public String toMsg(ModelMap model) {
+		model.addAttribute("msg", "支付宝支付成功");
+    	model.addAttribute("code", "error");
+    	model.addAttribute("urlname", "收费页面");
+    	model.addAttribute("url", "toFee.action");
+    	model.addAttribute("time", 5);
+		return "message";
 	}
 }

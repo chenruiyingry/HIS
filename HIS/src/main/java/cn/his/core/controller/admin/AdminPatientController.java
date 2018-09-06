@@ -7,10 +7,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.his.common.page.Pagination;
-import cn.his.core.model.doctor.Doctor;
 import cn.his.core.model.patient.Patient;
 import cn.his.core.service.patient.PatientService;
 
+/**
+ * 后台病人模块
+ * @author chenruiying
+ *
+ */
 @Controller
 public class AdminPatientController {
 	
@@ -41,6 +45,12 @@ public class AdminPatientController {
 		return "patient_s";
 	}
 	
+	/**
+	 * 病人详细信息
+	 * @param code
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/patient.do")
 	public String patient(String code, ModelMap model) {
 		Patient patient = patientService.findPatientByCode(code);
@@ -48,6 +58,11 @@ public class AdminPatientController {
 		return "patient_i";
 	}
 	
+	/**
+	 * 删除医生
+	 * @param code
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/deletePatient.do")
 	public String deletePatient(String code) {
 		patientService.deletePatient(code);

@@ -13,6 +13,11 @@ import cn.his.common.web.SessionProvider;
 import cn.his.core.model.admin.Admin;
 import cn.his.core.service.admin.AdminService;
 
+/**
+ * 后台登陆和主要模块
+ * @author chenruiying
+ *
+ */
 @Controller
 public class AdminController {
 
@@ -76,6 +81,8 @@ public class AdminController {
 	
 	/**
 	 * 页面头部
+	 * @param headname
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/toHead.do")
