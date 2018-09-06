@@ -14,14 +14,14 @@
 	<c:import url="/admin/toHead.do">
 		<c:param name="headname" value="doctor"></c:param>
 	</c:import>
-	<form action="/HIS/admin/editDoctor.do" id="myform" enctype="multipart/form-data" class="myform">
+	<form action="/HIS/admin/editDoctor.do" id="myform" enctype="multipart/form-data" class="myform" onsubmit="return check()">
 	<input type="hidden" name="id" value="${doctor.id }">
 	<div class="main" id="main">
 		<div class="main_bar">
 			<button type="button" onclick="modify()">修改</button>
 			<a href="/HIS/admin/doctorList.do" class="arrow-left_a faz" title="返回医生列表"><i class="fa fa-arrow-left fa-2x faz" aria-hidden="true"></i></a>
-			<i class="fa fa-check fa-2x faz" aria-hidden="true"></i>
-			<i class="fa fa-times fa-2x faz" aria-hidden="true"></i>
+			<a href="javascript:void(0)" onclick="javascript:document.getElementById('submit').click()" class="arrow-left_b faz" title="确定"><i class="fa fa-check fa-2x faz" aria-hidden="true"></i></a>
+			<a href="javascript:void(0)" onclick="javascript:document.getElementById('reset').click()" class="arrow-left_c faz" title="重置"><i class="fa fa-times fa-2x faz" aria-hidden="true"></i></a>
 			<input type="submit" value="" class="submit faz">
 			<input type="reset" value="" class="reset faz">
 			<div class="photo">
@@ -39,45 +39,45 @@
 			<table>
 				<tr>
 					<td class="td_4">姓名</td>
-					<td><input type="text" class="td_3" name="name" value="${doctor.name }"></td>
+					<td><input type="text" class="td_3" name="name" id="name" value="${doctor.name }"></td>
 					<td>性别</td>
 					<td>
 						<input type="text" class="td_3 td_3_gdd" value="${doctor.sex }">
-						<input type="radio" name="sex" value="MAN" class="gender duty" <c:if test="${doctor.sex eq '男' }">checked="checked"</c:if>><span class="male mf">男</span>
+						<input type="radio" name="sex" value="MAN" class="gender duty" checked="checked" <c:if test="${doctor.sex eq '男' }">checked="checked"</c:if>><span class="male mf">男</span>
 						<input type="radio" name="sex" value="WOMAN" class="gender duty" <c:if test="${doctor.sex eq '女' }">checked="checked"</c:if>><span class="famale mf">女</span>
 					</td>
 				</tr>
 				<tr>
 					<td>民族</td>
-					<td><input type="text" class="td_3" name="nation" value="${doctor.nation }"></td>
+					<td><input type="text" class="td_3" name="nation" id="nation" value="${doctor.nation }"></td>
 					<td>籍贯</td>
-					<td><input type="text" class="td_3" name="native_place" value="${doctor.native_place }"></td>
+					<td><input type="text" class="td_3" name="native_place" id="native_place" value="${doctor.native_place }"></td>
 				</tr>
 				<tr>
 					<td>生日</td>
-					<td><input type="date" class="td_3 date" name="birth" value="${doctor.birth }"></td>
+					<td><input type="date" class="td_3 date" name="birth" id="birth" value="${doctor.birth }"></td>
 					<td>医生编号</td>
-					<td><input type="text" class="td_3" name="code" value="${doctor.code }"></td>
+					<td><input type="text" class="td_3" name="code" id="code" value="${doctor.code }"></td>
 				</tr>
 				<tr>
 					<td>最高学位</td>
-					<td><input type="text" class="td_3" name="degree" value="${doctor.degree }"></td>
+					<td><input type="text" class="td_3" name="degree" id="degree" value="${doctor.degree }"></td>
 					<td>毕业院校</td>
-					<td><input type="text" class="td_3" name="graduate" value="${doctor.graduate }"></td>
+					<td><input type="text" class="td_3" name="graduate" id="graduate" value="${doctor.graduate }"></td>
 				</tr>
 				<tr>
 					<td>联系地址</td>
-					<td><input type="text" class="td_3" name="address" value="${doctor.address }"></td>
+					<td><input type="text" class="td_3" name="address" id="address" value="${doctor.address }"></td>
 					<td>联系电话</td>
-					<td><input type="text" class="td_3" name="phone" value="${doctor.phone }"></td>
+					<td><input type="text" class="td_3" name="phone" id="phone" value="${doctor.phone }"></td>
 					<td>电子邮箱</td>
-					<td><input type="text" class="td_1 td_3" name="email" value="${doctor.email }"></td>
+					<td><input type="text" class="td_1 td_3" name="email" id="email" value="${doctor.email }"></td>
 				</tr>
 				<tr>
 					<td>资格证书编码</td>
-					<td><input type="text" class="td_3" name="qualification" value="${doctor.qualification }"></td>
+					<td><input type="text" class="td_3" name="qualification" id="qualification" value="${doctor.qualification }"></td>
 					<td>执业证书编码</td>
-					<td><input type="text" class="td_3" name="license" value="${doctor.license }"></td>
+					<td><input type="text" class="td_3" name="license" id="license" value="${doctor.license }"></td>
 					<td>科室</td>
 					<td id="department">
 						<input type="text" class="td_1 td_3 td_3_gdd" value="${doctor.department_code }">
@@ -102,15 +102,15 @@
 						</select>
 					</td>
 					<td>职称</td>
-					<td><input type="text" class="td_3" name="title" value="${doctor.title }"></td>
+					<td><input type="text" class="td_3" name="title" id="title" value="${doctor.title }"></td>
 					<td>职务</td>
-					<td><input type="text" class="td_1 td_3" name="duty" value="${doctor.duty }"></td>
+					<td><input type="text" class="td_1 td_3" name="duty" id="duty" value="${doctor.duty }"></td>
 				</tr>
 				<tr>
 					<td>入职时间</td>
-					<td><input class="td_3 date" type="date" name="hiredate" value="${doctor.hiredate }"/></td>
+					<td><input class="td_3 date" type="date" name="hiredate" id="hiredate" value="${doctor.hiredate }"/></td>
 					<td>从事专业</td>
-					<td><input type="text" class="td_3" name="major" value="${doctor.major }"></td>
+					<td><input type="text" class="td_3" name="major" id="major" value="${doctor.major }"></td>
 					<td>备注</td>
 					<td rowspan="2">
 					<textarea class="td_2 td_3" name="remark">${doctor.remark }</textarea></td>
@@ -124,8 +124,8 @@
 					</td>
 					<td>工作时间</td>
 					<td class="td_3_datetime">
-						<input class="td_3 datetime" type="datetime-local" name="work_time"  value="${doctor.work_time }"/> - 
-						<input class="td_3 datetime" type="datetime-local" name="outwork_time" value="${doctor.outwork_time }"/>
+						<input class="td_3 datetime" type="datetime-local" name="work_time" id="work_time" value="${doctor.work_time }"/> - 
+						<input class="td_3 datetime" type="datetime-local" name="outwork_time" id="outwork_time" value="${doctor.outwork_time }"/>
 					</td>
 				</tr>
 			</table>
@@ -136,6 +136,7 @@
 		</div>
 	</div>
 	</form>
+	<script type="text/javascript" src="/HIS/res/js/doctorIsNull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/doctor_i.js"></script>

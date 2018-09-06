@@ -94,6 +94,7 @@
 .td_2 {
 	width: 75%;
 	height: 75%;
+	outline: none;
 }
 .faz {
 	z-index: -1;
@@ -101,6 +102,20 @@
 .arrow-left_a {
 	position: absolute;
     left: 5%;
+    top: 4%;
+    color: #e24b4b;
+    z-index: -1;
+}
+.arrow-left_b {
+	position: absolute;
+    left: 15%;
+    top: 4%;
+    color: #e24b4b;
+    z-index: -1;
+}
+.arrow-left_c {
+	position: absolute;
+    left: 25%;
     top: 4%;
     color: #e24b4b;
     z-index: -1;
@@ -128,6 +143,7 @@
     background-color: #fff0;
     border: none;
     outline: none;
+    display: none;
 }
 .reset {
 	position: absolute;
@@ -138,6 +154,7 @@
     background-color: #fff0;
     border: none;
     outline: none;
+    display: none;
 }
 .gender {
     display: none;

@@ -12,16 +12,10 @@
     border-top-right-radius: 40px;
     background-color: #fff;
 }
-.plus_a {
-    position: absolute;
-    top: 8%;
-    left: 5%;
-    color: #389394;
-}
 .search {
 	position: absolute;
     width: 20%;
-    right: 5%;
+    right: 7%;
     top: 8%;
 }
 .search .text {
@@ -59,15 +53,19 @@
     position: absolute;
     top: 18%;
     padding: 0px 5%;
-    width: 90%;
+    width: 86%;
     height: 73%;
     overflow: hidden;
 }
 .main_content a {
 	text-decoration: none;
+	color: #000;
 }
 .main_content table {
 	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	border-spacing: 10px;
 }
 .main_content_td11 {
 	width: 10%;
@@ -80,13 +78,11 @@
 .tr_1 td {
 	padding-bottom: 38px;
 }
-.tr_1:before {
-	content: "";
+.line {
 	position: absolute;
-	width: 90%;
-	top: 55px;
-	height: 1px;
-	background-color: rgba(120, 120, 120, 0.72);
+    width: 88%;
+    top: 50px;
+    left: 8%;
 }
 .td_1 {
 	position: relative;
@@ -94,7 +90,7 @@
 .td_1_d {
     position: absolute;
     top: 0px;
-    right: -5px;
+    right: -30px;
     width: 10%;
     height: 100%;
     transition: .3s;
@@ -107,8 +103,19 @@
     text-align: center;
     z-index: -1;
     width: 400%;
-    letter-spacing: 5px;
-    padding-top: 25px;
+    letter-spacing: 12px;
+    padding-top: 8px;
     transition: .3s;
-    font-size: 20px;
+    font-size: 18px;
+    left: 27px;
+}
+.tr_td td {
+	padding: 10px;
+}
+.selectnone {
+	position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+    font-size: 22px;
 }

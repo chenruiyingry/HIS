@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.his.core.dao.patient.PatientDao">
 	<resultMap type="Patient" id="Patient">
+		<id column="id" property="id"/>
 		<result column="code" property="code"/>
 		<result column="doctor_code" property="doctor_code"/>
 		<result column="name" property="name"/>
@@ -33,7 +34,12 @@
 	<select id="findPatientList" parameterType="Patient" resultMap="Patient">
 		select * from patient 
 		<where>
-			doctor_code = #{doctor_code}
+			<if test="doctor_code != null">
+				doctor_code = #{doctor_code}
+			</if>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
 		</where>
 		order by id
 		<if test="startRow != null">
@@ -51,6 +57,15 @@
 					doctor_code = #{code}
 				</where>
 			</trim>
+		</where>
+	</select>
+	
+	<select id="getPatientTotal" parameterType="Patient" resultType="Integer">
+		select count(1) from patient
+		<where>
+			<if test="name != null">
+				name like "%"#{name}"%"
+			</if>
 		</where>
 	</select>
 	

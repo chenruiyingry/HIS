@@ -1,4 +1,4 @@
-package cn.his.core.controller.doctor;
+package cn.his.core.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -108,6 +108,7 @@ public class DoctorController {
 	 * @param model
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	@RequestMapping(value="/updatepasswd.action")
 	public String updatePassWord(String code, String pw, String pw1, ModelMap model, HttpServletRequest request, HttpServletResponse response){
 		Doctor doctor = doctorService.login(code, pw);

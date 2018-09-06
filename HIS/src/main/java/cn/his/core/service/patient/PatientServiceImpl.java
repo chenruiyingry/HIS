@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.his.common.page.Pagination;
 import cn.his.core.dao.patient.Medical_recordDao;
 import cn.his.core.dao.patient.PatientDao;
 import cn.his.core.model.patient.Medical_record;
@@ -34,7 +35,8 @@ public class PatientServiceImpl implements PatientService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Patient> findPatientList(Patient patient) {
+	public Pagination findPatientList(Patient patient) {
+		Pagination pagination = new Pagination(patient.getPageNo(), patient.getPageSize(), patientDao.getPatientTotal(patient));
 		List<Patient> patients = patientDao.findPatientList(patient);
 		Medical_record medical_record = new Medical_record();
 		for (Patient patient2 : patients) {
@@ -44,7 +46,8 @@ public class PatientServiceImpl implements PatientService {
 				patient2.setMedical_record(medical_records);
 			}
 		}
-		return patients;
+		pagination.setList(patients);
+		return pagination;
 	}
 
 	@Transactional(readOnly = true)

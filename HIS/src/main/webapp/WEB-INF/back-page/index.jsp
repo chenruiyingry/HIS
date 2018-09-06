@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="artGroup slide artGroup_2">
 				<div class="artwork"> <img src="/HIS/res/img/7.jpg">
-					<a href="">
+					<a href="/HIS/admin/patientList.do">
 						<div class="detail">
 							<h3>病人管理</h3>
 							<p><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>通过病人编号查询到病人信息列表，以及添加、更新、删除病人信息。</p>

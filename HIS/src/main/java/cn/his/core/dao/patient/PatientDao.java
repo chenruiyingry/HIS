@@ -27,6 +27,13 @@ public interface PatientDao {
 	 * @return
 	 */
 	public int getPatientCount(String code);
+	
+	/**
+	 * 获取病人总数
+	 * @param patient
+	 * @return
+	 */
+	public int getPatientTotal(Patient patient);
 
 	/**
 	 * 通过病人编号获取病人信息

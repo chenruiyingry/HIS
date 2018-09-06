@@ -55,6 +55,11 @@ $(document).ready(function (){
 		$('.bar_a').html("&nbsp>");
 		$('.bar_a').css({"width": "370px", "color": "#E25D5D",});
 	});
+	$('.bar_1').mouseover(function (){
+		$('.bar_1').css({"right": "130px", "z-index": "3",});
+		$('.bar_a').html("&nbsp>");
+		$('.bar_a').css({"width": "370px", "color": "#E25D5D",});
+	});
 	$('.bar_c_a').mouseover(function (){
 		$('.auther_head').css({"width":"29px", "height": "29px", "top":"20px", "right":"95px",});
 		$('.username_1').css({"left":"-88px", "z-index":"3",});

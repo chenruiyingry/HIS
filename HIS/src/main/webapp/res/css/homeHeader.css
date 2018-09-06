@@ -91,6 +91,17 @@ body {
 	background-color: #b7b7b700;
 	z-index: -1;
 }
+.bar_1 {
+	position: absolute;
+	top: 20px;
+	height: 100%;
+	right: -100px;
+	transition: .5s;
+	font-size: 14px;
+	background-color: #b7b7b700;
+	z-index: -1;
+	width: 365px;
+}
 .bar a {
 	position: relative;
 	top: 5px;
@@ -99,6 +110,16 @@ body {
 	color: rgb(74, 74, 74);
 }
 .bar a:hover {
+	color: #E25D5D;
+}
+.bar_1 a {
+	position: relative;
+	top: 5px;
+	text-decoration: none;
+	margin: 0px 4%;
+	color: rgb(74, 74, 74);
+}
+.bar_1 a:hover {
 	color: #E25D5D;
 }
 .username {

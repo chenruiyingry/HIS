@@ -86,6 +86,8 @@ public class AdminController {
 			model.addAttribute("name", "医生管理");
 		} else if ("drug".equals(headname)) {
 			model.addAttribute("name", "药品管理");
+		} else if ("patient".equals(headname)) {
+			model.addAttribute("name", "病人管理");
 		}
 		return "head";
 	}

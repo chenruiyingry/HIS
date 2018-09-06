@@ -13,7 +13,6 @@
 }
 .middle {
   position: relative;
-  width: 32rem;
 }
 .pagefont {
 	border: solid 1px #d6d6d6;
@@ -86,10 +85,6 @@
     -webkit-transition: all 300ms ease-in-out;
     transition: 300ms ease-in-out;
     width: 67px;
-    position: absolute;
-    top: 16px;
-    right: -42px;
-    height: 39px;
     font-size: 16px;
 }
 .pagination .define:hover {

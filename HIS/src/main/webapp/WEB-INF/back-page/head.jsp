@@ -30,10 +30,11 @@
 		<span class="timeShow_1" id="timeShow_1"></span>
 		<div class="half-head_1">
 			<a class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
-			<div class="bar" id="bar">
+			<div class="bar_1" id="bar">
 				<a href="/HIS/admin/doctorList.do">医生</a>
-				<a href="">病人</a>
+				<a href="/HIS/admin/patientList.do">病人</a>
 				<a href="">病房</a>
+				<a href="">门诊</a>
 				<a href="/HIS/admin/durglist.do">药品</a>
 				<a href="">收费</a>
 			</div>

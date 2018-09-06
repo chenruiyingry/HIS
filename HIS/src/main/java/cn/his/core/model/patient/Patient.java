@@ -8,6 +8,7 @@ import cn.his.core.model.Page;
  * 病人信息表
  */
 public class Patient extends Page {
+	private int id;//id
 	private String code;//编号
 	private String doctor_code;//医生编号
 	private String name;//姓名
@@ -42,6 +43,14 @@ public class Patient extends Page {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getCode() {
 		return code;
 	}

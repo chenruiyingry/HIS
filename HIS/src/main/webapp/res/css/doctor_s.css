@@ -84,15 +84,6 @@
 .tr_1 td {
 	padding-bottom: 38px;
 }
-.tr_1:before {
-	content: "";
-	position: absolute;
-	width: 92%;
-	top: 55px;
-	height: 1px;
-	background-color: rgba(120, 120, 120, 0.72);
-	left: 5%;
-}
 .main_content_td10 {
 	left: -61px;
     position: relative;
@@ -110,6 +101,15 @@
     transition: .3s;
     background-color: #ff8a8a;
     z-index: 2;
+}
+.tr_1:before {
+	content: "";
+	position: absolute;
+	width: 92%;
+	top: 55px;
+	height: 1px;
+	background-color: rgba(120, 120, 120, 0.72);
+	left: 5%;
 }
 .td_1_d a {
     position: absolute;
