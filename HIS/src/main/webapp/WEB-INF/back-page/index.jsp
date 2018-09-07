@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="artGroup slide artGroup_3">
 				<div class="artwork"> <img src="/HIS/res/img/10.jpg">
-					<a href="">
+					<a href="/HIS/admin/division.do">
 						<div class="detail">
 							<h3>门诊管理</h3>
 							<p><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>通过科室编号查询部门编号、科室名字、简介、人数，以及添加、更新、删除科室信息。</p>
@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="artGroup slide artGroup_6">
 				<div class="artwork"> <img src="/HIS/res/img/11.jpg">
-					<a href="">
+					<a href="/HIS/admin/costList.do">
 						<div class="detail">
 							<h3>收费管理</h3>
 							<p><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>通过详细费用编号或者病历编号查询详细费用信息、通过病历号查询所有缴费单、通过详细费用编号修改支付方式、通过详细费用编号修改费用表、删除费用表。</p>

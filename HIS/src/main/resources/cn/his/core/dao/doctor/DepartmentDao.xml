@@ -55,6 +55,14 @@
 			code = #{code}
 		</where>
 	</select>
+	
+	<!-- 根据id查询科室信息 -->
+	<select id="findDepartmentById" parameterType="Integer" resultMap="Department">
+		select * from department
+		<where>
+			id = #{id}
+		</where>
+	</select>
 
 	<!-- 根据部门编号查询部门信息 -->	
 	<select id="findDivisionByCode" parameterType="String" resultMap="Department">
@@ -84,11 +92,23 @@
 	<insert id="insertDepartment" parameterType="Department">
 		insert into department
 		<trim prefix="(" suffix=")">
-			code, p_code, name, introduction
+			<if test="code != null">
+				code,
+			</if>
+			<if test="p_code != null">
+				 p_code,
+			</if>
+			 name, introduction
 		</trim>
 		values
 		<trim prefix="(" suffix=")">
-			#{code}, #{p_code}, #{name}, #{introduction}
+			<if test="code != null">
+				#{code},
+			</if>
+			<if test="p_code != null">
+				#{p_code},
+			</if>
+			  #{name}, #{introduction}
 		</trim>
 	</insert>
 	

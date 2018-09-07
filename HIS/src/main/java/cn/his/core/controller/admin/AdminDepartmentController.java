@@ -1,0 +1,107 @@
+package cn.his.core.controller.admin;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import cn.his.core.model.doctor.Department;
+import cn.his.core.service.doctor.DepartmentService;
+import cn.his.core.service.doctor.DoctorService;
+
+/**
+ * 后台科室管理模块
+ * @author chenruiying
+ *
+ */
+@Controller
+public class AdminDepartmentController {
+
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private DoctorService doctorService;
+	
+	/**
+	 * 部门列表
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/division.do")
+	public String division(ModelMap model) {
+		List<Department> list = departmentService.findDivisionList();
+		model.addAttribute("list", list);
+		return "department_a";
+	}
+	
+	/**
+	 * 某部门科室列表
+	 * @param code
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/department.do")
+	public String department(String code, ModelMap model) {
+		List<Department> list = departmentService.findDepartmentListByP_code(code);
+		model.addAttribute("list", list);
+		return "";
+	}
+	
+	/**
+	 * 新增科室
+	 * @param department
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/addDepartment.do")
+	public String addDepartment(Department department) {
+		departmentService.insertDepartment(department);
+		return "";
+	}
+	
+	/**
+	 * 修改部门信息
+	 * @param department
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/updateDepartment.do")
+	public String updateDivision(Department department) {
+		departmentService.updateDepartment(department);
+		if ("".equals(department.getCode())) {
+			return "redirect:/admin/division.do";
+		} else {
+			return "redirect:/admin/department.do?code=" + department.getP_code();
+		}
+	}
+	
+	/**
+	 * 删除部门
+	 * @param id
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/deleteDepartment.do")
+	public String deleteDepartment(int id, ModelMap model) {
+		Department department = departmentService.findDepartmentById(id);
+		if ("".equals(department.getCode())) {
+			int departmentNumber = departmentService.getDepartmentCount(department);
+			if (departmentNumber == 0) {
+				departmentService.deleteDepartment(id);
+				return "";
+			} else {
+				model.addAttribute("msg", "该部门还存在科室，不能删除！");
+				return "";
+			}
+		} else {
+			int doctorNumber = doctorService.getDoctorCountByDepartment(department.getCode());
+			if (doctorNumber == 0) {
+				departmentService.deleteDepartment(id);
+				return "";
+			} else {
+				model.addAttribute("msg", "该部门还有医生，不能删除！");
+				return "";
+			}
+		}
+	}
+}

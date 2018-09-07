@@ -14,6 +14,8 @@ public class Department extends Page {
 	private String p_code;//部门编号
 	private String name;//科室名字
 	private String introduction;//简介
+	private int doctornum;
+	private int departmentnum;
 	private List<Doctor> doctors;
 
 	public Department(int id, String code, String p_code, String name, String introduction, List<Doctor> doctors) {
@@ -29,6 +31,21 @@ public class Department extends Page {
 	public Department() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public int getDoctornum() {
+		return doctornum;
+	}
+
+	public int getDepartmentnum() {
+		return departmentnum;
+	}
+
+	public void setDepartmentnum(int departmentnum) {
+		this.departmentnum = departmentnum;
+	}
+
+	public void setDoctornum(int doctornum) {
+		this.doctornum = doctornum;
 	}
 
 	public int getId() {

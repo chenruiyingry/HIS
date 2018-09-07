@@ -21,6 +21,13 @@ public interface DoctorDao {
 	public int getDoctorCount(Doctor doctor);
 	
 	/**
+	 * 查询部门医生数量
+	 * @param code
+	 * @return
+	 */
+	public int getDoctorCountByDepartment(String code);
+	
+	/**
 	 * 通过医生编号查找医生信息
 	 * @param dcode
 	 * @return

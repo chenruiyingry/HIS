@@ -34,9 +34,9 @@
 				<a href="/HIS/admin/doctorList.do">医生</a>
 				<a href="/HIS/admin/patientList.do">病人</a>
 				<a href="">病房</a>
-				<a href="">门诊</a>
+				<a href="/HIS/admin/division.do">门诊</a>
 				<a href="/HIS/admin/durglist.do">药品</a>
-				<a href="">收费</a>
+				<a href="/HIS/admin/costList.do">收费</a>
 			</div>
 			<p class="username">${admin_session.username }</p>
 			<a href="/HIS/admin/logout.do" class="sign-out" title="退出"><i class="fa fa-sign-out"></i></a>

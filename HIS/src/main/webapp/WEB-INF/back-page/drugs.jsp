@@ -33,6 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:forEach items="${pagination.list }" var="drug">
 					<div class="main_content js_${drug.id }"><!-- 循环 -->
 						<p class="name">${drug.name }</p>
+						<a href="" class="delete delete_${drug.id }"><i class="fa fa-times" aria-hidden="true"></i></a>
 						<p class="effect"><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>${drug.funcction }</p>
 					</div>
 				</c:forEach>
@@ -134,6 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('.submit_bar').css({"height": "100%",});
 				$('.submit_2').css({"margin-bottom": "0%", "left": "0px", "width": "100%", "height": "40px", "background-color": "#57a0d2cf",});
 				$('.submit_2').val("返回");
+				$('.delete_${drug.id }').css({"color": "#ff8a8a",});
 				$('.button_1').css({"z-index": "3","background-color": "rgb(255, 138, 138)",});
 				$('.js_${drug.id }').css({"box-shadow": "rgba(0, 0, 0, 0.43) -3px 3px 5px", "left": "3px",});
 				$.ajax({
@@ -156,9 +158,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 			$('.js_${drug.id }').mouseout(function (){
 				$('.js_${drug.id }').css({"box-shadow": "rgba(0, 0, 0, 0.43) 0px 0px 0px", "left": "0%",});
+				$('.delete_${drug.id }').css({"color": "#ff8a8a00",});
 			});
 		});
 		</script>
 	</c:forEach>
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$(".previouspage").html("<i class='fa fa-arrow-left fa-2x' aria-hidden='true' title='上一页'></i>");
+			$(".nextpage").html("<i class='fa fa-arrow-right fa-2x' aria-hidden='true' title='下一页'></i>");
+		});
+	</script>
 </body>
 </html>

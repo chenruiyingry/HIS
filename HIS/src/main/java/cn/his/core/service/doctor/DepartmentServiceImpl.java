@@ -27,7 +27,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Department> findDivisionList() {
-		return departmentDao.findDivisionList();
+		List<Department> list = departmentDao.findDivisionList();
+		for (Department department : list) {
+			Department department2 = new Department();
+			department2.setP_code(department.getP_code());
+			int departmentcount = departmentDao.getDepartmentCount(department2);
+			department.setDepartmentnum(departmentcount);
+		}
+		return list;
 	}
 
 	@Transactional(readOnly = true)
@@ -73,6 +80,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Override
 	public boolean deleteDepartment(Integer id) {
 		return departmentDao.deleteDepartment(id);
+	}
+
+	@Override
+	public Department findDepartmentById(int id) {
+		return departmentDao.findDepartmentById(id);
 	}
 	
 

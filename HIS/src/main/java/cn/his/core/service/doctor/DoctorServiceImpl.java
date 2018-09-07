@@ -104,4 +104,9 @@ public class DoctorServiceImpl implements DoctorService {
 		return pagination;
 	}
 
+	@Override
+	public int getDoctorCountByDepartment(String code) {
+		return doctorDao.getDoctorCountByDepartment(code);
+	}
+
 }

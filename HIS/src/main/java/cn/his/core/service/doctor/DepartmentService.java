@@ -34,6 +34,13 @@ public interface DepartmentService {
 	public Department findDepartmentByCode(String code);
 	
 	/**
+	 * 根据id查询科室信息
+	 * @param id
+	 * @return
+	 */
+	public Department findDepartmentById(int id);
+	
+	/**
 	 * 根据部门编号查询部门信息
 	 * @param code
 	 * @return

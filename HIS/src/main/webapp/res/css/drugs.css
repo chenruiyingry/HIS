@@ -197,6 +197,13 @@
 	right: 5%;
 	display: block;
 }
+.delete {
+	position: absolute;
+    top: -2px;
+    right: 2px;
+    color: #ff8a8a00;
+    transition: .3s;
+}
 .pagin lable {
 	display: none;
 }

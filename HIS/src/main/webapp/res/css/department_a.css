@@ -1,0 +1,180 @@
+.main {
+	padding: 0px 5%;
+	overflow-y: scroll;
+}
+.module {
+	position: relative;
+    width: 20.8%;
+    height: 35%;
+    background-color: #f5f5f5;
+    float: left;
+    margin: 0px 2%;
+    margin-top: 5%;
+    transition: .3s;
+}
+.module:hover {
+	left: -3px;
+	top: -3px;
+	box-shadow: rgba(0, 0, 0, 0.32) 3px 3px 5px;
+}
+.plus {
+	position: absolute;
+    border: none;
+    width: 100%;
+    height: 100%;
+    background-color: #0000;
+    outline: none;
+    z-index: 1;
+}
+.fa-5x {
+    position: absolute;
+    width: 100%;
+    height: 38%;
+    top: 31%;
+    text-align: center;
+    font-size: 8em;
+    transition: .3s;
+    color: rgb(74, 74, 74);
+}
+.module_plus {
+	z-index: 3;
+}
+.module_plus:hover {
+	left: 0px;
+	top: 0px;
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px;
+}
+.md {
+	position: relative;
+    width: 10%;
+    height: 10%;
+    float: right;
+    background-color: #ff9595;
+    transition: .3s;
+    border-bottom-left-radius: 100%;
+    z-index: 2;
+}
+.mds {
+	position: absolute;
+	top: 0%;
+    width: 0px;
+    right: 0%;
+    height: 0px;
+    border: none;
+    border-radius: 50%;
+    padding: 0px;
+    border: 1px solid #fff0;
+    background-color: #c3c3c3;
+    transition: .3s;
+    color: #fff;
+    outline: none;
+}
+.return {
+	z-index: -1;
+}
+.submit {
+	z-index: -1;
+	transition: .3s;
+}
+.mds:hover {
+	border: 1px solid #fff;
+	background-color: #6edbf9;
+}
+.vd {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 0px;
+    height: 0px;
+    text-decoration: none;
+    border: 1px solid #fff0;
+    background-color: #c3c3c3;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 60px;
+    color: #fff;
+    z-index: 1;
+    transition: .3s;
+}
+.vd:hover {
+	border: 1px solid #fff;
+	background-color: #6edbf9;
+}
+.view {
+	z-index: 2;
+	color: #fff0;
+}
+.number_p {
+    position: absolute;
+    margin: 0px;
+    bottom: 7%;
+    left: 5%;
+}
+.module .name {
+	position: absolute;
+    top: 10%;
+    left: 5%;
+    border: none;
+    font-size: 17px;
+    background-color: #fff0;
+    outline: none;
+}
+.number {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    margin: 0px;
+}
+.module textarea {
+    position: absolute;
+    left: 5%;
+    width: 90%;
+    top: 25%;
+    height: 53%;
+    border: none;
+    outline: none;
+    transition: .3s;
+    padding: 5px 0px;
+    font-size: 16px;
+}
+.return_p {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 0px;
+    height: 0px;
+    padding: 0px;
+    border-bottom-left-radius: 100%;
+    background-color: #ff9595;
+    border: none;
+    outline: none;
+    z-index: 2;
+}
+.name_2 {
+    position: absolute;
+    border-radius: 3px;
+    border: none;
+    padding: 3% 0%;
+    width: 0%;
+    left: 21%;
+    top: 7%;
+    outline: none;
+}
+.module .plusresume {
+	height: 0%;
+	padding: 0px 0px;
+}
+.save {
+	position: absolute;
+    width: 0%;
+    left: 50%;
+    padding: 0px;
+    bottom: 10%;
+    height: 0%;
+    border: none;
+    border-radius: 50%;
+    background-color: #ff9595;
+    color: #fff;
+    outline: none;
+    transition: .3s;
+}

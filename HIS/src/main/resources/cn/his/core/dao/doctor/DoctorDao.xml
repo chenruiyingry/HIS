@@ -59,6 +59,13 @@
 		</where>
 	</select>
 	
+	<select id="getDoctorCountByDepartment" parameterType="Doctor" resultType="Integer">
+		select count(1) from doctor
+		<where>
+			department_code = #{code}
+		</where>
+	</select>
+	
 	<!-- 通过医生代码查询医生信息 -->
 	<select id="findDoctorByCode" parameterType="String" resultMap="Doctor">
 		select id, code, password, name, sex, native_place, nation, birth, degree, graduate, address, phone, email, qualification,

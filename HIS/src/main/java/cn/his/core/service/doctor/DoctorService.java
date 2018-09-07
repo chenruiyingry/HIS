@@ -26,6 +26,13 @@ public interface DoctorService {
 	 * @return
 	 */
 	public Doctor login(String code, String password);
+	
+	/**
+	 * 查询部门医生数量
+	 * @param code
+	 * @return
+	 */
+	public int getDoctorCountByDepartment(String code);
 
 	/**
 	 * 添加医生
