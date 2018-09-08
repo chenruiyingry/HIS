@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.his.core.dao.WardDao">
 	<resultMap type="Ward" id="Ward">
+		<id column="id" property="id"/>
 		<result column="ward_code" property="ward_code"/>
 		<result column="bed_code" property="bed_code"/>
 		<result column="type" property="type"/>
 		<result column="price" property="price"/>
-		<result column="isOccupy" property="isOccupy"/>
+		<result column="occupy" property="occupy"/>
 	</resultMap>
 	
 	<!-- 通过病床号，查询病房所有信息 -->
@@ -38,6 +39,14 @@
 		</where>
 	</select>
 	
+	<!-- 通过id查询信息 -->
+	<select id="selectWardByID" parameterType="Integer" resultMap="Ward">
+		select * from ward
+		<where>
+			id = #{id}
+		</where>
+	</select>
+	
 	<!-- 通过病房号查询病床集合 -->
 	<select id="selectBedListByWard_code" parameterType="String" resultMap="Ward">
 		select * from ward
@@ -50,7 +59,7 @@
 	<select id="findLessBedByWard_code" parameterType="String" resultMap="Ward">
 		select * from ward 
 		<where>
-			ward_code = #{ward_code} and bed_code is not null and isOccupy = 0
+			ward_code = #{ward_code} and bed_code is not null and occupy = 0
 		</where>
 	</select>
 	
@@ -74,7 +83,7 @@
 	<select id="getLessBedCountByWord_code" parameterType="String" resultType="Integer">
 		select count(1) from ward 
 		<where>
-			ward_code = #{ward_code} and bed_code is not null and isOccupy = 0
+			ward_code = #{ward_code} and bed_code is not null and occupy = 0
 		</where>
 	</select>
 	
@@ -82,11 +91,39 @@
 	<insert id="insertWard" parameterType="Ward">
 		insert into ward
 		<trim prefix="(" suffix=")">
-			ward_code , bed_code , type , price , isOccupy
+			<if test="ward_code != null">
+				ward_code ,
+			</if>
+			<if test="bed_code != null">
+				bed_code ,
+			</if>
+			<if test="type != null">
+				 type ,
+			</if>
+			<if test="price != null">
+				price ,
+			</if>
+			<if test="occupy != null">
+				occupy
+			</if> 
 		</trim>
 		values
 		<trim prefix="(" suffix=")">
-			#{ward_code} , #{bed_code} , #{type} , #{price} , #{isOccupy}
+			<if test="ward_code != null">
+				#{ward_code} ,
+			</if>
+			<if test="bed_code != null">
+				#{bed_code} ,
+			</if>
+			<if test="type != null">
+				#{type} ,
+			</if>
+			<if test="price != null">
+				#{price} ,
+			</if>
+			<if test="occupy != null">
+				#{occupy}
+			</if> 
 		</trim>
 	</insert>
 	
@@ -106,8 +143,8 @@
 			<if test="price != null">
 				price = #{price},
 			</if>
-			<if test="isOccupy != null">
-				isOccupy = #{isOccupy}
+			<if test="occupy != null">
+				occupy = #{occupy}
 			</if>
 		</set>
 		<where>

@@ -41,6 +41,13 @@ public interface WardService {
 	public List<Ward> findLessBedByWard_code(String ward_code);
 	
 	/**
+	 * 通过id查询信息
+	 * @param id
+	 * @return
+	 */
+	public Ward selectWardByID(int id);
+	
+	/**
 	 * 查询医院病房数量
 	 * @return
 	 */
@@ -71,6 +78,13 @@ public interface WardService {
 	 * @param ward
 	 */
 	public boolean updateWardById(Ward ward);
+	
+	/**
+	 * 通过病房号修改病房信息
+	 * @param ward
+	 * @return
+	 */
+	public boolean updateWardByWard_code(Ward ward, String oldWard_code);
 	
 	/**
 	 * 通过病房号进行删除

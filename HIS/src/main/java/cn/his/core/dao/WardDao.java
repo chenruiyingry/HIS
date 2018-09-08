@@ -14,6 +14,13 @@ public interface WardDao {
 	public Ward findWardByBed_codeAndWard_code(Ward ward);
 	
 	/**
+	 * 通过id查询信息
+	 * @param id
+	 * @return
+	 */
+	public Ward selectWardByID(int id);
+	
+	/**
 	 * 通过病房编号，查询所有信息
 	 * @param ward_code
 	 * @return
@@ -55,10 +62,10 @@ public interface WardDao {
 	
 	/**
 	 * 查询某病房的未被占用病床数量
-	 * @param word_code
+	 * @param ward_code
 	 * @return
 	 */
-	public int getLessBedCountByWord_code(String word_code);
+	public int getLessBedCountByWord_code(String ward_code);
 	
 	/**
 	 * 添加新的病房或病床

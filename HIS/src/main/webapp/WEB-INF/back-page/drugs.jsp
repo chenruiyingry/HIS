@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:forEach items="${pagination.list }" var="drug">
 					<div class="main_content js_${drug.id }"><!-- 循环 -->
 						<p class="name">${drug.name }</p>
-						<a href="" class="delete delete_${drug.id }"><i class="fa fa-times" aria-hidden="true"></i></a>
+						<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {window.location.reload();return false;} window.location.href='/HIS/admin/deleteDrug.do?code=${drug.code }'"  class="delete delete_${drug.id }"><i class="fa fa-times" aria-hidden="true"></i></a>
 						<p class="effect"><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>${drug.funcction }</p>
 					</div>
 				</c:forEach>

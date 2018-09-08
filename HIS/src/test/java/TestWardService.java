@@ -7,7 +7,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.his.core.model.Ward;
-import cn.his.core.model.Ward.Type;
 import cn.his.core.service.WardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,7 +53,7 @@ public class TestWardService {
 		List<Ward> wards = wardService.findLessBedByWard_code("103");
 		for (int i = 0; i < wards.size(); i++) {
 			System.out.println(wards.get(i));
-			System.out.println(wards.get(i).getType().getName());
+			System.out.println(wards.get(i).getType());
 		}
 	}
 	
@@ -89,7 +88,7 @@ public class TestWardService {
 		bed.setBed_code("001");
 		bed.setOccupy(false);
 		bed.setPrice(200);
-		bed.setType(Type.NORMAL);
+		bed.setType("NORMAL");
 		System.out.println(bed.toString());
 		wardService.insertWard(bed);
 		System.out.println("添加成功");

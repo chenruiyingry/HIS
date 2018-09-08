@@ -62,6 +62,7 @@ public class AdminDrugController {
 	public void drug(String code, HttpServletResponse response) {
 		Drug drug = drugService.findDrugByCode(code);
 		JSONObject jsonObject = new JSONObject();
+		@SuppressWarnings("static-access")
 		String jsonString = jsonObject.toJSONString(drug);
 		ResponseUtils.renderJson(response, jsonString);
 	}
@@ -85,6 +86,17 @@ public class AdminDrugController {
 	@RequestMapping(value = "/admin/updateDrug.do")
 	public String updateDrug(Drug drug) {
 		drugService.updateDrug(drug);
+		return "redirect:/admin/durglist.do";
+	}
+	
+	/**
+	 * 删除药品
+	 * @param code
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/deleteDrug.do")
+	public String deleteDrug(String code) {
+		drugService.deleteDrug(code);
 		return "redirect:/admin/durglist.do";
 	}
 }

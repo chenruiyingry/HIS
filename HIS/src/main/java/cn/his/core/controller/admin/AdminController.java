@@ -101,6 +101,8 @@ public class AdminController {
 			model.addAttribute("name", "科室管理");
 		} else if ("division".equals(headname)) {
 			model.addAttribute("name", "部门管理");
+		} else if ("ward".equals(headname)) {
+			model.addAttribute("name", "病房管理");
 		}
 		return "head";
 	}

@@ -32,7 +32,12 @@ public class WardServiceImpl implements WardService{
 	@Transactional(readOnly = true)
 	@Override
 	public List<Ward> selectWardList() {
-		return wardDao.selectWardList();
+		List<Ward> wards = wardDao.selectWardList();
+		for (Ward ward : wards) {
+			List<Ward> beds = wardDao.selectBedListByWard_code(ward.getWard_code());
+			ward.setBeds(beds);
+		}
+		return wards;
 	}
 
 	@Transactional(readOnly = true)
@@ -78,6 +83,23 @@ public class WardServiceImpl implements WardService{
 	@Override
 	public List<Ward> selectBedListByWard_code(String ward_code) {
 		return wardDao.selectBedListByWard_code(ward_code);
+	}
+
+	@Override
+	public Ward selectWardByID(int id) {
+		return wardDao.selectWardByID(id);
+	}
+
+	@Override
+	public boolean updateWardByWard_code(Ward ward, String oldWard_code) {
+		List<Ward> beds = wardDao.selectBedListByWard_code(oldWard_code);
+		if (wardDao.updateWardById(ward)) {
+			for (Ward bed : beds) {
+				bed.setWard_code(ward.getWard_code());
+				wardDao.updateWardById(bed);
+			}
+		}
+		return true;
 	}
 
 }

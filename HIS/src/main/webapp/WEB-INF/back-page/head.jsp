@@ -33,7 +33,7 @@
 			<div class="bar_1" id="bar">
 				<a href="/HIS/admin/doctorList.do">医生</a>
 				<a href="/HIS/admin/patientList.do">病人</a>
-				<a href="">病房</a>
+				<a href="/HIS/admin/ward.do">病房</a>
 				<a href="/HIS/admin/division.do">门诊</a>
 				<a href="/HIS/admin/durglist.do">药品</a>
 				<a href="/HIS/admin/costList.do">收费</a>

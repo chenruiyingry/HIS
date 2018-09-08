@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="artGroup slide artGroup_4">
 				<div class="artwork"> <img src="/HIS/res/img/8.jpg">
-					<a href="">
+					<a href="/HIS/admin/ward.do">
 						<div class="detail"> 
 							<h3>病房管理</h3>
 							<p><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>通过病房编号查询病床编号、通过病床编号查询病床是否被占用。可以添加、更新、删除病房编号与病床编号。</p>
