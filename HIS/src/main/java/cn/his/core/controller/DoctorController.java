@@ -55,6 +55,7 @@ public class DoctorController {
 			return "redirect:/toIndex.action";
 		} else {
 			model.addAttribute("msg", "用户名或密码错误");
+			
 			return "login_s";
 		}
 	}

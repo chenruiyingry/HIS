@@ -96,7 +96,7 @@ public class PatientServiceImpl implements PatientService {
 			medical_record.setCode(Integer.toString(num2));
 			medical_recordDao.insertMedical_record(medical_record);
 		}
-		return true;
+		return true; 
 	}
 
 	@Override
