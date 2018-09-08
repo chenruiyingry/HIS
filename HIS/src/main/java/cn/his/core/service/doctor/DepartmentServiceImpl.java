@@ -20,7 +20,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Department> findDepartmentList(Department department) {
+	public List<Department> findDepartmentList(Department department) {	
 		return departmentDao.findDepartmentList(department);
 	}
 
@@ -40,7 +40,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Department> findDepartmentListByP_code(String p_code) {
-		return departmentDao.findDepartmentListByP_code(p_code);
+		List<Department> list = departmentDao.findDepartmentListByP_code(p_code);
+		for (Department department2 : list) {
+			int doctornum = doctorDao.getDoctorCountByDepartment(department2.getCode());
+			department2.setDoctornum(doctornum);
+		}
+		return list;
 	}
 
 	@Transactional(readOnly = true)
@@ -69,6 +74,24 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 	@Override
 	public boolean insertDepartment(Department department) {
+		//部门
+		if (department.getP_code() == null) {
+			List<Department> division = departmentDao.findDivisionList();
+			int num = Integer.parseInt(division.get(division.size() - 1).getP_code()) + 100;
+			department.setP_code(Integer.toString(num));
+		} 
+		//科室
+		else {
+			List<Department> departments = departmentDao.findDepartmentListByP_code(department.getP_code());
+			if (departments.size() > 0) {
+				int num = Integer.parseInt(departments.get(departments.size() - 1).getCode())  + 1;
+				department.setCode(Integer.toString(num));
+			} else {
+				int num = Integer.parseInt(department.getP_code())  + 1;
+				department.setCode(Integer.toString(num));
+			}
+			
+		}
 		return departmentDao.insertDepartment(department);
 	}
 

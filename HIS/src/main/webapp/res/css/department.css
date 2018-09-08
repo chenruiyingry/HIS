@@ -24,7 +24,7 @@
 .delete_a {
     display: none;
 }
-#time {
+.time {
     position: absolute;
     width: 100%;
     height: 10%;

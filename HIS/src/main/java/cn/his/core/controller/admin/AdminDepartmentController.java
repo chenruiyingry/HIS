@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.his.core.model.doctor.Department;
 import cn.his.core.service.doctor.DepartmentService;
@@ -46,7 +47,19 @@ public class AdminDepartmentController {
 	public String department(String code, ModelMap model) {
 		List<Department> list = departmentService.findDepartmentListByP_code(code);
 		model.addAttribute("list", list);
-		return "";
+		model.addAttribute("p_code", code);
+		return "department";
+	}
+	
+	/**
+	 * 新增部门
+	 * @param department
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/addDivision.do", method = RequestMethod.POST)
+	public String addDivision(Department department) {
+		departmentService.insertDepartment(department);
+		return "redirect:/admin/division.do";
 	}
 	
 	/**
@@ -54,10 +67,10 @@ public class AdminDepartmentController {
 	 * @param department
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/addDepartment.do")
+	@RequestMapping(value = "/admin/addDepartment.do", method = RequestMethod.POST)
 	public String addDepartment(Department department) {
 		departmentService.insertDepartment(department);
-		return "";
+		return "redirect:/admin/department.do?code=" + department.getP_code();
 	}
 	
 	/**
@@ -65,10 +78,10 @@ public class AdminDepartmentController {
 	 * @param department
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/updateDepartment.do")
-	public String updateDivision(Department department) {
+	@RequestMapping(value = "/admin/updateDepartment.do", method= RequestMethod.POST)
+	public String updateDepartment(Department department) {
 		departmentService.updateDepartment(department);
-		if ("".equals(department.getCode())) {
+		if (department.getCode() == null) {
 			return "redirect:/admin/division.do";
 		} else {
 			return "redirect:/admin/department.do?code=" + department.getP_code();
@@ -84,24 +97,22 @@ public class AdminDepartmentController {
 	@RequestMapping(value = "/admin/deleteDepartment.do")
 	public String deleteDepartment(int id, ModelMap model) {
 		Department department = departmentService.findDepartmentById(id);
-		if ("".equals(department.getCode())) {
+		if (department.getCode() == null) {
 			int departmentNumber = departmentService.getDepartmentCount(department);
 			if (departmentNumber == 0) {
 				departmentService.deleteDepartment(id);
-				return "";
 			} else {
 				model.addAttribute("msg", "该部门还存在科室，不能删除！");
-				return "";
 			}
+			return "redirect:/admin/division.do";
 		} else {
 			int doctorNumber = doctorService.getDoctorCountByDepartment(department.getCode());
 			if (doctorNumber == 0) {
 				departmentService.deleteDepartment(id);
-				return "";
 			} else {
 				model.addAttribute("msg", "该部门还有医生，不能删除！");
-				return "";
 			}
 		}
+		return "redirect:/admin/department.do?code=" + department.getP_code();
 	}
 }

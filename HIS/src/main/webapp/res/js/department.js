@@ -1,46 +1,6 @@
 var main = document.getElementById('main');
 main.style.height = $(window).height()-72+"px";
 $(document).ready(function (){
-	$('.modif').mousedown(function (){
-		timeout = setTimeout(function() {
-			$('#module').css({"color": "rgba(74, 74, 74, 0.56)",});
-			$('.name').css({"color": "rgba(74, 74, 74, 0.56)", "z-index": "2",});
-			$('.textarea').css({"color": "rgba(74, 74, 74, 0.56)", "z-index": "2",});
-			$('.cs').css({"display": "block",});
-			$('.modif').css({"background-color": "rgba(0, 0, 0, 0.16)", "width": "100%",});
-		}, 300);
-	});
-	$('.delete').mousedown(function (){
-		timeout = setTimeout(function() {
-			$('#module').css({"color": "rgba(74, 74, 74, 0.56)", "background-color": "#ffc8c8",});
-			$('.name').css({"color": "rgba(74, 74, 74, 0.56)",});
-			$('.textarea').css({"color": "rgba(74, 74, 74, 0.56)",});
-			$('.delete').css({"background-color": "rgba(0, 0, 0, 0.16)", "width": "100%",});
-			setTimeout(function() {
-				$('.delete_a')[0].click();
-			}, 3500);
-			$(function (){
-				var s = 2;
-				setInterval(function (){
-					$('#time').html("0." + s + "s 后删除");
-					s--;
-				}, 1000)
-			});
-		}, 200);
-	});
-	$('.md').mouseup(function (){
-		clearTimeout(timeout);
-		$('#module').css({"color": "rgba(74, 74, 74)",});
-		$('.name').css({"color": "rgba(74, 74, 74)",});
-		$('.textarea').css({"color": "rgba(74, 74, 74)",});
-		$('.modif').css({"background-color": "rgba(0, 0, 0, 0)","width": "50%",});	
-	});
-	$('.md').mouseout(function (){
-		$('#module').css({"color": "rgba(74, 74, 74)",});
-		$('.name').css({"color": "rgba(74, 74, 74)",});
-		$('.textarea').css({"color": "rgba(74, 74, 74)",});
-		$('.modif').css({"background-color": "rgba(0, 0, 0, 0)","width": "50%",});
-	});
 	$('.plus').click(function (){
 		$('.plus').css({"z-index": "0",});
 		$('.fa-plus-square-o').css({"font-size": "0em", "top": "0%", "right": "0%", "width": "0%", "height": "0%", "color": "#0000", "transition": ".3s",});

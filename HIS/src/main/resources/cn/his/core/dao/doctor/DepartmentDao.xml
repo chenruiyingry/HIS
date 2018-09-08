@@ -43,9 +43,6 @@
 			p_code = #{p_code} and code is not null
 		</where>
 		order by id
-		<if test="startRow != null">
-			limit #{startRow},#{pageSize}
-		</if>
 	</select>
 	
 	<!-- 根据科室编号查询科室信息 -->

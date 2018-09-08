@@ -26,14 +26,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="button" value="删除" class="delete mds delete_${division.id } mds_${division.id }">
 					<input type="button" value="返回" class="return mds return_${division.id } mds_${division.id }">
 				</div>
-				<a href="" class="view vd view_${division.id }"></a>
-				<a href="" class="delete_a vd delete_a_${division.id }"></a>
-				<form action="">
-					<input type="text" value="${division.name }" class="name nt nt_${division.id }" readonly>
+				<a href="/HIS/admin/department.do?code=${division.p_code }" class="view vd view_${division.id }"></a>
+				<a href="/HIS/admin/deleteDepartment.do?id=${division.id }" class="delete_a vd delete_a_${division.id }"></a>
+				<form action="/HIS/admin/updateDepartment.do" method="post" onsubmit="return check()">
+					<input type="hidden" name="id" value="${division.id }">
+					<input type="text" value="${division.name }" class="name nt nt_${division.id }" readonly name="name" id="name">
 					<p class="number">编号：${division.p_code }</p>
-					<textarea class="textarea nt nt_${division.id } textarea_${division.id }" readonly>${division.introduction }</textarea>
+					<textarea class="textarea nt nt_${division.id } textarea_${division.id }" readonly name="introduction" id="introduction">${division.introduction }</textarea>
 					<p class="number_p">科室数量：${division.departmentnum }</p>
-					<input type="submit" value="保存" class="submit mds ms submit_${division_id } mds_${division.id}">
+					<input type="submit" value="保存" class="submit mds ms submit_${division.id } mds_${division.id}">
 				</form>
 			</div>
 		</c:forEach>
@@ -41,13 +42,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="button" class="return_p" title="单击返回">
 			<input type="button" class="plus">
 			<i class="fa fa-plus-square-o fa-5x" aria-hidden="true"></i>
-			<form action="">
-				<input type="text" value="部门名称" class="name_2">
-				<textarea class="plusresume">部门简介</textarea>
+			<form action="/HIS/admin/addDivision.do" method="post" onsubmit="return check1()">
+				<input type="text" value="" placeholder="部门名称" class="name_2" name="name" id="name1">
+				<textarea class="plusresume" name="introduction" placeholder="部门简介" id="introduction1"></textarea>
 				<input type="submit" value="保存" class="save">
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript" src="/HIS/res/js/department_aIsnull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/department_a.js"></script>
 	<c:forEach items="${list }" var="division">
