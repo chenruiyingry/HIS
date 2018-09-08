@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class='container'>
 			<div class='wrap'>
 				<div class='crop'>
-					<a href="" title="挂号"><img src='/HIS/res/img/15.jpg'></a>
+					<a href="/HIS/toRegister.action" title="挂号"><img src='/HIS/res/img/15.jpg'></a>
 				</div>
 			</div>
 			<div class='wrap'>

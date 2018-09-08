@@ -16,7 +16,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- <link rel="stylesheet" href="/HIS/res/css/homeHeader.css"> -->
 </head>
 <body>
-	<c:import url="/toHead.action?name=fee"></c:import>
+	<c:import url="/toHead.action">
+		<c:param name="name" value="fee"></c:param>
+	</c:import>
 	<form action="pay.action" method="post">
 	<div class="main" id="main">
 		<div class="main_bar">

@@ -20,6 +20,7 @@ public class Medical_record extends Page {
 	private int hospitalization_days;//住院天数
 	private String date;//病历生成天数
 	private String department;
+	private String department_code;
 	private List<Drug_record> drug_record;//药物信息实体类
 	
 	public Medical_record(String code, String patient_code, String doctor_code, boolean isAssay, String assay_result,
@@ -50,6 +51,14 @@ public class Medical_record extends Page {
 
 	public void setDepartment(String department) {
 		this.department = department;
+	}
+
+	public String getDepartment_code() {
+		return department_code;
+	}
+
+	public void setDepartment_code(String department_code) {
+		this.department_code = department_code;
 	}
 
 	public Medical_record() {

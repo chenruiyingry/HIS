@@ -15,7 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/message.css">
 </head>
 <body>
-	<c:import url="/toHead.action?name=fee"></c:import>
+	<c:import url="/toHead.action">
+		<c:param name="name" value="message"></c:param>
+	</c:import>
 	<c:choose>
 		<c:when test="${code eq 'success' }">
 			<c:set var="img" value="/HIS/res/img/duihao.jpg"/>

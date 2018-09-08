@@ -133,7 +133,11 @@ public class DoctorController {
 			model.addAttribute("name", "首页");
 		} else if ("password".equals(name)) {
 			model.addAttribute("name", "修改密码");
-		} 
+		} else if ("register".equals(name)) {
+			model.addAttribute("name", "挂号系统");
+		} else if ("message".equals(name)) {
+			model.addAttribute("name", "信息系统");
+		}
 		return "head";
 	}
 	

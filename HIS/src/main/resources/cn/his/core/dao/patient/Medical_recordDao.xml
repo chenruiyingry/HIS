@@ -16,6 +16,7 @@
 		<result column="bed_number" property="bed_number"/>
 		<result column="hospitalization_days" property="hospitalization_days"/>
 		<result column="date" property="date"/>
+		<result column="department_code" property="department_code"/>
 	</resultMap>
 	
 	<!-- 通过病人编号查询所有信息 -->
@@ -59,12 +60,12 @@
 		insert into medical_record
 		<trim prefix="(" suffix=")">
 		code , patient_code , doctor_code , isAssay , assay_result , isExamination , examination_result , 
-		diagnostic_result , treatment , isHospitalization , ward_number , bed_number , hospitalization_days , date
+		diagnostic_result , treatment , isHospitalization , ward_number , bed_number , hospitalization_days , date, department_code
 		</trim>
 		values 
 		<trim prefix="(" suffix=")">
 		#{code} , #{patient_code} , #{doctor_code} , #{isAssay} , #{assay_result} , #{isExamination} , #{examination_result} , 
-		#{diagnostic_result} , #{treatment} , #{isHospitalization} , #{ward_number} , #{bed_number} , #{hospitalization_days} , #{date}
+		#{diagnostic_result} , #{treatment} , #{isHospitalization} , #{ward_number} , #{bed_number} , #{hospitalization_days} , #{date}, #{department_code}
 		</trim>
 	</insert>
 	
@@ -107,6 +108,9 @@
 			</if>
 			<if test="date != null">
 				date = #{date},
+			</if>
+			<if test="department_code != null">
+				department_code = #{department_code}
 			</if>
 		<where>
 			code = #{code}

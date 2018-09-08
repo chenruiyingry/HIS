@@ -84,7 +84,19 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public boolean insertPatient(Patient patient) {
-		return patientDao.insertPatient(patient);
+		List<Patient> patients = patientDao.findPatientList(new Patient());
+		int num = Integer.parseInt(patients.get(patients.size() - 1).getCode()) + 1;
+		patient.setCode(Integer.toString(num));
+		patient.setStatus(1);
+		if (patientDao.insertPatient(patient)) {
+			Medical_record medical_record = new Medical_record();
+			medical_record.setPatient_code(Integer.toString(num));
+			List<Medical_record> medical_records = medical_recordDao.findMedical_recordList(new Medical_record());
+			int num2 = Integer.parseInt(medical_records.get(medical_records.size() - 1).getCode()) + 1;
+			medical_record.setCode(Integer.toString(num2));
+			medical_recordDao.insertMedical_record(medical_record);
+		}
+		return true;
 	}
 
 	@Override

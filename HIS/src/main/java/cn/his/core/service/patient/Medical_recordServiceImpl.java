@@ -11,7 +11,6 @@ import cn.his.common.page.Pagination;
 import cn.his.core.dao.drug.DrugDao;
 import cn.his.core.dao.drug.Drug_recordDao;
 import cn.his.core.dao.patient.Medical_recordDao;
-import cn.his.core.model.drug.Drug;
 import cn.his.core.model.drug.Drug_record;
 import cn.his.core.model.patient.Medical_record;
 
@@ -77,6 +76,7 @@ public class Medical_recordServiceImpl implements Medical_recordService{
 	}
 
 	public boolean insertMedical_record(Medical_record medical_record) {
+		
 		return medical_recordDao.insertMedical_record(medical_record);
 	}
 

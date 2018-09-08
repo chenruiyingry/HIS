@@ -14,6 +14,7 @@
 		<result column="past_illness" property="past_illness"/>
 		<result column="allergy" property="allergy"/>
 		<result column="status" property="status"/>
+		<result column="address" property="address"/>
 	</resultMap>
 	
 	<!-- 通过病床号，查询病人信息 -->
@@ -76,8 +77,17 @@
 	
 	<!-- 添加病人信息 -->
 	<insert id="insertPatient" parameterType="Patient">
-		insert into patient(code , doctor_code , name , sex , age , phone , insurance_type , present_illness , past_illness ,allergy , status) values
-		(#{code} , #{doctor_code} , #{name} , #{sex} , #{age} , #{phone} , #{insurance_type} , #{present_illness} , #{past_illness} ,#{allergy} , #{status}) 
+		insert into patient 
+		(code , 
+		<if test="doctor_code != null">
+			doctor_code ,
+		</if> 
+		name , sex , age , phone , insurance_type , present_illness , past_illness ,allergy , status, address) values
+		(#{code} , 
+		<if test="doctor_code != null">
+			#{doctor_code}, 
+		</if> 
+		#{name} , #{sex} , #{age} , #{phone} , #{insurance_type} , #{present_illness} , #{past_illness} ,#{allergy} , #{status}, #{address}) 
 	</insert>
 	
 	<!-- 修改病人信息 -->
@@ -113,6 +123,9 @@
 			</if>
 			<if test="status != null">
 				status = #{status},
+			</if>
+			<if test="address != null">
+				address = #{address}
 			</if>
 		</set>
 		<where>

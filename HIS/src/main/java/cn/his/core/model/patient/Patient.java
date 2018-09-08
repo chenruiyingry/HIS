@@ -20,6 +20,7 @@ public class Patient extends Page {
 	private String past_illness;//既病史
 	private String allergy;//过敏史
 	private int status;//病人状态
+	private String address;//地址
 	private List<Medical_record> medical_record;
 	
 	public Patient(String code, String doctor_code, String name, String sex, int age, String phone, String insurance_type,
@@ -123,12 +124,22 @@ public class Patient extends Page {
 	public void setMedical_record(List<Medical_record> medical_record) {
 		this.medical_record = medical_record;
 	}
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
-		return "Patient [code=" + code + ", name=" + name + ", sex=" + sex + ", age=" + age + ", phone=" + phone
-				+ ", insurance_type=" + insurance_type + ", present_illness=" + present_illness + ", past_illness="
-				+ past_illness + ", allergy=" + allergy + ", status=" + status + ", medical_record=" + medical_record
-				+ "]";
+		return "Patient [id=" + id + ", code=" + code + ", doctor_code=" + doctor_code + ", name=" + name + ", sex="
+				+ sex + ", age=" + age + ", phone=" + phone + ", insurance_type=" + insurance_type
+				+ ", present_illness=" + present_illness + ", past_illness=" + past_illness + ", allergy=" + allergy
+				+ ", status=" + status + ", address=" + address + ", medical_record=" + medical_record + "]";
 	}
+
+	
 	
 }

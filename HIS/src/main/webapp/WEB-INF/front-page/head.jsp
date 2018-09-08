@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="half-head_1">
 			<a class="bar_a" id="bar_a" onmouseover="mov()" onmouseout="mou()"><</a>
 			<div class="bar" id="bar">
-				<a href="">挂号</a>
+				<a href="/HIS/toRegister.action">挂号</a>
 				<a href="">诊疗</a>
 				<a href="/HIS/toFee.action">收费</a>
 				<a href="">取药</a>
