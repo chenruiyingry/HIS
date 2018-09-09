@@ -70,13 +70,13 @@
 		update drug_record
 		<set>
 			<if test="medical_code != null">
-				medical_code = #{medical_code}
+				medical_code = #{medical_code},
 			</if>
 			<if test="drug_code != null">
-				drug_code = #{drug_code}
+				drug_code = #{drug_code},
 			</if>
 			<if test="number != null">
-				number = #{number}
+				number = #{number},
 			</if>
 			<if test="status != null">
 				status = #{status}

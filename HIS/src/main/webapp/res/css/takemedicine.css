@@ -1,0 +1,82 @@
+.main {
+	width: auto;
+	height: 100%;
+	padding: 0px 7%;
+	background-color: #f5f5f5;
+}
+.main_bar {
+	position: relative;
+	width: 90%;
+    height: 85%;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    background-color: #fff;
+    padding: 5%;
+}
+.main_bar_title {
+    top: 3%;
+    width: 90%;
+    text-align: center;
+    font-family: STXingkai;
+    position: absolute;
+    margin: 4px 0px;
+    font-size: 27px;
+   	letter-spacing: 8px;
+}
+.main_header input {
+    border: none;
+    width: 10%;
+    padding: 0px 10px;
+}
+.main_header a {
+    position: absolute;
+    right: 5%;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff9595;
+    padding: 5px 2%;
+    border-radius: 3px;
+    outline: none;
+}
+.main_header .status {
+    color: #f00;
+    font-weight: 600;
+}
+.main_bar table {
+	width: 100%;
+}
+.th {
+	position: absolute;
+	width: 90%;
+    top: 13%;
+    border-bottom: 1px solid rgb(120, 120, 120);
+}
+.tf {
+    position: absolute;
+    width: 91%;
+    bottom: 10%;
+    height: 70%;
+    overflow-y: scroll;
+}
+.td_1 {
+	width: 15%;
+    padding: 20px 10px;
+}
+.td_2 {
+	width: 20%;
+}
+.td_3 {
+	width: 6%;
+}
+.td_4 {
+	width: 8%;
+}
+.td_5 {
+	width: 10%;
+}
+.td_6 {
+	width: 13%;
+}
+.td_7 {
+	width: 13%;
+}

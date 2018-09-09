@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="/HIS/toRegister.action">挂号</a>
 				<a href="">诊疗</a>
 				<a href="/HIS/toFee.action">收费</a>
-				<a href="">取药</a>
+				<a href="/HIS/toDrug.action">取药</a>
 				<a href="/HIS/toUpdate.action">修改密码</a>
 			</div>
 			<a href="toUpdate.action" class="update"></a>
