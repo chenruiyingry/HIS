@@ -17,6 +17,7 @@
 	<div class="main" id="main">
 		<c:forEach items="${wards }" var="ward">
 			<div class="module">
+			<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteWard.do?id=${ward.id }'" class="module_delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
 				<form action="/HIS/admin/updateWard.do" method="post">
 					<input type="hidden" name="id" value="${ward.id }">
 					<input type="hidden" name="oldWard_code" value="${ward.ward_code }">
@@ -41,6 +42,10 @@
 								<input type="button" value="修改" class="bedmod bedmod_${bed.id }">
 								<input type="submit" value="保存" class="bedsave bedsave_${bed.id }">
 							</form>
+							<i class="fa fa-angle-down fa-angle-down_${bed.id }" aria-hidden="true"></i>
+							<div class="delete delete_${bed.id } <c:if test="${!bed.occupy }">idel_down_${bed.id }</c:if><c:if test="${bed.occupy }">occupy_down_${bed.id }</c:if>">
+								<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteBed.do?id=${bed.id }'" class="beddel beddel_${bed.id }">删除</a>
+							</div>
 						</div>
 					</c:forEach>
 					<div class="bed_1 add add_${ward.id } bed_1_${ward.id }">
@@ -77,6 +82,13 @@
 	<script type="text/javascript" src="/HIS/res/js/wardIsNull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/ward.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		if (${!empty msg }) {
+			alert('${msg }');
+		}
+	});
+	</script>
 	<c:forEach items="${wards }" var="ward">
 		<script type="text/javascript">
 		$(document).ready(function (){
@@ -112,6 +124,7 @@
 					$('.idle_${bed.id }').css({"height": "16%",});
 					$('.bedmod_${bed.id }').css({"height": "25px",});
 					$('.bedsave_${bed.id }').css({"height": "25px",});
+					$('.fa-angle-down_${bed.id }').css({"display": "block",});
 				});
 				$('.idle_${bed.id }').mouseleave(function (){
 					$('.bsp_${bed.id }').attr({"readonly": "readonly",});
@@ -120,11 +133,16 @@
 					$('.bedsave_${bed.id }').css({"width": "0%", "left": "50%", "height": "0%",});
 					$('.bsp_${bed.id }').css({"color": "#fff", "background-color": "#8ac3b3",});
 					$('.bed_1_${bed.id }').css({"background-color": "#8ac3b3",});
+					$('.fa-angle-down_${bed.id }').css({"display": "none","color": "#000",});
+					$('.idle_${bed.id }').css({"margin-bottom": "3%",});
+					$('.delete_${bed.id }').css({"height": "0px",});
+					$('.beddel_${bed.id }').css({"height": "0px",});
 				});
 				$('.occupy_${bed.id }').mouseover(function (){
 					$('.occupy_${bed.id }').css({"height": "16%",});
 					$('.bedmod_${bed.id }').css({"height": "25px",});
 					$('.bedsave_${bed.id }').css({"height": "25px",});
+					$('.fa-angle-down_${bed.id }').css({"display": "block",});
 				});
 				$('.occupy_${bed.id }').mouseleave(function (){
 					$('.bsp_${bed.id }').attr({"readonly": "readonly",});
@@ -133,6 +151,10 @@
 					$('.bedsave_${bed.id }').css({"width": "0%", "left": "50%", "height": "0%",});
 					$('.bsp_${bed.id }').css({"color": "#fff", "background-color": "#dc8c8c",});
 					$('.bed_1_${bed.id }').css({"background-color": "#dc8c8c",});
+					$('.fa-angle-down_${bed.id }').css({"display": "none","color": "#000",});
+					$('.occupy_${bed.id }').css({"margin-bottom": "3%",});
+					$('.delete_${bed.id }').css({"height": "0px",});
+					$('.beddel_${bed.id }').css({"height": "0px",});
 				});
 				$('.bedmod_${bed.id }').click(function (){
 					$('.bsp_${bed.id }').removeAttr('readonly');
@@ -168,6 +190,15 @@
 					$('.wardgen_${ward.id }').css({"-webkit-appearance": "none",});
 					$('.cs_${ward.id }').css({"width": "0%",});
 					$('.wardcancel_${ward.id }').attr({"disabled": "disabled",});
+				});
+				$('.fa-angle-down_${bed.id }').click(function (){
+					$('.idle_${bed.id }').css({"margin-bottom": "12%",});
+					$('.occupy_${bed.id }').css({"margin-bottom": "12%",});
+					$('.fa-angle-down_${bed.id }').css({"color": "#fff0",});
+					$('.delete_${bed.id }').css({"height": "33px",});
+					$('.idel_down_${bed.id }').css({"background-color": "#8ac3b3",});
+					$('.occupy_down_${bed.id }').css({"background-color": "rgb(220, 140, 140)",});
+					$('.beddel_${bed.id }').css({"height": "25px",});
 				});
 			});
 			</script>

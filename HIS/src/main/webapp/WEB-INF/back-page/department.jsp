@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<form action="/HIS/admin/updateDepartment.do" method="post" onsubmit="return check()">
 					<div class="modif md modif_${department.id } md_${department.id }" title="长按左侧修改"></div>
 					<div class="delete md md_${department.id } delete_${department.id }" title="长按右侧删除">
-						<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteDrug.do?id=${department.id }'" class="delete_a delete_a_${department.id }">delete</a>
+						<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteDepartment.do?id=${department.id }'" class="delete_a delete_a_${department.id }">delete</a>
 						<p class="time" id="time_${department.id }"></p>
 					</div>
 					<input type="text" value="${department.name }" class="name name_${department.id }" name="name" id="name">
@@ -55,6 +55,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="/HIS/res/js/departmentIsnull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/department.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		if (${!empty msg }) {
+			alert('${msg }');
+		}
+	});
+	</script>
 	<c:forEach items="${list }" var="department">
 		<script type="text/javascript">
 		$(document).ready(function (){

@@ -31,9 +31,10 @@ public class AdminDepartmentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/division.do")
-	public String division(ModelMap model) {
+	public String division(ModelMap model, String msg) {
 		List<Department> list = departmentService.findDivisionList();
 		model.addAttribute("list", list);
+		model.addAttribute("msg", msg);
 		return "department_a";
 	}
 	
@@ -44,10 +45,11 @@ public class AdminDepartmentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/department.do")
-	public String department(String code, ModelMap model) {
+	public String department(String code, ModelMap model, String msg) {
 		List<Department> list = departmentService.findDepartmentListByP_code(code);
 		model.addAttribute("list", list);
 		model.addAttribute("p_code", code);
+		model.addAttribute("msg", msg);
 		return "department";
 	}
 	

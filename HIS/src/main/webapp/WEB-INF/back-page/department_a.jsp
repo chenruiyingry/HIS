@@ -52,6 +52,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="/HIS/res/js/department_aIsnull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/department_a.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				alert('${msg }');
+			}
+		});
+	</script>
 	<c:forEach items="${list }" var="division">
 	<script type="text/javascript">
 		$(document).ready(function (){
