@@ -3,7 +3,6 @@ package cn.his.core.dao.patient;
 import java.util.List;
 
 import cn.his.core.model.patient.Medical_record;
-import cn.his.core.model.patient.Patient;
 
 public interface Medical_recordDao {
 	

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -124,7 +125,7 @@ public class AdminDoctorController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/admin/doctor.do")
-	public String toDoctorInfo(String code, ModelMap model) throws ParseException {
+	public String toDoctorInfo(String code, ModelMap model, String msg) throws ParseException {
 		Doctor doctor = doctorService.findDoctorByCode(code);
 		doctor.setDepartment_code(departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName());
 		if ("CHIEF".equals(doctor.getLevel())) {
@@ -150,6 +151,7 @@ public class AdminDoctorController {
 		doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
 		model.addAttribute("doctor", doctor);
 		model.addAttribute("departmentlist", list);
+		model.addAttribute("msg", msg);
 		return "doctor_i";
 	}
 	
@@ -159,10 +161,12 @@ public class AdminDoctorController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/toAdd.do")
-	public String toAddDoctor(ModelMap model) {
+	public String toAddDoctor(ModelMap model, String msg, Doctor doctor) {
 		model.addAttribute("code", "yesyes");
 		List<Department> list = departmentService.findDepartmentList(new Department());
 		model.addAttribute("departmentlist", list);
+		model.addAttribute("msg", msg);
+		model.addAttribute("doctor", doctor);
 		return "doctor_i";
 	}
 	
@@ -171,10 +175,20 @@ public class AdminDoctorController {
 	 * @param doctor
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/editDoctor.do")
-	public String editDoctor(Doctor doctor) {
-		doctorService.updateDoctor(doctor);
-		return "redirect:/admin/doctorList.do";
+	@RequestMapping(value = "/admin/editDoctor.do", method = RequestMethod.POST)
+	public String editDoctor(Doctor doctor, ModelMap model) {
+		if (doctor.getName() == "" || doctor.getAddress() == "" || doctor.getBirth() == "" || doctor.getDegree() == "" ||
+				doctor.getDepartment_code() == "" || doctor.getDuty() == "" || doctor.getEmail() == "" ||
+				doctor.getGraduate() == "" || doctor.getHiredate() == "" || doctor.getImage_url() == "" || doctor.getIntroduction() == ""|| 
+				doctor.getLevel() == "" || doctor.getLicense() == "" || doctor.getMajor() == "" || doctor.getNation() == "" ||
+				doctor.getNative_place() == "" || doctor.getOutwork_time() == "" || doctor.getPhone() == "" || doctor.getQualification() == "" ||
+				doctor.getSex() == "" || doctor.getTitle() == "" || doctor.getWork_time() == "") {
+			model.addAttribute("msg", "请填写完整表单");
+			return "redirect:/admin/toDoctorInfo?code=" + doctor.getCode();
+		} else {
+			doctorService.updateDoctor(doctor);
+			return "redirect:/admin/doctorList.do";
+		}
 	}
 	
 	/**
@@ -182,13 +196,25 @@ public class AdminDoctorController {
 	 * @param doctor
 	 * @return
 	 */
-	@RequestMapping(value = "admin/addDoctor.do")
-	public String addDoctor(Doctor doctor) {
-		doctor.setWork_time(doctor.getWork_time().replace("T", " "));
-		doctor.setOutwork_time(doctor.getOutwork_time().replace("T", " "));
-		doctor.setFirst(true);
-		doctor.setPassword(Md5Utils.md5("123456"));
-		doctorService.insertDoctor(doctor);
-		return "redirect:/admin/doctorList.do";
+	@RequestMapping(value = "admin/addDoctor.do", method = RequestMethod.POST)
+	public String addDoctor(Doctor doctor, ModelMap model) {
+		if (doctor.getName() == "" || doctor.getAddress() == "" || doctor.getBirth() == "" || doctor.getDegree() == "" ||
+				doctor.getDepartment_code() == "" || doctor.getDuty() == "" || doctor.getEmail() == "" ||
+				doctor.getGraduate() == "" || doctor.getHiredate() == "" || doctor.getImage_url() == "" || doctor.getIntroduction() == ""|| 
+				doctor.getLevel() == "" || doctor.getLicense() == "" || doctor.getMajor() == "" || doctor.getNation() == "" ||
+				doctor.getNative_place() == "" || doctor.getOutwork_time() == "" || doctor.getPhone() == "" || doctor.getQualification() == "" ||
+				doctor.getSex() == "" || doctor.getTitle() == "" || doctor.getWork_time() == "") {
+			model.addAttribute("msg", "请填写完整表单");
+			model.addAttribute("doctor", doctor);
+			return "redirect:/admin/toAddDoctor";
+		} else {
+			doctor.setWork_time(doctor.getWork_time().replace("T", " "));
+			doctor.setOutwork_time(doctor.getOutwork_time().replace("T", " "));
+			doctor.setFirst(true);
+			doctor.setPassword(Md5Utils.md5("123456"));
+			doctorService.insertDoctor(doctor);
+			return "redirect:/admin/doctorList.do";
+		}
+		
 	}
 }

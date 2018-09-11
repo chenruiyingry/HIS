@@ -18,10 +18,10 @@
 		<c:forEach items="${wards }" var="ward">
 			<div class="module">
 			<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteWard.do?id=${ward.id }'" class="module_delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
-				<form action="/HIS/admin/updateWard.do" method="post">
+				<form action="/HIS/admin/updateWard.do" method="post" onsubmit="return updateWard_${ward.id }()">
 					<input type="hidden" name="id" value="${ward.id }">
 					<input type="hidden" name="oldWard_code" value="${ward.ward_code }">
-					<input type="text" value="${ward.ward_code }" class="wardnum ng wardnum_${ward.id } ng_${ward.id }" title="双击修改" name="ward_code">
+					<input type="text" value="${ward.ward_code }" class="wardnum ng wardnum_${ward.id } ng_${ward.id }" id="ward_code" title="双击修改" name="ward_code_${ward.id }">
 					<select name="type" id="" class="wardgen ng wardgen_${ward.id } ng_${ward.id }">
 						<option value="NORMAL" <c:if test="${ward.type eq 'NORMAL' }">selected="selected"</c:if> >普通病房</option>
 						<option value="ICU" <c:if test="${ward.type eq 'ICU' }">selected="selected"</c:if>>重症监护室</option>
@@ -32,13 +32,14 @@
 					<input type="submit" value="确定" class="wardsave cs cs_${ward.id } wardsave_${ward.id }">
 				</form>
 				<div class="bed">
-					<c:forEach items="${ward.beds }" var="bed">
+					<c:forEach items="${ward.beds }" var="bed" >
 						<div class="bed_1 bed_1_${bed.id } <c:if test="${!bed.occupy }">idle idle_${bed.id }</c:if><c:if test="${bed.occupy }">occupy occupy_${bed.id }</c:if>">
-							<form action="/HIS/admin/updateWard.do" method="post">
+							<form action="/HIS/admin/updateBed.do" method="post" onsubmit="return updateBed_${bed.id }()">
+								<input type="hidden" name="ward_code" value="${ward.ward_code }">
 								<input type="hidden" name="id" value="${bed.id }">
-								<input type="text" value="${bed.bed_code }" class="bednum bsp bsp_${bed.id }" name="bed_code">
+								<input type="text" value="${bed.bed_code }" class="bednum bsp bsp_${bed.id }" name="bed_code" id="bed_code_${bed.id }">
 								<input type="text" value="<c:if test="${!bed.occupy }">空闲</c:if><c:if test="${bed.occupy }">占用</c:if>" class="status bsp bsp_${bed.id } status_${bed.id }">
-								<input type="text" value="${bed.price }" class="price bsp bsp_${bed.id }" name="price">
+								<input type="text" value="${bed.price }" class="price bsp bsp_${bed.id }" name="price" id="price_${bed.id }">
 								<input type="button" value="修改" class="bedmod bedmod_${bed.id }">
 								<input type="submit" value="保存" class="bedsave bedsave_${bed.id }">
 							</form>
@@ -49,10 +50,10 @@
 						</div>
 					</c:forEach>
 					<div class="bed_1 add add_${ward.id } bed_1_${ward.id }">
-						<form action="/HIS/admin/addWard.do" method="post">
+						<form action="/HIS/admin/addBed.do" method="post" onsubmit="return insertBed_${ward.id }()">
 							<input type="hidden" name="ward_code" value="${ward.ward_code }">
-							<input type="text" placeholder="床号" class="bednum bsp bsp_${ward.id }" name="bed_code">
-							<input type="text" placeholder="价格" class="price bsp bsp_${ward.id }" name="price">
+							<input type="text" placeholder="床号" class="bednum bsp bsp_${ward.id } bednum_${ward.id }" name="bed_code" id="bed_code1_${ward.id }">
+							<input type="text" placeholder="价格" class="price bsp bsp_${ward.id } price_${ward.id }" name="price" id="price1_${ward.id }">
 							<input type="text" value="空闲" readonly="readonly" class="status bsp bsp_1">
 							<input type="button" value="添加" class="bedmod bedmod_${ward.id }">
 							<input type="submit" value="保存" class="bedsave bedsave_${ward.id }">
@@ -65,8 +66,8 @@
 			<input type="button" class="return_p" title="单击返回">
 			<input type="button" class="plus">
 			<i class="fa fa-plus-square-o fa-5x" aria-hidden="true"></i>
-			<form action="/HIS/admin/addWard.do" class="form_plus" method="post">
-				<input type="text" placeholder="病房号" class="name_2 ngps np" name="ward_code">
+			<form action="/HIS/admin/addWard.do" class="form_plus" method="post" onsubmit="return insertWard()">
+				<input type="text" placeholder="病房号" class="name_2 ngps np" name="ward_code" id="ward_code1">
 				<select name="type" id="" class="genre ngps gs">
 					<option value="NORMAL">普通病房</option>
 					<option value="ICU">重症监护室</option>
@@ -104,6 +105,8 @@
 				$('.bedsave_${ward.id }').css({"width": "0%", "left": "50%", "height": "0%",});
 				$('.bsp_${ward.id }').css({"color": "#fff", "background-color": "#fff",});
 				$('.bed_1_${ward.id }').css({"background-color": "#fff",});
+				$('.bednum_${ward.id }').val("");
+				$('.price_${ward.id }').val("");
 			});
 			$('.bedmod_${ward.id }').click(function (){
 				$('.bsp_${ward.id }').removeAttr('readonly');
@@ -113,6 +116,28 @@
 				$('.bed_1_${ward.id }').css({"background-color": "#fff",});
 			});
 		});
+		/*修改病房编号以及病房类型*/
+		function updateWard_${ward.id }(){
+			var ward_code = getID('ward_code_${ward.id }').value;	
+			if(ward_code.length < 1 || ward_code == ""){
+				alert("请完整填写信息！");
+				window.location.reload();
+				return false;	
+			}else{
+				return true;
+			}
+		}
+		/*添加病房信息*/
+		function insertBed_${ward.id }(){
+			var bed_code = getID('bed_code1_${ward.id }').value;
+			var price = getID('price1_${ward.id }').value;
+			if(bed_code.length < 1 || price.length <1){
+				alert("请完整填写信息！");
+				return false;	
+			}else{
+				return true;
+			}
+		}
 		</script>
 		<c:forEach items="${ward.beds }" var="bed">
 			<script type="text/javascript">
@@ -201,6 +226,18 @@
 					$('.beddel_${bed.id }').css({"height": "25px",});
 				});
 			});
+			/*修改病床信息*/
+			function updateBed_${bed.id }(){
+				var bed_code = getID('bed_code_${bed.id }').value;
+				var price = getID('price_${bed.id }').value;
+				if(bed_code.length < 1 || price.length <1 || bed_code == "" || price == ""){
+					alert("请完整填写信息！");
+					window.location.reload();
+					return false;	
+				}else{
+					return true;
+				}
+			}
 			</script>
 		</c:forEach>
 	</c:forEach>

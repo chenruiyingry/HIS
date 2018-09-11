@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import cn.his.common.page.Pagination;
 import cn.his.core.model.patient.Patient;
@@ -52,9 +53,10 @@ public class AdminPatientController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/patient.do")
-	public String patient(String code, ModelMap model) {
+	public String patient(String code, String msg, ModelMap model) {
 		Patient patient = patientService.findPatientByCode(code);
 		model.addAttribute("patient", patient);
+		model.addAttribute("msg", msg);
 		return "patient_i";
 	}
 	
@@ -67,5 +69,17 @@ public class AdminPatientController {
 	public String deletePatient(String code) {
 		patientService.deletePatient(code);
 		return "redirect:/admin/patientList.do";
+	}
+	
+	@RequestMapping(value = "/admin/editPatient.do", method = RequestMethod.POST)
+	public String editPatient(Patient patient, ModelMap model) {
+		model.addAttribute("code", patient.getCode());
+		if (patient.getName() == "" || patient.getSex() == "" || patient.getAge() == 0 || patient.getPhone() ==  "" || 
+				patient.getInsurance_type() == "" ) {
+			model.addAttribute("msg", "请填写完整表单信息！");
+		} else {
+			patientService.updatePatient(patient);
+		}
+		return "redirect:/admin/patient.do";
 	}
 }

@@ -20,7 +20,6 @@ import com.alipay.demo.trade.service.impl.AlipayMonitorServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.service.impl.AlipayTradeWithHBServiceImpl;
 import com.alipay.demo.trade.utils.Utils;
-import com.alipay.demo.trade.utils.ZxingUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -251,7 +250,8 @@ public class Main {
         GoodsDetail goods2 = GoodsDetail.newInstance("goods_id002", "xxx牙刷", 500, 2);
         goodsDetailList.add(goods2);
 
-        String appAuthToken = "应用授权令牌";//根据真实值填写
+        @SuppressWarnings("unused")
+		String appAuthToken = "应用授权令牌";//根据真实值填写
 
         // 创建条码支付请求builder，设置请求参数
         AlipayTradePayRequestBuilder builder = new AlipayTradePayRequestBuilder()

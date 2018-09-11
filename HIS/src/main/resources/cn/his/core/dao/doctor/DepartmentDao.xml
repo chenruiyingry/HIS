@@ -13,7 +13,7 @@
 	<select id="findDepartmentList" parameterType="Department" resultMap="Department">
 		select * from department
 		<where>
-			code is not null
+			code is not null and code != ""
 			<if test="name != null">
 				and name like "%"#{name}"%"
 			</if>

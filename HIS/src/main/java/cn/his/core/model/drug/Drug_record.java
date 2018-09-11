@@ -13,6 +13,7 @@ public class Drug_record extends Page {
 	private int number;//数量
 	private int status;//缴费/取回情况
 	private Drug drug;//药物信息实体类
+	@SuppressWarnings("unused")
 	private double totalmoney;
 
 	public double getTotalmoney() {
@@ -86,6 +87,10 @@ public class Drug_record extends Page {
 	public String toString() {
 		return "Drug_record [code=" + code + ", medical_code=" + medical_code + ", drug_code=" + drug_code + ", number="
 				+ number + ", status=" + status + ", drug=" + drug + "]";
+	}
+
+	public void setTotalmoney(double totalmoney) {
+		this.totalmoney = totalmoney;
 	}
 	
 }

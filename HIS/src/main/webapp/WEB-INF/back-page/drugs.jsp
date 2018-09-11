@@ -122,6 +122,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/drugs.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				alert('${msg }');
+			}
+		});
+	</script>
+	<script type="text/javascript">
 		var main = document.getElementById('main');
 		main.style.height = $(window).height()-72+"px";
 	</script>

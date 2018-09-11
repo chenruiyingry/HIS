@@ -41,9 +41,9 @@ public class DrugServiceImpl implements DrugService {
 	@Override
 	public boolean insertDrug(Drug drug) {
 		List<Drug> list = drugDao.findDrugList(new Drug());
-		Drug drug2 = list.get(1);
+		Drug drug2 = list.get(0);
 		String code = Integer.toString(Integer.parseInt(drug2.getCode()) + 1);
-		System.out.println(code);
+		drug.setCode(code);
 		return drugDao.insertDrug(drug);
 	}
 

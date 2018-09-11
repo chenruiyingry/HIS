@@ -8,10 +8,10 @@ function getID(id){
 
 /*判断修改内容是否为空*/
 function UpdateIsNull(){
-	var name = getID(name).value;
-	var introduction = getID(introduction).value;
-	if(name.length<1 || introduction.length<1){
-		err+='请完整填写表单';
+	var name = getID('name').value;
+	var introduction = getID('introduction').value;
+	if(name.length<1 || introduction.length<1 || name == "" || intorduction == ""){
+		err+='请完整填写表单\n';
 		return false;
 	}else{
 		return true;	
@@ -20,10 +20,10 @@ function UpdateIsNull(){
 
 /*判断添加内容是否为空*/
 function insertIsNull(){
-	var code = getID(name1).value;
-	var introduction = getID(introduction1).value;
+	var code = getID('name1').value;
+	var introduction = getID('introduction1').value;
 	if(code.length<1 || introduction.length<1){
-		err+='请完整填写表单';
+		err+='请完整填写表单\n';
 		return false;
 	}else{
 		return true;	

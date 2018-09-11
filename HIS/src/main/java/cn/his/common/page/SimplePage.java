@@ -1,7 +1,5 @@
 package cn.his.common.page;
 
-import org.apache.ibatis.javassist.SerialVersionUID;
-
 /**
  * 简单分页类
  * @author chenruiying
@@ -9,6 +7,7 @@ import org.apache.ibatis.javassist.SerialVersionUID;
  */
 public class SimplePage implements Paginable {
 	
+	@SuppressWarnings("unused")
 	private static final long SerialVersionUID = 1L;
 	public static final int DEF_COUNT = 20;
 

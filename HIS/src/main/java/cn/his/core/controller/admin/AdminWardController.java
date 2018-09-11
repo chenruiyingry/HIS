@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;import org.springframework.validation.BindingResult;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,11 +36,48 @@ public class AdminWardController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/updateWard.do", method = RequestMethod.POST)
-	public String updateWard(Ward ward, String oldWard_code) {
-		if (ward.getWard_code() != null) {
-			wardService.updateWardByWard_code(ward, oldWard_code);
+	public String updateWard(Ward ward, String oldWard_code, ModelMap model) {
+		if (ward.getWard_code() == "") {
+			model.addAttribute("msg", "请填写完整表单");
 		} else {
-			wardService.updateWardById(ward);
+			List<Ward> wards = wardService.selectWardList();
+			boolean flag = false;
+			for (Ward ward2 : wards) {
+				if (ward2.getWard_code().equals(ward.getWard_code())) {
+					model.addAttribute("msg", "不能使用相同的病房号！");
+					flag = true;
+					break;
+				}
+			}
+			if (!flag) {
+				wardService.updateWardByWard_code(ward, oldWard_code);
+			}
+		}
+		return "redirect:/admin/ward.do";
+	}
+	
+	/**
+	 * 修改病床信息
+	 * @param ward
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/updateBed.do", method = RequestMethod.POST)
+	public String updateBed(Ward ward, ModelMap model) {
+		if (ward.getBed_code() == "" || ward.getPrice() == 0) {
+			model.addAttribute("msg", "请填写完整表单");
+		} else {
+			List<Ward> beds = wardService.selectBedListByWard_code(ward.getWard_code());
+			boolean flag = false;
+			for (Ward bed : beds) {
+				if (ward.getBed_code().equals(bed.getBed_code())) {
+					model.addAttribute("msg", "不能使用相同的病床号！");
+					flag = true;
+					break;
+				}
+			}
+			if (!flag) {
+				wardService.updateWardById(ward);
+			}
 		}
 		return "redirect:/admin/ward.do";
 	}
@@ -51,8 +88,49 @@ public class AdminWardController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/addWard.do", method = RequestMethod.POST)
-	public String addWard(Ward ward) {
-		wardService.insertWard(ward);
+	public String addWard(Ward ward, ModelMap model) {
+		if (ward.getWard_code() == "") {
+			model.addAttribute("msg", "请填写完整表单");
+		} else {
+			List<Ward> wards = wardService.selectWardList();
+			boolean flag = false;
+			for (Ward ward2 : wards) {
+				if (ward2.getWard_code().equals(ward.getWard_code())) {
+					model.addAttribute("msg", "不能使用相同的病房号！");
+					flag = true;
+					break;
+				}
+			}
+			if (!flag) {
+				wardService.insertWard(ward);
+			}
+		}
+		return "redirect:/admin/ward.do";
+	}
+	
+	/**
+	 * 新增病床
+	 * @param ward
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/addBed.do", method = RequestMethod.POST)
+	public String addBed(Ward ward, ModelMap model) {
+		if (ward.getBed_code() == "" || ward.getPrice() == 0) {
+			model.addAttribute("msg", "请填写完整表单");
+		} else {
+			List<Ward> beds = wardService.selectBedListByWard_code(ward.getWard_code());
+			boolean flag = false;
+			for (Ward bed : beds) {
+				if (ward.getBed_code().equals(bed.getBed_code())) {
+					model.addAttribute("msg", "不能使用相同的病床号！");
+					flag = true;
+					break;
+				}
+			}
+			if (!flag) {
+				wardService.insertWard(ward);
+			}
+		}
 		return "redirect:/admin/ward.do";
 	}
 	

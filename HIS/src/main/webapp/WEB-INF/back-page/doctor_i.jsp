@@ -14,7 +14,7 @@
 	<c:import url="/admin/toHead.do">
 		<c:param name="headname" value="doctor"></c:param>
 	</c:import>
-	<form action="/HIS/admin/editDoctor.do" id="myform" enctype="multipart/form-data" class="myform" onsubmit="return check()">
+	<form action="/HIS/admin/editDoctor.do" id="myform" enctype="multipart/form-data" class="myform" onsubmit="return check()" method="post">
 	<input type="hidden" name="id" value="${doctor.id }">
 	<div class="main" id="main">
 		<div class="main_bar">
@@ -140,6 +140,13 @@
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/doctor_i.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				alert('${msg }');
+			}
+		});
+	</script>
 	<script>
 		function uploadPic(){
 			//定义参数

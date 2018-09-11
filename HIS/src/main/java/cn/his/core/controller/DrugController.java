@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.his.core.model.drug.Drug;
 import cn.his.core.model.drug.Drug_record;
 import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;

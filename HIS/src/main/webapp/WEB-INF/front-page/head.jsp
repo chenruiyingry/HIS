@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<img class="auther_head" id="auther_head" src="${doctorsession.allUrl }" alt="img">
 			<p class="username_1" id="username_1">${doctorsession.name }</p>
 			<a href="/HIS/logout.action" class="sign-out"><i class="fa fa-sign-out"></i></a>
-			<a href="/HIS/toUpdate.action"></a>
+			<a href="/HIS/toUpdate.action" title="点击修改密码"></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>

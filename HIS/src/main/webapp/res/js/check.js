@@ -25,6 +25,7 @@ function chkPasswd(){
 	pw1_valid = false;
 	var pw1 = getID('pw1').value;
 	var pw2 = getID('pw2').value;
+	alert(pw1);
 	if(pw1==null || pw1==""){
 		getID("msg1").innerHTML ='新密码不能为空';
 	}else if(pw2==null || pw2==""){

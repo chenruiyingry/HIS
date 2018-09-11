@@ -8,7 +8,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.his.core.model.doctor.Department;
-import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;
 import cn.his.core.service.doctor.DepartmentService;
 import cn.his.core.service.patient.Medical_recordService;
@@ -21,8 +20,6 @@ public class PatientController {
 	private DepartmentService departmentService;
 	@Autowired
 	private PatientService patientService;
-	@Autowired
-	private Medical_recordService medical_recordService;
 
 	/**
 	 * 去挂号
@@ -30,9 +27,12 @@ public class PatientController {
 	 * @return
 	 */
 	@RequestMapping(value = "/toRegister.action")
-	public String toRegister(ModelMap model) {
+	public String toRegister(ModelMap model, String msg, Patient patient, String department_code) {
 		List<Department> departments = departmentService.findDepartmentList(new Department());
 		model.addAttribute("departments", departments);
+		model.addAttribute("msg", msg);
+		model.addAttribute("patient", patient);
+		model.addAttribute("department_code", department_code);
 		return "registered";
 	}
 	
@@ -44,12 +44,20 @@ public class PatientController {
 	 */
 	@RequestMapping(value = "/regist.action")
 	public String Register(Patient patient, String department_code, ModelMap model) {
-		patientService.insertPatient(patient);
-		model.addAttribute("msg", "挂号成功");
-		model.addAttribute("code", "success");
-		model.addAttribute("url", "/HIS/toRegister.action");
-		model.addAttribute("urlname", "挂号系统");
-		model.addAttribute("time", 3);
-		return "message";
+		if (patient.getName() == "" || patient.getSex() == "" || patient.getAge() == 0 || patient.getInsurance_type() == "" ||
+				patient.getAddress() == "" || patient.getPhone() == "" || department_code == ""){
+			model.addAttribute("msg", "请填写完整表单！");
+			model.addAttribute("patient", patient);
+			model.addAttribute("department_code", department_code);
+			return "redirect:/toRegister.action";
+		} else {
+			patientService.insertPatient(patient);
+			model.addAttribute("msg", "挂号成功");
+			model.addAttribute("code", "success");
+			model.addAttribute("url", "/HIS/toRegister.action");
+			model.addAttribute("urlname", "挂号系统");
+			model.addAttribute("time", 3);
+			return "message";
+		}
 	}
 }

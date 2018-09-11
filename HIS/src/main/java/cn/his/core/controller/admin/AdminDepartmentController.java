@@ -1,5 +1,6 @@
 package cn.his.core.controller.admin;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,9 +60,15 @@ public class AdminDepartmentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/addDivision.do", method = RequestMethod.POST)
-	public String addDivision(Department department) {
-		departmentService.insertDepartment(department);
-		return "redirect:/admin/division.do";
+	public String addDivision(Department department, ModelMap model) {
+		if (department.getName() == "" || department.getIntroduction() == "") {
+			model.addAttribute("msg", "请填写完整表单数据！");
+			return "redirect:/admin/division.do";
+		} else {
+			departmentService.insertDepartment(department);
+			return "redirect:/admin/division.do";
+		}
+		
 	}
 	
 	/**
@@ -70,9 +77,15 @@ public class AdminDepartmentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/addDepartment.do", method = RequestMethod.POST)
-	public String addDepartment(Department department) {
-		departmentService.insertDepartment(department);
-		return "redirect:/admin/department.do?code=" + department.getP_code();
+	public String addDepartment(Department department, ModelMap model) {
+		if (department.getName() == "" || department.getIntroduction() == "") {
+			model.addAttribute("msg", "请填写完整表单数据！");
+			return "redirect:/admin/division.do";
+		} else {
+			departmentService.insertDepartment(department);
+			return "redirect:/admin/department.do?code=" + department.getP_code();
+		}
+		
 	}
 	
 	/**
@@ -81,12 +94,21 @@ public class AdminDepartmentController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/updateDepartment.do", method= RequestMethod.POST)
-	public String updateDepartment(Department department) {
-		departmentService.updateDepartment(department);
-		if (department.getCode() == null) {
-			return "redirect:/admin/division.do";
+	public String updateDepartment(Department department, ModelMap model) {
+		if (department.getName() == "" || department.getIntroduction() == "") {
+			model.addAttribute("msg", "请填写完整表单数据！");
+			if (department.getCode() == null) {
+				return "redirect:/admin/division.do";
+			} else {
+				return "redirect:/admin/department.do?code=" + department.getP_code();
+			}
 		} else {
-			return "redirect:/admin/department.do?code=" + department.getP_code();
+			departmentService.updateDepartment(department);
+			if (department.getCode() == null) {
+				return "redirect:/admin/division.do";
+			} else {
+				return "redirect:/admin/department.do?code=" + department.getP_code();
+			}
 		}
 	}
 	

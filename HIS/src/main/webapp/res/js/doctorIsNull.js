@@ -10,25 +10,25 @@ function getID(id){
 
 /*判断表单容内是否为空*/
 function isNull(){
-	var name = getID(name).value;
-	var nation = getID(nation).value;	
-	var native_place = getID(native_place).value;
-	var birth = getID(birth).value;
-	var code = getID(code).value;
-	var degree = getID(degree).value;
-	var graduate = getID(graduate).value;
-	var address = getID(address).value;
-	var qualificationv = getID(qualification).value;
-	var license = getID(license).value;
-	var title = getID(title).value;
-	var duty = getID(duty).value;
-	var hiredate = getID(hiredate).value;
-	var major = getID(major).value;
-	var work_time = getID(work_time).value;
-	var outwork_time = getID(outwork_time).value;
-	if(name.length<1 && nation.length<1 && native_place.length<1 && birth.length<1 && code.length<1 && degree.length<1 && 
-	graduate.length<1 && address.length<1 && qualificationv.length<1 && license.length<1 && title.length<1 && duty.length<1 &&
-	hiredate.length<1 && major.length<1 && work_time.length<1 && outwork_time.length<1 ){
+	var name = getID('name').value;
+	var nation = getID('nation').value;	
+	var native_place = getID('native_place').value;
+	var birth = getID('birth').value;
+	var code = getID('code').value;
+	var degree = getID('degree').value;
+	var graduate = getID('graduate').value;
+	var address = getID('address').value;
+	var qualificationv = getID('qualification').value;
+	var license = getID('license').value;
+	var title = getID('title').value;
+	var duty = getID('duty').value;
+	var hiredate = getID('hiredate').value;
+	var major = getID('major').value;
+	var work_time = getID('work_time').value;
+	var outwork_time = getID('outwork_time').value;
+	if(name.length<1 || nation.length<1 || native_place.length<1 || birth.length<1 || code.length<1 || degree.length<1 || 
+	graduate.length<1 || address.length<1 || qualificationv.length<1 || license.length<1 || title.length<1 || duty.length<1 ||
+	hiredate.length<1 || major.length<1 || work_time.length<1 || outwork_time.length<1 ){
 		err+='请完整填写表单！\n';
 		return false;
 	}else{
@@ -50,7 +50,7 @@ function chEmail(){
 
 /*判断电话号码的长度*/
 function chPhone(){
- 	var phone = getID(phone).value;
+ 	var phone = getID('phone').value;
 	if(phone==null || phone==""){
 		err+='电话不能为空！\n';	
 		return false;

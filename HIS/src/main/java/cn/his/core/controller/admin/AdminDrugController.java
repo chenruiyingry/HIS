@@ -35,7 +35,7 @@ public class AdminDrugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/durglist.do")
-	public String druglist(String name, Integer pageNo, ModelMap model) {
+	public String druglist(String name, Integer pageNo, String msg, ModelMap model) {
 		Drug drug = new Drug();
 		StringBuilder params = new StringBuilder();
 		if (StringUtils.isNotBlank(name)) {
@@ -50,6 +50,7 @@ public class AdminDrugController {
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("pageNo", Pagination.cpn(pageNo));
 		model.addAttribute("name", name);
+		model.addAttribute("msg", msg);
 		return "drugs";
 	}
 	
@@ -73,8 +74,15 @@ public class AdminDrugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/addDurg.do", method = RequestMethod.POST)
-	public String addDrug(Drug drug) {
-		drugService.insertDrug(drug);
+	public String addDrug(Drug drug, ModelMap model) {
+		if (drug.getEffective_date() == "" || drug.getFuncction() == "" || drug.getManufacturer() == "" || drug.getName() == "" ||
+				drug.getProduce_date() == "" || drug.getSale_price() ==  0 || drug.getPurchase_price() == 0 || drug.getUnit() == "" ||
+				drug.getSpec() == "") {
+			model.addAttribute("msg", "请填写完整表单");
+		} else {
+			drugService.insertDrug(drug);
+			
+		}
 		return "redirect:/admin/durglist.do";
 	}
 	
@@ -84,8 +92,13 @@ public class AdminDrugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/updateDrug.do")
-	public String updateDrug(Drug drug) {
-		drugService.updateDrug(drug);
+	public String updateDrug(Drug drug, ModelMap model) {
+		if (drug.getName() == "" || drug.getFuncction() == "" || drug.getManufacturer() == "" || drug.getPurchase_price() == 0 ||
+				drug.getSale_price() == 0) {
+			model.addAttribute("msg", "请填写完整表单");
+		} else {
+			drugService.updateDrug(drug);
+		}
 		return "redirect:/admin/durglist.do";
 	}
 	

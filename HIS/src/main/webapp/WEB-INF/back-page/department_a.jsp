@@ -42,14 +42,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="button" class="return_p" title="单击返回">
 			<input type="button" class="plus">
 			<i class="fa fa-plus-square-o fa-5x" aria-hidden="true"></i>
-			<form action="/HIS/admin/addDivision.do" method="post" onsubmit="return check1()">
+			<form action="/HIS/admin/addDivision.do"  onsubmit="return check1()">
 				<input type="text" value="" placeholder="部门名称" class="name_2" name="name" id="name1">
 				<textarea class="plusresume" name="introduction" placeholder="部门简介" id="introduction1"></textarea>
 				<input type="submit" value="保存" class="save">
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript" src="/HIS/res/js/department_aIsnull.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/dapartment_aIsnull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/department_a.js"></script>
 	<script type="text/javascript">
