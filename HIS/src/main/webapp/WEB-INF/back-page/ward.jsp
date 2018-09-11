@@ -82,6 +82,7 @@
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/wardIsNull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/ward.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function () {

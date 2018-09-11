@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class='wrap'>
 				<div class='crop'>
-					<a href="/HIS/toDrug.action" title="取药"><img src='/HIS/res/img/13.jpg'></a>
+					<a href="/HIS/toDrug.action" title="取药"><img src='/HIS/res/img/133.png'></a>
 				</div>
 			</div>
 		</div>
