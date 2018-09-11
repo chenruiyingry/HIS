@@ -1,6 +1,5 @@
 package cn.his.core.controller.admin;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

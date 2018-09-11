@@ -57,4 +57,9 @@ public class DrugServiceImpl implements DrugService {
 		return drugDao.deleteDrug(code);
 	}
 
+	@Override
+	public List<Drug> findDrugs() {
+		return drugDao.findDrugList(new Drug());
+	}
+
 }

@@ -1,5 +1,7 @@
 package cn.his.core.service.drug;
 
+import java.util.List;
+
 import cn.his.common.page.Pagination;
 import cn.his.core.model.drug.Drug;
 
@@ -10,6 +12,12 @@ public interface DrugService {
 	 * @return
 	 */
 	public Pagination findDrugList(Drug drug);
+	
+	/**
+	 * 药品列表
+	 * @return
+	 */
+	public List<Drug> findDrugs();
 
 	/**
 	 * 通过药品代码查询药品信息

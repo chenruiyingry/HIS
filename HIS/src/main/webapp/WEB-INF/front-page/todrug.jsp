@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="main_bar">
 			<!-- <canvas></canvas> -->
 			<div class="main_bar_input">
-				<input type="text" placeholder="病人编号" class="number" name="code">
+				<input type="text" placeholder="病人编号" class="number" name="code" value="${code }">
 				<input type="submit" value="" class="submit">
 				<i class="fa fa-search" aria-hidden="true"></i>
 				<p class="errormsg">${msg }</p>
@@ -35,16 +35,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script>
 		var ta = document.getElementById('main');
 		ta.style.height = $(window).height()-72+"px";
-/* 		$(document).ready(function (){
-			$('.bar_c_a').mouseover(function (){
-				$('.auther_head').css({"width":"29px", "top":"20px", "right":"95px",});
-				$('.username_1').css({"left":"-88px", "z-index":"2",});
-			});
-			$('.bar_c_a').mouseout(function (){
-				$('.auther_head').css({"width":"40px", "top":"10px", "right":"55px",});
-				$('.username_1').css({"left":"-150px", "z-index":"-1",});
-			});
-		}); */
 	</script>
 </body>
 </html>

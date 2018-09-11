@@ -47,6 +47,9 @@ public class Drug_recordServiceImpl implements Drug_recordService {
 
 	@Override
 	public boolean insertDrug_record(Drug_record drug_record) {
+		List<Drug_record> drug_records = drug_recordDao.findDrug_recordList(new Drug_record());
+		int num = Integer.parseInt(drug_records.get(drug_records.size() - 1).getCode()) + 1;
+		drug_record.setCode(Integer.toString(num));
 		return drug_recordDao.insertDrug_record(drug_record);
 	}
 

@@ -27,12 +27,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class='wrap'>
 				<div class='crop'>
-					<a href="" title="诊疗"><img src='/HIS/res/img/16.jpg'></a>
+					<a href="/HIS/toVisit.action" title="诊疗"><img src='/HIS/res/img/16.jpg'></a>
 				</div>
 			</div>
 			<div class='wrap'>
 				<div class='crop'>
-					<a href="/HIS/toFee.action" title="收费"><img src='/HIS/res/img/14.jpg'></a>
+					<a href="/HIS/toFee.action" title="收费"><img src='/HIS/res/img/0111.png'></a>
 				</div>
 			</div>
 			<div class='wrap'>

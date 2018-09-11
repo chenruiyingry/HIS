@@ -2,11 +2,16 @@ package cn.his.core.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONObject;
+
+import cn.his.common.web.ResponseUtils;
 import cn.his.core.model.drug.Drug;
 import cn.his.core.model.drug.Drug_record;
 import cn.his.core.model.patient.Medical_record;
@@ -65,6 +70,7 @@ public class DrugController {
 			return "takemedicine";
 		} else {
 			model.addAttribute("msg", "查无此人，稍后再试");
+			model.addAttribute("code", code);
 			return "todrug";
 		}
 	}
@@ -102,5 +108,19 @@ public class DrugController {
     	model.addAttribute("url", "toDrug.action");
     	model.addAttribute("time", 5);
 		return "message";
+	}
+	
+	/**
+	 * 药品信息
+	 * @param code
+	 * @param response
+	 */
+	@RequestMapping(value = "/drugInfo.action")
+	public void drugInfo(String code, HttpServletResponse response) {
+		Drug drug = drugService.findDrugByCode(code);
+		JSONObject jsonObject = new JSONObject();
+		@SuppressWarnings("static-access")
+		String jsonString = jsonObject.toJSONString(drug);
+		ResponseUtils.renderJson(response, jsonString);
 	}
 }

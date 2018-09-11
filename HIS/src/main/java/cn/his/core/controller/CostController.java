@@ -287,15 +287,16 @@ public class CostController {
 		Patient patient = patientService.findPatientByCode(code);
 		if (patient == null) {
 			model.addAttribute("msg", "查无此人，请核对卡号！");
+			model.addAttribute("code", code);
 			return "tofee";
 		} else {
 			String outTradeNo = "HIS_PAY" + System.currentTimeMillis() + (long) (Math.random() * 10000000L);
-			Doctor doctor = doctorService.findDoctorByCode(patient.getDoctor_code());
-			Department department = departmentService.findDepartmentByCode(doctor.getDepartment_code());
 			Medical_record medical_record = new Medical_record();
 			medical_record.setPatient_code(code);
 			List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);
 			medical_record = medical_records.get(medical_records.size() - 1);
+			Doctor doctor = doctorService.findDoctorByCode(medical_record.getDoctor_code());
+			Department department = departmentService.findDepartmentByCode(doctor.getDepartment_code());
 			HashMap<String, Double> others = new HashMap<String, Double>();
 			double totalfee = 0.00;
 			int totalnum = 0;

@@ -5,13 +5,13 @@
 		<result column="code" property="code"/>
 		<result column="patient_code" property="patient_code"/>
 		<result column="doctor_code" property="doctor_code"/>
-		<result column="isAssay" property="isAssay"/>
+		<result column="isAssay" property="assay"/>
 		<result column="assay_result" property="assay_result"/>
-		<result column="isExamination" property="isExamination"/>
+		<result column="isExamination" property="examination"/>
 		<result column="examination_result" property="examination_result"/>
 		<result column="diagnostic_result" property="diagnostic_result"/>
 		<result column="treatment" property="treatment"/>
-		<result column="isHospitalization" property="isHospitalization"/>
+		<result column="isHospitalization" property="hospitalization"/>
 		<result column="ward_number" property="ward_number"/>
 		<result column="bed_number" property="bed_number"/>
 		<result column="hospitalization_days" property="hospitalization_days"/>
@@ -64,8 +64,8 @@
 		</trim>
 		values 
 		<trim prefix="(" suffix=")">
-		#{code} , #{patient_code} , #{doctor_code} , #{isAssay} , #{assay_result} , #{isExamination} , #{examination_result} , 
-		#{diagnostic_result} , #{treatment} , #{isHospitalization} , #{ward_number} , #{bed_number} , #{hospitalization_days} , #{date}, #{department_code}
+		#{code} , #{patient_code} , #{doctor_code} , #{assay} , #{assay_result} , #{examination} , #{examination_result} , 
+		#{diagnostic_result} , #{treatment} , #{hospitalization} , #{ward_number} , #{bed_number} , #{hospitalization_days} , #{date}, #{department_code}
 		</trim>
 	</insert>
 	
@@ -76,14 +76,14 @@
 		<if test="doctor_code != null">
 				doctor_code = #{doctor_code},
 			</if>
-			<if test="isAssay != null">
-				isAssay = #{isAssay},
+			<if test="assay != null">
+				isAssay = #{assay},
 			</if>
-			<if test="Assay_result != null">
+			<if test="assay_result != null">
 				assay_result = #{assay_result},
 			</if>
-			<if test="isExamination != null">
-				isExamination = #{isExamination},
+			<if test="examination != null">
+				isExamination = #{examination},
 			</if>
 			<if test="examination_result != null">
 				examination_result = #{examination_result},
@@ -94,8 +94,8 @@
 			<if test="treatment != null">
 				treatment = #{treatment},
 			</if>
-			<if test="isHospitalization != null">
-				isHospitalization = #{isHospitalization},
+			<if test="hospitalization != null">
+				isHospitalization = #{hospitalization},
 			</if>
 			<if test=" ward_number != null">
 				 ward_number = #{ ward_number},

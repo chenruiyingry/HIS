@@ -9,21 +9,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>收费</title>
+	<title>就诊</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
 	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/tofee.css">
 </head>
 <body>
 	<c:import url="/toHead.action">
-		<c:param name="name" value="fee"></c:param>
+		<c:param name="name" value="visit"></c:param>
 	</c:import>
-	<form action="fee.action">
+	<form action="/HIS/visit.action">
 	<div class="main" id="main">
 		<div class="main_bar">
 			<!-- <canvas></canvas> -->
 			<div class="main_bar_input">
-				<input type="text" placeholder="卡号" class="number" name="code" value="${code }">
+				<input type="text" placeholder="病人编号" class="number" name="code" value="${code }">
 				<input type="submit" value="" class="submit">
 				<i class="fa fa-search" aria-hidden="true"></i>
 				<p class="errormsg">${msg }</p>

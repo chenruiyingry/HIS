@@ -141,6 +141,8 @@ public class DoctorController {
 			model.addAttribute("name", "信息系统");
 		} else if ("drug".equals(name)) {
 			model.addAttribute("name", "取药系统");
+		} else if ("visit".equals(name)) {
+			model.addAttribute("name", "就诊系统");
 		}
 		return "head";
 	}

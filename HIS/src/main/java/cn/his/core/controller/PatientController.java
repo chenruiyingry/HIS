@@ -1,15 +1,30 @@
 package cn.his.core.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONObject;
+
+import cn.his.common.web.ResponseUtils;
+import cn.his.core.model.Ward;
 import cn.his.core.model.doctor.Department;
+import cn.his.core.model.drug.Drug;
+import cn.his.core.model.drug.Drug_record;
+import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;
+import cn.his.core.service.WardService;
 import cn.his.core.service.doctor.DepartmentService;
+import cn.his.core.service.drug.DrugService;
+import cn.his.core.service.drug.Drug_recordService;
 import cn.his.core.service.patient.Medical_recordService;
 import cn.his.core.service.patient.PatientService;
 
@@ -20,6 +35,14 @@ public class PatientController {
 	private DepartmentService departmentService;
 	@Autowired
 	private PatientService patientService;
+	@Autowired
+	private DrugService drugService;
+	@Autowired
+	private Medical_recordService medical_recordService;
+	@Autowired
+	private WardService wardService;
+	@Autowired
+	private Drug_recordService drug_recordService;
 
 	/**
 	 * 去挂号
@@ -59,5 +82,121 @@ public class PatientController {
 			model.addAttribute("time", 3);
 			return "message";
 		}
+	}
+	
+	/**
+	 * 到病人信息去看病页面
+	 * @param code
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/visit.action")
+	public String visit(String code, String msg, ModelMap model) {
+		Patient patient = patientService.findPatientByCode(code);
+		if (patient == null) {
+			model.addAttribute("code", code);
+			model.addAttribute("msg", "没有找到相关病人信息，请重试");
+			return "tovisit";
+		} else {
+			List<Drug> drugs = drugService.findDrugs();
+			Medical_record medical_record = new Medical_record();
+			medical_record.setPatient_code(code);
+			List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);
+			medical_record = medical_records.get(medical_records.size() - 1);
+			List<Ward> wards = wardService.selectWardList();
+			model.addAttribute("drugs", drugs);
+			model.addAttribute("medical_record", medical_record);
+			model.addAttribute("wards", wards);
+			model.addAttribute("msg", msg);
+			return "visit";
+		}
+	}
+	
+	/**
+	 * 去看病页面
+	 * @return
+	 */
+	@RequestMapping(value = "/toVisit.action")
+	public String toVisit() {
+		return "tovisit";
+	}
+	
+	/**
+	 * 病床
+	 * @param ward_code
+	 * @param response
+	 */
+	@RequestMapping(value = "/beds.action")
+	public void beds(String ward_code, HttpServletResponse response) {
+		List<Ward> beds = wardService.findLessBedByWard_code(ward_code);
+		JSONObject jo = new JSONObject();
+		jo.put("beds", beds);
+		ResponseUtils.renderJson(response, jo.toString());
+	}
+	
+	/**
+	 * 诊疗
+	 * @param druglist
+	 * @param nums
+	 * @return
+	 */
+	@RequestMapping(value = "/treatment.action")
+	public String treatment(Medical_record medical_record, String[] druglist, Integer[] num, ModelMap model) {
+		if (medical_record.isAssay() == true) {
+			if (medical_record.getAssay_result() == "" || medical_record.getAssay_result() == null) {
+				model.addAttribute("msg", "请填写化验结果！");
+				model.addAttribute("code", medical_record.getPatient_code());
+				return "redirect:/visit.action";
+			}
+		}
+		if (medical_record.isExamination() == true) {
+			if (medical_record.getExamination_result() == "" || medical_record.getExamination_result() == null) {
+				model.addAttribute("msg", "请填写检查结果！");
+				model.addAttribute("code", medical_record.getPatient_code());
+				return "redirect:/visit.action";
+			}
+		}
+		if (medical_record.getDiagnostic_result() == "" || medical_record.getDiagnostic_result() == null || medical_record.getTreatment() == "" || medical_record.getTreatment() == null) {
+			model.addAttribute("msg", "请填写诊断结果和处理方法！");
+			model.addAttribute("code", medical_record.getPatient_code());
+			return "redirect:/visit.action";
+		}
+		if (medical_record.isHospitalization() == true) {
+			if (medical_record.getWard_number() == "" || medical_record.getWard_number() == null || medical_record.getBed_number() == "" || medical_record.getBed_number() == null || medical_record.getHospitalization_days() == 0) {
+				model.addAttribute("msg", "请选择病房，填写住院时间！");
+				model.addAttribute("code", medical_record.getPatient_code());
+				return "redirect:/visit.action";
+			}
+		}
+		for (int i = 0; i < druglist.length; i++) {
+			if (num[i] == null || druglist[i] == "" || druglist[i] == null) {
+				model.addAttribute("msg", "请填写药品数量或名称！");
+				model.addAttribute("code", medical_record.getPatient_code());
+				return "redirect:/visit.action";
+			}
+			Drug_record drug_record = new Drug_record();
+			drug_record.setDrug_code(druglist[i]);
+			drug_record.setMedical_code(medical_record.getCode());
+			drug_record.setNumber(num[i]);
+			drug_record.setStatus(2);
+			drug_recordService.insertDrug_record(drug_record);
+		}
+		if (medical_record.getWard_number() != null && medical_record.getBed_number() != null) {
+			Ward ward = new Ward();
+			ward.setWard_code(medical_record.getWard_number());
+			ward.setBed_code(medical_record.getBed_number());
+			ward = wardService.findWardByBed_codeAndWard_code(ward);
+			ward.setOccupy(true);
+			wardService.updateWardById(ward);
+		}
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-hh");
+		medical_record.setDate(dateFormat.format(new Date()));
+		medical_recordService.updateMedical_record(medical_record);
+		model.addAttribute("msg", "就诊成功，请提醒病人前往缴费取药");
+		model.addAttribute("code", "success");
+		model.addAttribute("url", "/HIS/toVisit.action");
+		model.addAttribute("urlname", "诊疗系统");
+		model.addAttribute("time", 5);
+		return "message";
 	}
 }
