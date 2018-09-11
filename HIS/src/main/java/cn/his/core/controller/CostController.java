@@ -87,7 +87,7 @@ public class CostController {
 	 * @return
 	 */
 	@RequestMapping(value = "pay.action", method = RequestMethod.POST)
-	public String pay(String level, String bed_number, Integer hospitalization_days, String medicalcode, String patientcode, String tradeNo, String pay, String[] codes, String[] others, String authcode, Integer totalnum, String department, String doctorcode, double totalfee, ModelMap model) {
+	public String pay(String level, String bed_number, String ward_number, Integer hospitalization_days, String medicalcode, String patientcode, String tradeNo, String pay, String[] codes, String[] others, String authcode, Integer totalnum, String department, String doctorcode, double totalfee, ModelMap model) {
 		Cost cost = new Cost();
 		List<Cost> list = costService.findCostList(cost);
 		String costcode = list.get(list.size() - 1).getCode();
@@ -137,6 +137,7 @@ public class CostController {
 				if ("住院费".equals(others[i])) {
 					Ward ward = new Ward();
 					ward.setBed_code(bed_number);
+					ward.setWard_code(ward_number);
 					double price = wardService.findWardByBed_codeAndWard_code(ward).getPrice();
 					GoodsDetail goodsDetail = GoodsDetail.newInstance("104", "住院费", Math.round(price * hospitalization_days), 1);
 					cost.setHospitalization_cost(price * hospitalization_days);
@@ -156,6 +157,11 @@ public class CostController {
 	            case SUCCESS:
 	            	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	            	cost.setDate(dateFormat.format(new Date()));
+	            	for (int i = 0; i < codes.length; i++) {
+	    				Drug_record drug_record = drug_recordService.findDrug_recordByCode(codes[i]);
+	    				drug_record.setStatus(0);
+						drug_recordService.updateDrug_record(drug_record);
+	    			}
 	            	if (costService.insertCost(cost)) {
 	            		model.addAttribute("msg", "支付宝收款成功，正在打印明细单..");
 		    	    	model.addAttribute("code", "success");
@@ -198,6 +204,11 @@ public class CostController {
 			cost.setPayment("WECHAT");
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         	cost.setDate(dateFormat.format(new Date()));
+        	for (int i = 0; i < codes.length; i++) {
+				Drug_record drug_record = drug_recordService.findDrug_recordByCode(codes[i]);
+				drug_record.setStatus(0);
+				drug_recordService.updateDrug_record(drug_record);
+			}
         	if (costService.insertCost(cost)) {
         		model.addAttribute("msg", "收款完成");
     	    	model.addAttribute("code", "success");
@@ -218,6 +229,11 @@ public class CostController {
 			cost.setPayment("CARD");
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			cost.setDate(dateFormat.format(new Date()));
+			for (int i = 0; i < codes.length; i++) {
+				Drug_record drug_record = drug_recordService.findDrug_recordByCode(codes[i]);
+				drug_record.setStatus(0);
+				drug_recordService.updateDrug_record(drug_record);
+			}
 			if (costService.insertCost(cost)) {
 				model.addAttribute("msg", "收款完成");
 		    	model.addAttribute("code", "success");
@@ -238,6 +254,11 @@ public class CostController {
 			cost.setPayment("CASH");
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			cost.setDate(dateFormat.format(new Date()));
+			for (int i = 0; i < codes.length; i++) {
+				Drug_record drug_record = drug_recordService.findDrug_recordByCode(codes[i]);
+				drug_record.setStatus(0);
+				drug_recordService.updateDrug_record(drug_record);
+			}
 			if (costService.insertCost(cost)) {
 				model.addAttribute("msg", "收款完成");
 		    	model.addAttribute("code", "success");

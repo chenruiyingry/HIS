@@ -92,7 +92,7 @@
 		<div class="loginbar" id="loginbar">
 			<h3 id="si">Sign in</h3>
 			<form action="login.action" onsubmit="return check1()" method="post">
-				<input type="text" placeholder="User ID" id="username" value="${username }" name="code">
+				<input type="text" placeholder="User ID" id="username" value="${code }" name="code">
 				<input type="password" placeholder="Password" id="userpwd" value="${password }" name="password">
 				<p>${msg }</p>
 				<input type="submit" value="Sign In" onmouseover="mov()" onmouseout="mou()" class="submit" id="submit">

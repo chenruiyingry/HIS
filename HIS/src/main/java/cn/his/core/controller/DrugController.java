@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.his.core.model.drug.Drug;
 import cn.his.core.model.drug.Drug_record;
 import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;
+import cn.his.core.service.drug.DrugService;
 import cn.his.core.service.drug.Drug_recordService;
 import cn.his.core.service.patient.Medical_recordService;
 import cn.his.core.service.patient.PatientService;
@@ -23,6 +25,8 @@ public class DrugController {
 	private Medical_recordService medical_recordService;
 	@Autowired
 	private Drug_recordService drug_recordService;
+	@Autowired
+	private DrugService drugService;
 	
 	/**
 	 * 去取药页面
@@ -47,7 +51,10 @@ public class DrugController {
 			medical_record.setPatient_code(code);
 			List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);
 			medical_record = medical_records.get(medical_records.size() - 1);
-			if (medical_record.getDrug_record().get(medical_record.getDrug_record().size() - 1).getStatus() == 0) {
+			if (medical_record.getDrug_record().get(medical_record.getDrug_record().size() - 1).getStatus() == 2) {
+				model.addAttribute("msg", "病人未缴费，不能取药");
+				return "todrug";
+			} else if (medical_record.getDrug_record().get(medical_record.getDrug_record().size() - 1).getStatus() == 0) {
 				model.addAttribute("status", "未取药");
 			} else {
 				model.addAttribute("status", "已取药");
@@ -72,12 +79,25 @@ public class DrugController {
 	public String takeDrug(String medical_record, ModelMap model) {
 		Medical_record medical_record2 = medical_recordService.findMedical_recordByCode(medical_record);
 		List<Drug_record> drug_records = medical_record2.getDrug_record();
+		boolean flag = false;
 		for (Drug_record drug_record : drug_records) {
-			drug_record.setStatus(1);
-			drug_recordService.updateDrug_record(drug_record);
+			Drug drug = drugService.findDrugByCode(drug_record.getDrug_code());
+			if (drug.getStore() >= drug_record.getNumber()) {
+				drug.setStore(drug.getStore() - drug_record.getNumber());
+				drugService.updateDrug(drug);
+				drug_record.setStatus(1);
+				drug_recordService.updateDrug_record(drug_record);
+			} else {
+				model.addAttribute("msg", "药品库存不足，取药失败！");
+				model.addAttribute("code", "error");
+				flag = true;
+				break;
+			}
 		}
-		model.addAttribute("msg", "取药成功");
-    	model.addAttribute("code", "success");
+		if (!flag) {
+			model.addAttribute("msg", "取药成功");
+	    	model.addAttribute("code", "success");
+		}
     	model.addAttribute("urlname", "取药页面");
     	model.addAttribute("url", "toDrug.action");
     	model.addAttribute("time", 5);

@@ -41,6 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td class="main_header_td14 main_header_box">${doctor.name }</td>
 						<input type="hidden" name="medicalcode" value="${medical_record.code }">
 						<input type="hidden" name="bed_number" value="${medical_record.bed_number }">
+						<input type="hidden" name="ward_number" value="${medical_record.ward_number }">
 						<input type="hidden" name="hospitalization_days" value="${medical_record.hospitalization_days }">
 						<input type="hidden" name="tradeNo" value="${tradeNo }">
 						<input type="hidden" name="patientcode" value="${patient.code }">

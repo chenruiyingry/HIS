@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>收费</title>
+	<title>取药</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
 	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/tofee.css">
