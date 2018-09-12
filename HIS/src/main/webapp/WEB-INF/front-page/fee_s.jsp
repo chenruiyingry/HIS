@@ -170,6 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/fee_s.js"></script>
 	<script>
 	var ta = document.getElementById('main');

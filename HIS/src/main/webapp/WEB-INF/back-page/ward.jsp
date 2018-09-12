@@ -37,9 +37,9 @@
 							<form action="/HIS/admin/updateBed.do" method="post" onsubmit="return updateBed_${bed.id }()">
 								<input type="hidden" name="ward_code" value="${ward.ward_code }">
 								<input type="hidden" name="id" value="${bed.id }">
-								<input type="text" value="${bed.bed_code }" class="bednum bsp bsp_${bed.id }" name="bed_code" id="bed_code_${bed.id }">
+								<input autocomplete="off" type="text" value="${bed.bed_code }" class="bednum bsp bsp_${bed.id }" name="bed_code" id="bed_code_${bed.id }">
 								<input type="text" value="<c:if test="${!bed.occupy }">空闲</c:if><c:if test="${bed.occupy }">占用</c:if>" class="status bsp bsp_${bed.id } status_${bed.id }">
-								<input type="text" value="${bed.price }" class="price bsp bsp_${bed.id }" name="price" id="price_${bed.id }">
+								<input autocomplete="off" type="text" value="${bed.price }" class="price bsp bsp_${bed.id }" name="price" id="price_${bed.id }">
 								<input type="button" value="修改" class="bedmod bedmod_${bed.id }">
 								<input type="submit" value="保存" class="bedsave bedsave_${bed.id }">
 							</form>
@@ -52,8 +52,8 @@
 					<div class="bed_1 add add_${ward.id } bed_1_${ward.id }">
 						<form action="/HIS/admin/addBed.do" method="post" onsubmit="return insertBed_${ward.id }()">
 							<input type="hidden" name="ward_code" value="${ward.ward_code }">
-							<input type="text" placeholder="床号" class="bednum bsp bsp_${ward.id } bednum_${ward.id }" name="bed_code" id="bed_code1_${ward.id }">
-							<input type="text" placeholder="价格" class="price bsp bsp_${ward.id } price_${ward.id }" name="price" id="price1_${ward.id }">
+							<input autocomplete="off" type="text" placeholder="床号" class="bednum bsp bsp_${ward.id } bednum_${ward.id }" name="bed_code" id="bed_code1_${ward.id }">
+							<input autocomplete="off" type="text" placeholder="价格" class="price bsp bsp_${ward.id } price_${ward.id }" name="price" id="price1_${ward.id }">
 							<input type="text" value="空闲" readonly="readonly" class="status bsp bsp_1">
 							<input type="button" value="添加" class="bedmod bedmod_${ward.id }">
 							<input type="submit" value="保存" class="bedsave bedsave_${ward.id }">

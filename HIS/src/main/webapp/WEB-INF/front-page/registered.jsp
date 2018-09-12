@@ -68,9 +68,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 				<tr>
 					<td>家庭地址：</td>
-					<td colspan="4"><input type="text" id="address" style="width: 90%;" name="address" value="${patient.address }"></td>
+					<td colspan="4"><input type="text" id="address" style="width: 90%; height: 20%" name="address" value="${patient.address }"></td>
 					<td>联系电话：</td>
-					<td colspan="4"><input type="text" id="phone" style="width: 40%;" name="phone" value="${patient.phone }"></td>
+					<td colspan="4"><input type="text" id="phone" style="width: 40%; height: 20%" name="phone" value="${patient.phone }"></td>
 				</tr>
 			</table>
 		</div>

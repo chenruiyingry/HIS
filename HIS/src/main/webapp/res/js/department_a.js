@@ -2,6 +2,7 @@ var main = document.getElementById('main');
 var del = document.getElementById('del');
 main.style.height = $(window).height()-72+"px";
 $(document).ready(function (){
+	$('.main').niceScroll({cursorcolor: "rgb(204, 204, 204)", mousescrollspeed: "20"});
 	$('.plus').click(function (){
 		$('.plus').css({"z-index": "0",});
 		$('.fa-plus-square-o').css({"font-size": "0em", "top": "0%", "right": "0%", "width": "0%", "height": "0%", "color": "#0000", "transition": ".3s",});

@@ -72,8 +72,9 @@
 .introduction_main {
 	margin: 0px;
     overflow: scroll;
-    height: 85%;
+    height: 80%;
     line-height: 30px;
+    overflow-x: hidden;
 }
 .td_4 {
     width: 10%;

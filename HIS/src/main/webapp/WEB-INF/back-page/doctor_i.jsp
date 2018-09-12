@@ -25,14 +25,8 @@
 			<input type="submit" value="" class="submit faz" id="submit">
 			<input type="reset" value="" class="reset faz" id="reset">
 			<div class="photo">
-				<c:if test="${!empty doctor.allUrl }">
-					<a href="javascript:void(0)" onclick="javascript:document.getElementById('file').click()" class="addlink"></a>
-					<img src="${doctor.allUrl }" alt="img" id="allImgUrl">
-				</c:if>
-				<c:if test="${empty doctor.allUrl }">
-					<a href="javascript:void(0)" onclick="javascript:document.getElementById('file').click()" class="addlink"></a>
-					<img src="/HIS/res/img/add.png" alt="img" id="allImgUrl">
-				</c:if>
+				<a href="javascript:void(0)" onclick="javascript:document.getElementById('file').click()" class="addlink"></a>
+				<img src="${doctor.allUrl }" alt="img" id="allImgUrl">
 				<input type="hidden" name="image_url" id="path" value="${doctor.image_url }"/>
 				<input type="file" name="pic" class="img" id="file" onchange="uploadPic()"/>
 			</div>
@@ -138,6 +132,7 @@
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/doctorIsNull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/doctor_i.js"></script>
 	<script type="text/javascript">
@@ -169,6 +164,7 @@
 			$(document).ready(function (){
 				$('button').click();
 				$('.addlink').css({"z-index": "2",});
+				$('#allImgUrl').src("/HIS/res/img/add.png");
 			});
 			document.getElementById("myform").action = "/HIS/admin/addDoctor.do";
 		}

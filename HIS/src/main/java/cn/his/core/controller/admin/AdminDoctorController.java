@@ -166,6 +166,7 @@ public class AdminDoctorController {
 		List<Department> list = departmentService.findDepartmentList(new Department());
 		model.addAttribute("departmentlist", list);
 		model.addAttribute("msg", msg);
+		doctor.setImage_url("his/add.png");
 		model.addAttribute("doctor", doctor);
 		return "doctor_i";
 	}

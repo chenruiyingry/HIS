@@ -1,6 +1,7 @@
 var main = document.getElementById('main');
 main.style.height = $(window).height()-72+"px";
 $(document).ready(function (){
+	$('.introduction_main').niceScroll({cursorcolor: "rgb(204, 204, 204)", mousescrollspeed: "20"});
 	$('.td_3').attr({"readonly": "readonly",});
 	$('button').click(function (){
 		$('.td_3').removeAttr('readonly');

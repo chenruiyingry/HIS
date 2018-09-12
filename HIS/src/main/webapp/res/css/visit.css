@@ -46,6 +46,7 @@
 }
 .td_2 select {
 	width: 80%;
+	height: 25%;
 }
 .tr_1 {
 	display: none;
@@ -66,7 +67,7 @@
     position: absolute;
     top: 72px;
     width: 76%;
-    height: 72%;
+    height: 73%;
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
     background-color: #fff;

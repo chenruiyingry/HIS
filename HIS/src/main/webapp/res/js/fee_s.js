@@ -1,6 +1,7 @@
 var main = document.getElementById('main');
 main.style.height = $(window).height()-72+"px";
 $(document).ready(function (){
+	$('.main_content_2').niceScroll({cursorcolor: "rgb(204, 204, 204)", mousescrollspeed: "20"});
 	$('.alipay_r').click(function (){
 		$('.paynumber').slideDown('.2s');
 		$('.cashpay').css({"top":"64%",});

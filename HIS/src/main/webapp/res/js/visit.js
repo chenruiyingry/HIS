@@ -1,6 +1,7 @@
 var main = document.getElementById('main');
 main.style.height = $(window).height()-72+"px";
 $(document).ready(function (){
+	//$('.prescriptions_main').niceScroll({cursorcolor: "rgb(204, 204, 204)", mousescrollspeed: "20"});
 	$('.td_it').click(function (){
 		$('.tr_1').css({"display": "table-row",});
 	});

@@ -62,9 +62,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script>
 		var main = document.getElementById('main');
 		main.style.height = $(window).height()-72+"px";
+		$('.tf').niceScroll({cursorcolor: "rgb(204, 204, 204)", mousescrollspeed: "20"});
 	</script>
 </body>
 </html>

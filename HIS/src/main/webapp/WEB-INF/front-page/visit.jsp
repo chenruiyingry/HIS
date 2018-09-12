@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</select>
 						</td>
 						<td>住院天数</td>
-						<td><input type="text" name="hospitalization_days" value="0" id="hospitalization_days"></td>
+						<td><input type="text" name="hospitalization_days" value="0" id="hospitalization_days" style="height: 25%;"></td>
 					</tr>
 				</table>
 			</div>
@@ -133,6 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/visitIsNull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/visit.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
