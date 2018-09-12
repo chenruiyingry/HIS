@@ -54,11 +54,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</tr>
 					<tr>
 						<td>化验结果</td>
-						<td colspan="5" class="td_5"><input type="text" name="assay_result"></td>
+						<td colspan="5" class="td_5"><input type="text" name="assay_result" id="assay_result"></td>
 					</tr>
 					<tr>
 						<td>检查结果</td>
-						<td colspan="5" class="td_5"><input type="text" name="examination_result"></td>
+						<td colspan="5" class="td_5"><input type="text" name="examination_result" id="examination_result"></td>
 					</tr>
 					<tr>
 						<td>诊断结果</td>
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</select>
 						</td>
 						<td>住院天数</td>
-						<td><input type="text" name="hospitalization_days" value="0"></td>
+						<td><input type="text" name="hospitalization_days" value="0" id="hospitalization_days"></td>
 					</tr>
 				</table>
 			</div>
@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</select>
 						</td>
 						<td style="width: 20%">
-							<input type="text" style="width: 70%" id="num" class="si" name="num">
+							<input type="text" style="width: 70%" id="num" class="si" name="num" value="0">
 						</td>
 						<td style="width: 20%" class="unit_1">盒</td>
 						<td style="width: 20%" class="spec_1">10颗/盒</td>
@@ -131,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	</form>
-    <script type="text/javascript" src="/HIS/res/js/visitIsNull.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/visitIsNull.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/visit.js"></script>
 	<script type="text/javascript">
@@ -192,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		html += '		</select>'
 		html += '	</td>'
 		html += '	<td style="width: 20%">'
-		html += '		<input type="text" style="width: 70%" id="num" class="si" name="num">'
+		html += '		<input type="text" style="width: 70%" id="num" class="si" name="num" value="0">'
 		html += '	</td>'
 		html += '	<td style="width: 20%" class="unit_' + (num+1) + '">盒</td>'
 		html += '	<td style="width: 20%" class="spec_' + (num+1) + '">10颗/盒</td>'
