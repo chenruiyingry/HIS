@@ -58,14 +58,100 @@
 	<!-- 添加新的病历信息 -->
 	<insert id="insertMedical_record" parameterType="Medical_record">
 		insert into medical_record
-		<trim prefix="(" suffix=")">
-		code , patient_code , doctor_code , isAssay , assay_result , isExamination , examination_result , 
-		diagnostic_result , treatment , isHospitalization , ward_number , bed_number , hospitalization_days , date, department_code
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				code,
+			</if>
+			<if test="patient_code != null">
+				patient_code,
+			</if>
+			<if test="doctor_code != null">
+				doctor_code,
+			</if>
+			<if test="assay != null">
+				isAssay,
+			</if>
+			<if test="assay_result != null">
+				assay_result,
+			</if>
+			<if test="examination != null">
+				isExamination,
+			</if>
+			<if test="examination_result != null">
+				examination_result,
+			</if>
+			<if test="diagnostic_result != null">
+				diagnostic_result,
+			</if>
+			<if test="treatment != null">
+				treatment,
+			</if>
+			<if test="hospitalization != null">
+				isHospitalization,
+			</if>
+			<if test=" ward_number != null">
+				 ward_number,
+			</if>
+			<if test="bed_number != null">
+				bed_number,
+			</if>
+			<if test="hospitalization_days != null">
+				hospitalization_days,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+			<if test="department_code != null">
+				department_code,
+			</if>
 		</trim>
 		values 
-		<trim prefix="(" suffix=")">
-		#{code} , #{patient_code} , #{doctor_code} , #{assay} , #{assay_result} , #{examination} , #{examination_result} , 
-		#{diagnostic_result} , #{treatment} , #{hospitalization} , #{ward_number} , #{bed_number} , #{hospitalization_days} , #{date}, #{department_code}
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				#{code},
+			</if>
+			<if test="patient_code != null">
+				#{patient_code},
+			</if>
+			<if test="doctor_code != null">
+				#{doctor_code},
+			</if>
+			<if test="assay != null">
+				#{assay},
+			</if>
+			<if test="assay_result != null">
+				#{assay_result},
+			</if>
+			<if test="examination != null">
+				#{examination},
+			</if>
+			<if test="examination_result != null">
+				#{examination_result},
+			</if>
+			<if test="diagnostic_result != null">
+				#{diagnostic_result},
+			</if>
+			<if test="treatment != null">
+				#{treatment},
+			</if>
+			<if test="hospitalization != null">
+				#{hospitalization},
+			</if>
+			<if test=" ward_number != null">
+				#{ ward_number},
+			</if>
+			<if test="bed_number != null">
+				#{bed_number},
+			</if>
+			<if test="hospitalization_days != null">
+				#{hospitalization_days},
+			</if>
+			<if test="date != null">
+				#{date},
+			</if>
+			<if test="department_code != null">
+				#{department_code},
+			</if>
 		</trim>
 	</insert>
 	
@@ -73,7 +159,10 @@
 	<update id="updateMdical_record" parameterType="Medical_record">
 		update medical_record
 		<set>
-		<if test="doctor_code != null">
+			<if test="patient_code != null">
+				patient_code = #{patient_code},
+			</if>
+			<if test="doctor_code != null">
 				doctor_code = #{doctor_code},
 			</if>
 			<if test="assay != null">

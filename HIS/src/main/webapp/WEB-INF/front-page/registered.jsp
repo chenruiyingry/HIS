@@ -18,7 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:import url="/toHead.action">
 		<c:param name="name" value="register"></c:param>
 	</c:import>
-	<form action="/HIS/regist.action" onSubmit="return check()">
+	<form action="/HIS/regist.action" onSubmit="return check()" method="post">
+	<input type="hidden" name="code" value="${patient.code }">
 	<div class="main" id="main">
 		<div class="main_bar">
 			<p class="main_bar_title">挂号预填表</p>

@@ -21,13 +21,12 @@ function isNull(){
 	var qualificationv = getID('qualification').value;
 	var license = getID('license').value;
 	var title = getID('title').value;
-	var duty = getID('duty').value;
 	var hiredate = getID('hiredate').value;
 	var major = getID('major').value;
 	var work_time = getID('work_time').value;
 	var outwork_time = getID('outwork_time').value;
 	if(name.length<1 || nation.length<1 || native_place.length<1 || birth.length<1 || code.length<1 || degree.length<1 || 
-	graduate.length<1 || address.length<1 || qualificationv.length<1 || license.length<1 || title.length<1 || duty.length<1 ||
+	graduate.length<1 || address.length<1 || qualificationv.length<1 || license.length<1 || title.length<1 || 
 	hiredate.length<1 || major.length<1 || work_time.length<1 || outwork_time.length<1 ){
 		err+='请完整填写表单！\n';
 		return false;

@@ -66,12 +66,12 @@
 	<insert id="insertDrug" parameterType="Drug">
 		insert into drug
 		<trim prefix="(" suffix=")">
-			code, name, function, produce_date, effective_date, manufacturer, unit, purchase_price, sale_price, store
+			code, name, function, produce_date, effective_date, manufacturer, unit, purchase_price, sale_price, store, spec
 		</trim>
 		values
 		<trim prefix="(" suffix=")">
-			#{code}, #{name}, #{funcction}, #{produce_date}, #{effective_date}, #{manufacturer}, #{unit}, 
-			#{purchase_price}, #{sale_price}, #{store}
+			#{code}, #{name}, #{funcction}, #{produce_date}, #{effective_date}, #{manufacturer}, #{unit},
+			#{purchase_price}, #{sale_price}, #{store}, #{spec}
 		</trim>
 	</insert>
 	

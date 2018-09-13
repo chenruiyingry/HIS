@@ -12,7 +12,6 @@ import cn.his.core.dao.doctor.DepartmentDao;
 import cn.his.core.dao.doctor.DoctorDao;
 import cn.his.core.dao.patient.Medical_recordDao;
 import cn.his.core.dao.patient.PatientDao;
-import cn.his.core.model.doctor.Doctor;
 import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;
 
@@ -107,6 +106,11 @@ public class PatientServiceImpl implements PatientService {
 	@Override
 	public boolean deletePatient(String code) {
 		return patientDao.deletePatient(code);
+	}
+
+	@Override
+	public List<Patient> findPatients(Patient patient) {
+		return patientDao.findPatientList(patient);
 	}
 
 }

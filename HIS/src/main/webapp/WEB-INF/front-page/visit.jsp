@@ -18,9 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:import url="/toHead.action">
 		<c:param name="name" value="visit"></c:param>
 	</c:import>
-	<form action="/HIS/treatment.action" onSubmit="return isNull()">
+	<form action="/HIS/treatment.action" onSubmit="return isNull()" method="post">
 	<input type="hidden" name="code" value="${medical_record.code }">
-	<input type="hidden" name="patient_code" value="${medical_record.patient_code }">
+	<input type="hidden" name="patient_code" value="${medical_record.patient_code }${code }">
 	<input type="hidden" name="doctor_code" value="${doctorsession.code }">
 	<input type="hidden" name="department_code" value="${doctorsession.department_code }">
 	<div class="main" id="main">
@@ -31,50 +31,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<table>
 					<tr>
 						<td class="td_1">病人编号</td>
-						<td>${medical_record.patient_code }</td>
+						<td>${medical_record.patient_code }${code }</td>
 						<td class="td_1">医生编号</td>
 						<td>${doctorsession.code }</td>
 					</tr>
 					<tr>
 						<td>是否化验</td>
 						<td>
-							<input type="radio" name="assay" value="true">是
-							<input type="radio" name="assay" value="false" checked="checked">否
+							<input type="radio" name="assay" <c:if test="${medical_record.assay eq true }">checked="checked"</c:if>>是
+							<input type="radio" name="assay" value="false" <c:if test="${medical_record.assay eq false }">checked="checked"</c:if> checked="checked">否
 						</td>
 						<td>是否检查</td>
 						<td>
-							<input type="radio" name="examination" value="true">是
-							<input type="radio" name="examination" value="false" checked="checked">否
+							<input type="radio" name="examination" value="true" <c:if test="${medical_record.examination eq true }">checked="checked"</c:if>>是
+							<input type="radio" name="examination" value="false" <c:if test="${medical_record.examination eq false }">checked="checked"</c:if> checked="checked">否
 						</td>
 						<td class="td_1">是否住院</td>
 						<td>
-							<input type="radio" name="hospitalization" id="hospitalization" class="td_it" value="true">是
-							<input type="radio" name="hospitalization" id="hospitalization" class="td_if" value="false" checked="checked">否
+							<input type="radio" name="hospitalization" id="hospitalization" class="td_it" value="true" <c:if test="${medical_record.hospitalization eq true }">checked="checked"</c:if>>是
+							<input type="radio" name="hospitalization" id="hospitalization" class="td_if" value="false" <c:if test="${medical_record.hospitalization eq false }">checked="checked"</c:if> checked="checked">否
 						</td>
 					</tr>
 					<tr>
 						<td>化验结果</td>
-						<td colspan="5" class="td_5"><input type="text" name="assay_result" id="assay_result"></td>
+						<td colspan="5" class="td_5"><input type="text" name="assay_result" id="assay_result" value="${medical_record.assay_result }"></td>
 					</tr>
 					<tr>
 						<td>检查结果</td>
-						<td colspan="5" class="td_5"><input type="text" name="examination_result" id="examination_result"></td>
+						<td colspan="5" class="td_5"><input type="text" name="examination_result" id="examination_result" value="${medical_record.examination_result }"></td>
 					</tr>
 					<tr>
 						<td>诊断结果</td>
-						<td colspan="5" class="td_5"><input type="text" id="diagnostic_result" name="diagnostic_result"></td>
+						<td colspan="5" class="td_5"><input type="text" id="diagnostic_result" name="diagnostic_result" value="${medical_record.diagnostic_result }"></td>
 					</tr>
 					<tr>
 						<td>现状处理</td>
-						<td colspan="5" class="td_5"><input type="text" id="treatment" name="treatment"></td>
+						<td colspan="5" class="td_5"><input type="text" id="treatment" name="treatment" value="${medical_record.treatment }"></td>
 					</tr>
 					<tr class="tr_1">
 						<td>病房号</td>
 						<td class="td_2">
 							<select name="ward_number" id="ward_number" onchange="beds(this.value)">
 								<option value="" selected>病房号</option>
-								<c:forEach items="${wards }" var="ward">
-									<option value="${ward.ward_code }">${ward.ward_code }/${ward.type }</option>
+								<c:forEach items="${wards }" var="ward"> 
+									<option value="${ward.ward_code }" <c:if test="${medical_record.ward_number eq ward.ward_code }">selected="selected"</c:if>>${ward.ward_code }/${ward.type }</option>
 								</c:forEach>
 							</select>
 						</td>
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</select>
 						</td>
 						<td>住院天数</td>
-						<td><input type="text" name="hospitalization_days" value="0" id="hospitalization_days" style="height: 25%;"></td>
+						<td><input type="text" name="hospitalization_days" value="${medical_record.hospitalization_days }" id="hospitalization_days" style="height: 25%;" ></td>
 					</tr>
 				</table>
 			</div>
@@ -169,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var beds = data.beds;
 				var html = '<option value="" selected>病床号</option>';
 				for(var i = 0; i < beds.length; i++) {
-					html += '<option value="'+ beds[i].bed_code + '" >' + beds[i].bed_code + '</option>';
+					html += '<option value="'+ beds[i].bed_code + '" <c:if test="${medical_record.bed_number eq ward.bed_code }">selected="selected"</c:if> >' + beds[i].bed_code + '</option>';
 				}
 				$("#bed").html(html);
 			}

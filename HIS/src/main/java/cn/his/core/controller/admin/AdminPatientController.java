@@ -61,7 +61,7 @@ public class AdminPatientController {
 	}
 	
 	/**
-	 * 删除医生
+	 * 删除病人
 	 * @param code
 	 * @return
 	 */
@@ -71,6 +71,12 @@ public class AdminPatientController {
 		return "redirect:/admin/patientList.do";
 	}
 	
+	/**
+	 * 修改病人信息
+	 * @param patient
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/editPatient.do", method = RequestMethod.POST)
 	public String editPatient(Patient patient, ModelMap model) {
 		model.addAttribute("code", patient.getCode());

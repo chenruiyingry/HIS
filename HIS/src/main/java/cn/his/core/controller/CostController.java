@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +23,7 @@ import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 
+import cn.his.common.web.SessionProvider;
 import cn.his.core.model.Cost;
 import cn.his.core.model.Ward;
 import cn.his.core.model.doctor.Department;
@@ -60,6 +65,8 @@ public class CostController {
 	private Register_costService register_costService;
 	@Autowired
 	private WardService wardService;
+	@Autowired
+	private SessionProvider sessionProvider;
 
 	private static AlipayTradeService tradeService;
 	static {
@@ -351,7 +358,13 @@ public class CostController {
 	 * @return
 	 */
 	@RequestMapping(value = "toFee.action")
-	public String toFee() {
-		return "tofee";
+	public String toFee(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		Doctor doctor = (Doctor) sessionProvider.getAttribute(request, response, "doctorsession");
+		if ("CASHIER".equals(doctor.getDuty())) {
+			return "tofee";
+		} else {
+			model.addAttribute("msg", "权限不足，请确定权限后重试！");
+			return "index_s";
+		}
 	}
 }

@@ -29,8 +29,10 @@ import cn.his.common.page.Pagination;
 import cn.his.common.utils.Md5Utils;
 import cn.his.core.model.doctor.Department;
 import cn.his.core.model.doctor.Doctor;
+import cn.his.core.model.patient.Patient;
 import cn.his.core.service.doctor.DepartmentService;
 import cn.his.core.service.doctor.DoctorService;
+import cn.his.core.service.patient.PatientService;
 
 /**
  * 后台医生模块
@@ -44,6 +46,8 @@ public class AdminDoctorController {
 	private DoctorService doctorService;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	private PatientService patientService;
 	
 	/**
 	 * 医生列表
@@ -127,31 +131,18 @@ public class AdminDoctorController {
 	@RequestMapping(value = "/admin/doctor.do")
 	public String toDoctorInfo(String code, ModelMap model, String msg) throws ParseException {
 		Doctor doctor = doctorService.findDoctorByCode(code);
-		doctor.setDepartment_code(departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName());
-		if ("CHIEF".equals(doctor.getLevel())) {
-			doctor.setLevel("主任医师");
-		} else if ("ASSOCIATECHIEF".equals(doctor.getLevel())) {
-			doctor.setLevel("副主任医师");
-		} else if ("ATTENDING".equals(doctor.getLevel())) {
-			doctor.setLevel("主治医师");
-		} else if ("RESIDENT".equals(doctor.getLevel())) {
-			doctor.setLevel("住院医师");
-		} else if ("PHYSICIAN".equals(doctor.getLevel())) {
-			doctor.setLevel("医师");
-		} else if ("FELDSHER".equals(doctor.getLevel())) {
-			doctor.setLevel("医士");
-		} 
-		if ("MAN".equals(doctor.getSex())) {
-			doctor.setSex("男");
-		} else if ("WOMAN".equals(doctor.getSex())) {
-			doctor.setSex("女");
-		}
+		String departmentName = departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName();
 		List<Department> list = departmentService.findDepartmentList(new Department());
+		Patient patient = new Patient();
+		patient.setDoctor_code(code);
+		List<Patient> patients = patientService.findPatients(patient);
 		doctor.setWork_time(doctor.getWork_time().replace(" ", "T"));
 		doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
 		model.addAttribute("doctor", doctor);
 		model.addAttribute("departmentlist", list);
+		model.addAttribute("departmentName", departmentName);
 		model.addAttribute("msg", msg);
+		model.addAttribute("patients", patients);
 		return "doctor_i";
 	}
 	
@@ -209,12 +200,19 @@ public class AdminDoctorController {
 			model.addAttribute("doctor", doctor);
 			return "redirect:/admin/toAddDoctor";
 		} else {
-			doctor.setWork_time(doctor.getWork_time().replace("T", " "));
-			doctor.setOutwork_time(doctor.getOutwork_time().replace("T", " "));
-			doctor.setFirst(true);
-			doctor.setPassword(Md5Utils.md5("123456"));
-			doctorService.insertDoctor(doctor);
-			return "redirect:/admin/doctorList.do";
+			if (doctorService.findDoctorByCode(doctor.getCode()) != null) {
+				model.addAttribute("msg", "医生编号已被使用");
+				model.addAttribute("doctor", doctor);
+				return "redirect:/admin/toAddDoctor";
+			} else {
+				doctor.setWork_time(doctor.getWork_time().replace("T", " "));
+				doctor.setOutwork_time(doctor.getOutwork_time().replace("T", " "));
+				doctor.setFirst(true);
+				doctor.setWorknow(false);
+				doctor.setPassword(Md5Utils.md5("123456"));
+				doctorService.insertDoctor(doctor);
+				return "redirect:/admin/doctorList.do";
+			}
 		}
 		
 	}

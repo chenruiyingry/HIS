@@ -40,11 +40,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="/HIS/toDrug.action">取药</a>
 				<a href="/HIS/toUpdate.action">修改密码</a>
 			</div>
-			<a href="toUpdate.action" class="update"></a>
+			<a href="/HIS/toInfo.action?code=${doctorsession.code }" class="update" title="点击查看个人信息"></a>
 			<img class="auther_head" id="auther_head" src="${doctorsession.allUrl }" alt="img">
 			<p class="username_1" id="username_1">${doctorsession.name }</p>
 			<a href="/HIS/logout.action" class="sign-out"><i class="fa fa-sign-out"></i></a>
-			<a href="/HIS/toUpdate.action" title="点击修改密码"></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>

@@ -95,7 +95,7 @@
 		update patient 
 		<set>
 			<if test="doctor_code != null">
-				doctor_code= #{doctor_code}
+				doctor_code= #{doctor_code},
 			</if>
 			<if test="name != null">
 				name = #{name},

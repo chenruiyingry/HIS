@@ -76,7 +76,9 @@ public class Medical_recordServiceImpl implements Medical_recordService{
 	}
 
 	public boolean insertMedical_record(Medical_record medical_record) {
-		
+		List<Medical_record> medical_records = medical_recordDao.findMedical_recordList(new Medical_record());
+		int num = Integer.parseInt(medical_records.get(medical_records.size() - 1).getCode()) + 1;
+		medical_record.setCode(Integer.toString(num));
 		return medical_recordDao.insertMedical_record(medical_record);
 	}
 

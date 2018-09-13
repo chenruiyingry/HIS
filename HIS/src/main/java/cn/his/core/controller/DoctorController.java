@@ -1,5 +1,7 @@
 package cn.his.core.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.his.common.utils.Md5Utils;
 import cn.his.common.web.SessionProvider;
+import cn.his.core.model.doctor.Department;
 import cn.his.core.model.doctor.Doctor;
+import cn.his.core.model.patient.Patient;
+import cn.his.core.service.doctor.DepartmentService;
 import cn.his.core.service.doctor.DoctorService;
+import cn.his.core.service.patient.PatientService;
 
 /**
  * 前台医生模块
@@ -24,7 +30,11 @@ public class DoctorController {
 	@Autowired
 	private DoctorService doctorService;
 	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
 	private SessionProvider sessionProvider;
+	@Autowired
+	private PatientService patientService;
 	
 	/**
 	 * 去前台登陆页面
@@ -48,10 +58,10 @@ public class DoctorController {
 	public String login(String code, String password, ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		Doctor doctor = doctorService.login(code, password);
 		if (doctor != null) {
+			sessionProvider.setAttribute(request, response, "doctorsession", doctor);
 			if (doctor.isFirst()) {
 				return "redirect:/toUpdate.action";
 			}
-			sessionProvider.setAttribute(request, response, "doctorsession", doctor);
 			return "redirect:/toIndex.action";
 		} else {
 			model.addAttribute("msg", "用户名或密码错误");
@@ -71,6 +81,28 @@ public class DoctorController {
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		sessionProvider.logout(request, response);
 		return "login_s";
+	}
+	
+	/**
+	 * 医生信息
+	 * @param code
+	 * @return
+	 */
+	@RequestMapping(value = "/toInfo.action")
+	public String toInfo(String code, ModelMap model) {
+		Doctor doctor = doctorService.findDoctorByCode(code);
+		String departmentName = departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName();
+		List<Department> list = departmentService.findDepartmentList(new Department());
+		Patient patient = new Patient();
+		patient.setDoctor_code(code);
+		List<Patient> patients = patientService.findPatients(patient);
+		doctor.setWork_time(doctor.getWork_time().replace(" ", "T"));
+		doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
+		model.addAttribute("doctor", doctor);
+		model.addAttribute("departmentName", departmentName);
+		model.addAttribute("departmentlist", list);
+		model.addAttribute("patients", patients);
+		return "doctor";
 	}
 	
 	/**
@@ -115,6 +147,28 @@ public class DoctorController {
 	}
 	
 	/**
+	 * 医生修改个人信息
+	 * @param doctor
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/editDoctor.action")
+	public String editDoctor(Doctor doctor, ModelMap model) {
+		if (doctorService.updateDoctor(doctor)) {
+			model.addAttribute("code", doctor.getCode());
+			return "redirect:/toInfo.action";
+		} else {
+			String departmentName = departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName();
+			doctor.setWork_time(doctor.getWork_time().replace(" ", "T"));
+			doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
+			model.addAttribute("doctor", doctor);
+			model.addAttribute("departmentName", departmentName);
+			model.addAttribute("msg", "修改失败，请重试！");
+			return "doctor";
+		}
+	}
+	
+	/**
 	 * 去首页
 	 * @return
 	 */
@@ -143,6 +197,8 @@ public class DoctorController {
 			model.addAttribute("name", "取药系统");
 		} else if ("visit".equals(name)) {
 			model.addAttribute("name", "就诊系统");
+		} else if ("doctor".equals(name)) {
+			model.addAttribute("name", "个人信息");
 		}
 		return "head";
 	}

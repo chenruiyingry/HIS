@@ -2,6 +2,7 @@ package cn.his.core.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.his.common.web.ResponseUtils;
+import cn.his.common.web.SessionProvider;
+import cn.his.core.model.doctor.Doctor;
 import cn.his.core.model.drug.Drug;
 import cn.his.core.model.drug.Drug_record;
 import cn.his.core.model.patient.Medical_record;
@@ -32,14 +35,22 @@ public class DrugController {
 	private Drug_recordService drug_recordService;
 	@Autowired
 	private DrugService drugService;
+	@Autowired
+	private SessionProvider sessionProvider;
 	
 	/**
 	 * 去取药页面
 	 * @return
 	 */
 	@RequestMapping(value = "toDrug.action")
-	public String toDrug() {
-		return "todrug";
+	public String toDrug(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		Doctor doctor = (Doctor) sessionProvider.getAttribute(request, response, "doctorsession");
+		if ("PHARMACIST".equals(doctor.getDuty())) {
+			return "todrug";
+		} else {
+			model.addAttribute("msg", "权限不足，请确定权限后重试！");
+			return "index_s";
+		}
 	}
 	
 	/**

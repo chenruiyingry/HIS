@@ -1,5 +1,7 @@
 package cn.his.core.service.patient;
 
+import java.util.List;
+
 import cn.his.common.page.Pagination;
 import cn.his.core.model.patient.Medical_record;
 import cn.his.core.model.patient.Patient;
@@ -14,11 +16,18 @@ public interface PatientService {
 	public Patient findMedical_recordByCode(Medical_record medical_record);
 
 	/**
-	 * 通过医生编号获取病人列表
+	 * 通过医生编号获取病人列表，带分页
 	 * @param code
 	 * @return
 	 */
 	public Pagination findPatientList(Patient patient);
+	
+	/**
+	 * 通过医生编号获取病人列表
+	 * @param patient
+	 * @return
+	 */
+	public List<Patient> findPatients(Patient patient);
 	
 	/**
 	 * 获得对应医生病人数量

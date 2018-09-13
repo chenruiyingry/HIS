@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class='wrap'>
 				<div class='crop'>
-					<a href="/HIS/toVisit.action" title="诊疗"><img src='/HIS/res/img/16.jpg'></a>
+					<a href="/HIS/toVisit.action" title="诊疗"><img src='/HIS/res/img/77.png'></a>
 				</div>
 			</div>
 			<div class='wrap'>
@@ -46,6 +46,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				alert('${msg }');
+			}
+		});
+	</script>
 	<script>
 		var main = document.getElementById('main');
 		main.style.height = $(window).height()-72+"px";

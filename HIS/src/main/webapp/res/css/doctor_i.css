@@ -58,10 +58,11 @@
 }
 .introduction {
 	position: absolute;
-    width: 90%;
+    width: 40%;
     height: 30%;
     bottom: 0px;
     padding: 0px 5%;
+    left: 50%;
 }
 .introduction_title {
     text-align: center;
@@ -74,7 +75,14 @@
     overflow: scroll;
     height: 80%;
     line-height: 30px;
-    overflow-x: hidden;
+}
+.patient {
+	position: absolute;
+    width: 45%;
+    height: 30%;
+    bottom: 0px;
+    left: 1%;
+    padding: 0 0 0 3%;
 }
 .td_4 {
     width: 10%;
@@ -88,6 +96,19 @@
     height: 50%;
     padding: 0px 5px;
     text-align: center;
+}
+.td_3_code {
+	border-bottom: 1px solid rgb(120, 120, 120);
+    border-top: 1px solid rgb(120, 120, 120, 0);
+    border-left: 1px solid rgb(120, 120, 120, 0);
+    border-right: 1px solid rgb(120, 120, 120, 0);
+    width: 60%;
+    height: 50%;
+    padding: 0px 5px;
+    text-align: center;
+}
+.td_3_depa {
+    width: 75%;
 }
 .td_1 {
 	width: 75%;
@@ -174,6 +195,9 @@
 .td_3_level {
 	display: none;
 }
+.td_3_duty {
+	display: none;
+}
 .date::-webkit-inner-spin-button {
     height: 100%;
 }
@@ -187,5 +211,83 @@
     width: 25%;
 }
 .datetime {
+	border-bottom: 1px solid rgb(120, 120, 120);
+    border-top: 1px solid rgb(120, 120, 120, 0);
+    border-left: 1px solid rgb(120, 120, 120, 0);
+    border-right: 1px solid rgb(120, 120, 120, 0);
+    height: 50%;
+    padding: 0px 5px;
+    text-align: center;
     width: 42%;
+}
+.date {
+	border-bottom: 1px solid rgb(120, 120, 120);
+    border-top: 1px solid rgb(120, 120, 120, 0);
+    border-left: 1px solid rgb(120, 120, 120, 0);
+    border-right: 1px solid rgb(120, 120, 120, 0);
+    width: 60%;
+    height: 50%;
+    padding: 0px 5px;
+    text-align: center;
+}
+.main_content {
+	position: absolute;
+	width: 100%;
+    height: 20%;
+    top: 5%;
+}
+.main_content_2 {
+	position: absolute;
+	width: 100%;
+    height: 71%;
+    top: 28%;
+}
+.main_content_attribute {
+	background-color: #e9f3ff;
+	padding: 4px 0px 4px 0px;
+}
+.main_content_attribute_2 {
+	background-color: #fff;
+	padding: 4px 0px 4px 0px;
+}
+.main_bar .table1 {
+	width: 100%;
+	top: 0%;
+    height: 20%;
+    position: absolute;
+    text-align: center;
+    padding: 0px;
+}
+.main_bar .table2 {
+	text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 0%;
+    top: 0%;
+    padding: 0px;
+}
+.main_content_td3 {
+	width: 10%;
+}
+.main_content_td4 {
+	width: 10%;
+}
+.main_content_td5 {
+	width: 10%;
+}
+.main_content_td6 {
+	width: 10%;
+}
+.main_content_td7 {
+	width: 20%;
+}
+.main_content_td8 {
+	width: 20%;
+}
+.main_content_td9 {
+	width: 20%;
+}
+.patienturl {
+	text-decoration: none;
+	color: blue;
 }
