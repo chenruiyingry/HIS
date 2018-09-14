@@ -181,6 +181,21 @@
 			if (${!empty msg }) {
 				alert('${msg }');
 			}
+			if (${code eq "yesyes" }) {
+				$(document).ready(function (){
+					$('button').click();
+					$('.addlink').css({"z-index": "2",});
+					$('#allImgUrl').src("/HIS/res/img/add.png");
+					
+				});
+				document.getElementById("myform").action = "/HIS/admin/addDoctor.do";
+			} else {
+				$(document).ready(function (){
+					$('.td_3_code').attr({"readonly": "readonly",});
+					$('.datetime').attr({"readonly": "readonly",});
+					$('.date').attr({"readonly": "readonly",});
+				});
+			}
 		});
 	</script>
 	<script>
@@ -200,14 +215,6 @@
 			};	
 			//jquery.form使用方式
 			$("#myform").ajaxSubmit(options);
-		}
-		if (${code eq "yesyes" }) {
-			$(document).ready(function (){
-				$('button').click();
-				$('.addlink').css({"z-index": "2",});
-				$('#allImgUrl').src("/HIS/res/img/add.png");
-			});
-			document.getElementById("myform").action = "/HIS/admin/addDoctor.do";
 		}
 	</script>
 </body>

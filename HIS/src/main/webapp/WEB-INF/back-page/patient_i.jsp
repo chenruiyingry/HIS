@@ -75,8 +75,8 @@
 					</tr>
 					<tr>
 						<td class="main_content_td3 main_content_attribute">病历编号</td>
-						<td class="main_content_td4 main_content_attribute">医生姓名</td>
-						<td class="main_content_td5 main_content_attribute">科室</td>
+						<td class="main_content_td4 main_content_attribute">医生编号</td>
+						<td class="main_content_td5 main_content_attribute">科室编号</td>
 						<td class="main_content_td6 main_content_attribute">化验结果</td>
 						<td class="main_content_td7 main_content_attribute">检查结果</td>
 						<td class="main_content_td8 main_content_attribute">诊断结果</td>
@@ -90,9 +90,9 @@
 						<!-- 医药费 -->
 						<c:forEach var="medical_record" items="${patient.medical_record }">
 							<tr><!-- 循环 -->
-							<td class="main_content_td3 main_content_attribute_2"><a href="">${medical_record.code }</a></td>
+							<td class="main_content_td3 main_content_attribute_2">${medical_record.code }</td>
 							<td class="main_content_td4 main_content_attribute_2">${medical_record.doctor_code }</td>
-							<td class="main_content_td5 main_content_attribute_2">${medical_record.department }</td>
+							<td class="main_content_td5 main_content_attribute_2">${medical_record.department_code }</td>
 							<td class="main_content_td6 main_content_attribute_2">${medical_record.assay_result }</td>
 							<td class="main_content_td7 main_content_attribute_2">${medical_record.examination_result }</td>
 							<td class="main_content_td8 main_content_attribute_2">${medical_record.diagnostic_result }</td>

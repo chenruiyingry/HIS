@@ -4,9 +4,6 @@ $(document).ready(function (){
 	$('.introduction_main').niceScroll({cursorcolor: "rgb(204, 204, 204)", mousescrollspeed: "20"});
 	$('.main_content_2').niceScroll({cursorcolor: "rgb(204, 204, 204)", mousescrollspeed: "20"});
 	$('.td_3').attr({"readonly": "readonly",});
-	$('.td_3_code').attr({"readonly": "readonly",});
-	$('.datetime').attr({"readonly": "readonly",});
-	$('.date').attr({"readonly": "readonly",});
 	$('button').click(function (){
 		$('.td_3').removeAttr('readonly');
 		$('.td_3').css({"border": "1px solid rgb(120, 120, 120)", "border-radius": "3px",});

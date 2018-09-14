@@ -104,8 +104,10 @@ public class PatientController {
 			return "redirect:/toRegist.action";
 		} else {
 			if (patient.getCode() == null) {
+				patient.setStatus(1);
 				patientService.insertPatient(patient);
 			} else {
+				patient.setStatus(1);
 				patientService.updatePatient(patient);
 				Medical_record medical_record = new Medical_record();
 				medical_record.setPatient_code(patient.getCode());
@@ -131,21 +133,26 @@ public class PatientController {
 	public String visit(String code, String msg, ModelMap model) {
 		Patient patient = patientService.findPatientByCode(code);
 		if (patient != null) {
-			Medical_record medical_record = new Medical_record();
-			medical_record.setPatient_code(code);
-			List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);
-			if (medical_records.size() > 0) {
-				medical_record = medical_records.get(medical_records.size() - 1);
-				model.addAttribute("medical_record", medical_record);
+			if (patient.getStatus() == 3) {
+				model.addAttribute("msg", "该病人尚未挂号，请挂号后尝试！");
+				return "tovisit";
 			} else {
-				model.addAttribute("code", code);
+				Medical_record medical_record = new Medical_record();
+				medical_record.setPatient_code(code);
+				List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);
+				if (medical_records.size() > 0) {
+					medical_record = medical_records.get(medical_records.size() - 1);
+					model.addAttribute("medical_record", medical_record);
+				} else {
+					model.addAttribute("code", code);
+				}
+				List<Drug> drugs = drugService.findDrugs();
+				List<Ward> wards = wardService.selectWardList();
+				model.addAttribute("drugs", drugs);
+				model.addAttribute("wards", wards);
+				model.addAttribute("msg", msg);
+				return "visit";
 			}
-			List<Drug> drugs = drugService.findDrugs();
-			List<Ward> wards = wardService.selectWardList();
-			model.addAttribute("drugs", drugs);
-			model.addAttribute("wards", wards);
-			model.addAttribute("msg", msg);
-			return "visit";
 		} else {
 			model.addAttribute("msg", "查无此人，请校对病人卡号！");
 			return "tovisit";
@@ -177,6 +184,8 @@ public class PatientController {
 	 */
 	@RequestMapping(value = "/treatment.action", method = RequestMethod.POST)
 	public String treatment(Medical_record medical_record, String[] druglist, Integer[] num, ModelMap model) {
+		Patient patient = patientService.findPatientByCode(medical_record.getPatient_code());
+		patient.setDoctor_code(medical_record.getDoctor_code());
 		if (medical_record.isAssay() == true) {
 			if (medical_record.getAssay_result() == "" || medical_record.getAssay_result() == null) {
 				model.addAttribute("msg", "请填写化验结果！");
@@ -201,6 +210,8 @@ public class PatientController {
 				model.addAttribute("msg", "请选择病房，填写住院时间！");
 				model.addAttribute("code", medical_record.getPatient_code());
 				return "redirect:/visit.action";
+			} else {
+				patient.setStatus(2);
 			}
 		}
 		for (int i = 0; i < druglist.length; i++) {
@@ -231,8 +242,6 @@ public class PatientController {
 		} else {
 			medical_recordService.insertMedical_record(medical_record);
 		}
-		Patient patient = patientService.findPatientByCode(medical_record.getPatient_code());
-		patient.setDoctor_code(medical_record.getDoctor_code());
 		patientService.updatePatient(patient);
 		model.addAttribute("msg", "就诊成功，请提醒病人前往缴费取药");
 		model.addAttribute("code", "success");

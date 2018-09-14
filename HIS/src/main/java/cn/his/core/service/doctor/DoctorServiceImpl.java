@@ -48,8 +48,13 @@ public class DoctorServiceImpl implements DoctorService {
 		patient.setDoctor_code(code);
 		List<Patient> patients = patientDao.findPatientList(patient);
 		Doctor doctor = doctorDao.findDoctorByCode(code);
-		doctor.setMedical_record(medical_records);
-		doctor.setPatient(patients);
+		if (medical_records.size() > 0) {
+			doctor.setMedical_record(medical_records);
+		}
+		if (patients.size() > 0) {
+			doctor.setPatient(patients);
+		}
+		
 		return doctor;
 	}
 	
