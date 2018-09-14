@@ -126,8 +126,8 @@
 					</td> --%>
 					<td>工作时间</td>
 					<td class="td_3_datetime">
-						<input class="td_3 datetime" type="datetime-local" name="work_time" id="work_time" value="${doctor.work_time }"/> —
-						<input class="td_3 datetime" type="datetime-local" name="outwork_time" id="outwork_time" value="${doctor.outwork_time }"/>
+						<input class="td_3 datetime" type="time" name="work_time" id="work_time" value="${doctor.work_time }"/> —
+						<input class="td_3 datetime" type="time" name="outwork_time" id="outwork_time" value="${doctor.outwork_time }"/>
 					</td>
 				</tr>
 			</table>

@@ -96,8 +96,6 @@ public class DoctorController {
 		Patient patient = new Patient();
 		patient.setDoctor_code(code);
 		List<Patient> patients = patientService.findPatients(patient);
-		doctor.setWork_time(doctor.getWork_time().replace(" ", "T"));
-		doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
 		model.addAttribute("doctor", doctor);
 		model.addAttribute("departmentName", departmentName);
 		model.addAttribute("departmentlist", list);
@@ -159,8 +157,6 @@ public class DoctorController {
 			return "redirect:/toInfo.action";
 		} else {
 			String departmentName = departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName();
-			doctor.setWork_time(doctor.getWork_time().replace(" ", "T"));
-			doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
 			model.addAttribute("doctor", doctor);
 			model.addAttribute("departmentName", departmentName);
 			model.addAttribute("msg", "修改失败，请重试！");

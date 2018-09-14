@@ -205,8 +205,6 @@ public class AdminDoctorController {
 				model.addAttribute("doctor", doctor);
 				return "redirect:/admin/toAddDoctor.do";
 			} else {
-				doctor.setWork_time(doctor.getWork_time().replace("T", " "));
-				doctor.setOutwork_time(doctor.getOutwork_time().replace("T", " "));
 				doctor.setFirst(true);
 				doctor.setWorknow(false);
 				doctor.setPassword(Md5Utils.md5("123456"));

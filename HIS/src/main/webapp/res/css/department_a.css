@@ -127,14 +127,15 @@
 }
 .module textarea {
     position: absolute;
-    left: 5%;
-    width: 90%;
+    left: 8%;
+    width: 80%;
     top: 25%;
     height: 53%;
     border: none;
     outline: none;
     transition: .3s;
-    padding: 5px 0px;
+    line-height: 25px;
+    padding: 5px 0% 5px 3%;
     font-size: 16px;
 }
 .return_p {

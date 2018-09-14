@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>科室</td>
 						<td>医师级别</td>
 						<td>职务</td>
-						<td>职称</td>
+						<td>是否值班</td>
 						<td class="main_content_td10">工作时间</td>
 					</tr>
 					<c:forEach items="${pagination.list }" var="doctor">
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td>${doctor.department_code }</td>
 							<td>${doctor.level }</td>
 							<td><c:if test="${doctor.duty eq 'DOCTOR' }">医生</c:if><c:if test="${doctor.duty eq 'CASHIER' }">收银员</c:if><c:if test="${doctor.duty eq 'REGISTER' }">挂号员</c:if><c:if test="${doctor.duty eq 'PHARMACIST' }">药剂师</c:if></td>
-							<td>${doctor.title }</td>
+							<td><c:if test="${doctor.worknow eq true }">是</c:if><c:if test="${doctor.worknow eq false }">否</c:if></td>
 							<td class="td_1">${doctor.work_time } ~ ${doctor.outwork_time }
 								<div class="td_1_d js_${doctor.id }">
 									<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteDoctor.do?id=${doctor.id }'" class="td_1_d_a js_a_${doctor.id }">删除</a>
