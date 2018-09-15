@@ -1,6 +1,7 @@
 package cn.his.core.controller;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,7 @@ import com.alipay.demo.trade.model.result.AlipayF2FPayResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 
+import cn.his.common.web.ResponseUtils;
 import cn.his.common.web.SessionProvider;
 import cn.his.core.model.Cost;
 import cn.his.core.model.Ward;
@@ -283,8 +285,6 @@ public class CostController {
 		}
 	}
 	
-
-	
 	/**
 	 * 去收费页面
 	 * @return
@@ -366,5 +366,23 @@ public class CostController {
 			model.addAttribute("msg", "权限不足，请确定权限后重试！");
 			return "index_s";
 		}
+	}
+	
+	@RequestMapping(value = "/balance.action")
+	public void balance(Double total, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long starttime = sessionProvider.getSessionTime(request, response);
+		long endtime = new Date().getTime();
+		Cost cost = new Cost();
+		cost.setPayment("CASH");
+		List<Cost> costs = costService.findCostList(cost);
+		if (costs.size() > 0) {
+			for (Cost cost2 : costs) {
+				if (dateFormat.parse(cost2.getDate()).getTime() >= starttime && dateFormat.parse(cost2.getDate()).getTime() <= endtime) {
+					total += cost2.getTotal();
+				}
+			}
+		}
+		ResponseUtils.renderText(response, Double.toString(total));
 	}
 }

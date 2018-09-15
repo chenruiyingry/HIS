@@ -40,4 +40,10 @@ public class HttpSessionProvider implements SessionProvider {
 		return request.getSession().getId();
 	}
 
+	@Override
+	public long getSessionTime(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return request.getSession().getCreationTime();
+	}
+
 }

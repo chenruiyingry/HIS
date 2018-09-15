@@ -23,4 +23,7 @@ public interface SessionProvider {
 	
 	//获取SessionID
 	public String getSessionId(HttpServletRequest request, HttpServletResponse response);
+	
+	//获取Session创建时间
+	public long getSessionTime(HttpServletRequest request, HttpServletResponse response);
 }

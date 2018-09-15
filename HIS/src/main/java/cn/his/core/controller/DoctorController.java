@@ -62,6 +62,7 @@ public class DoctorController {
 			if (doctor.isFirst()) {
 				return "redirect:/toUpdate.action";
 			}
+			System.out.println(sessionProvider.getSessionTime(request, response));
 			return "redirect:/toIndex.action";
 		} else {
 			model.addAttribute("msg", "用户名或密码错误");
@@ -69,6 +70,7 @@ public class DoctorController {
 			model.addAttribute("password", password);
 			return "login_s";
 		}
+		
 	}
 	
 	/**
