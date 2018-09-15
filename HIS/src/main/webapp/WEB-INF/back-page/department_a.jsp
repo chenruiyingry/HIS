@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="button" value="返回" class="return mds return_${division.id } mds_${division.id }">
 				</div>
 				<a href="/HIS/admin/department.do?code=${division.p_code }" class="view vd view_${division.id }"></a>
-				<a href="/HIS/admin/deleteDepartment.do?id=${division.id }" class="delete_a vd delete_a_${division.id }"></a>
+				<a href="javascript:void(0)" onclick="return ondelete(${division.id })" class="delete_a vd delete_a_${division.id }"></a>
 				<form action="/HIS/admin/updateDepartment.do" method="post" onsubmit="return check()">
 					<input type="hidden" name="id" value="${division.id }">
 					<input type="text" value="${division.name }" class="name nt nt_${division.id }" readonly name="name" id="name">
@@ -56,9 +56,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		$(document).ready(function () {
 			if (${!empty msg }) {
-				alert('${msg }');
+				swal({
+					title: '操作失败...',
+					text: '${msg }',
+					type: 'error'
+				}).then(function(){
+					window.location.href='/HIS/admin/division.do';
+				})
 			}
 		});
+		function ondelete(id) {
+			swal({
+				title: '确定删除？',
+				text: "该操作将不能被撤销!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				confirmButtonClass: 'btn btn-success',
+				cancelButtonClass: 'btn btn-danger',
+				buttonsStyling: false
+			}).then(function(isConfirm) {
+				if (isConfirm === true) {
+					window.location.href='/HIS/admin/deleteDepartment.do?id=' + id;
+				} else if (isConfirm === false){
+					window.location.href='/HIS/admin/division.do';
+				}
+			})
+		}
 	</script>
 	<c:forEach items="${list }" var="division">
 	<script type="text/javascript">

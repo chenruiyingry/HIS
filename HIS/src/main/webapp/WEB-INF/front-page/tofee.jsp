@@ -22,6 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="main" id="main">
 		<div class="main_bar">
 			<!-- <canvas></canvas> -->
+			<div><a href="javascript:void(0)" onclick="return change()" class="change">交班></a></div>
 			<div class="main_bar_input">
 				<input type="text" placeholder="卡号" class="number" name="code" value="${code }">
 				<input type="submit" value="" class="submit">
@@ -35,6 +36,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script>
 		var ta = document.getElementById('main');
 		ta.style.height = $(window).height()-72+"px";
+		function change() {
+			$.ajax({
+				type: 'POST',
+				url: '/HIS/balance.action',
+				data: {
+					total: 100
+				},
+				dataType: "text",
+				success: function(data) {
+					swal({
+						title: '确定交班？',
+						text: "请按照以下款项清点现金：共"+data+"元",
+						type: 'warning',
+						showCancelButton: true,
+						confirmButtonColor: '#3085d6',
+						cancelButtonColor: '#d33',
+						confirmButtonText: '确定无误'
+						}).then(function(isConfirm) {
+						if (isConfirm) {
+							window.location.href='/HIS/logout.action';
+						}
+					})
+				}
+			})
+		}
 	</script>
 </body>
 </html>

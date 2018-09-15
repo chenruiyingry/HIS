@@ -28,23 +28,39 @@ function isNull(){
 		}
 	}
 	if(diagnostic_result==null || diagnostic_result==""){
-		alert('诊断结果不能为空！');
+		swal({
+			title: '操作失败...',
+			text: '诊断结果不能为空!',
+			type: 'error'
+		})
 		return false;
 	}else if(treatment==null || treatment==""){
-		alert('现状处理不能为空！');
+		swal({
+			title: '操作失败...',
+			text: '现状处理不能为空！',
+			type: 'error'
+		})
 		return false;
 	}else{
 		if(assay == 'true'){
 			var assay_result = getID('assay_result').value;
 			if(assay_result == null || assay_result == "") {
-				alert('化验结果不能为空！');
+				swal({
+					title: '操作失败...',
+					text: '化验结果不能为空！',
+					type: 'error'
+				})
 				return false;
 			}
 		}
 		if(examination == 'true') {
 			var examination_result = getID('examination_result').value;
 			if(examination_result == null || examination_result == "") {
-				alert('检查结果不能为空！');
+				swal({
+					title: '操作失败...',
+					text: '检查结果不能为空！',
+					type: 'error'
+				})
 				return false;
 			}
 		} 
@@ -53,7 +69,11 @@ function isNull(){
 			var ward_numindex = ward_nums.selectedIndex;
 			var ward_num = ward_nums.options[ward_numindex].value;
 			if(ward_num == null || ward_num == "") {
-				alert('病房号不能为空！');
+				swal({
+					title: '操作失败...',
+					text: '病房号不能为空！',
+					type: 'error'
+				})
 				return false;
 			} else {
 				var bed_nums = getID('bed');
@@ -61,21 +81,37 @@ function isNull(){
 				var bed_num = bed_nums.options[bed_numindex].value;
 			}
 			if(bed_num == null || bed_num == "") {
-				alert('床号不能为空！');
+				swal({
+					title: '操作失败...',
+					text: '床号不能为空！',
+					type: 'error'
+				})
 				return false;
 			} 
 			if(hospitalization_days == 0) {
-				alert('请填写住院天数！');
+				swal({
+					title: '操作失败...',
+					text: '请填写住院天数！',
+					type: 'error'
+				})
 				return false;
 			}
 		}
 		for(var i = 0; i < druglist.length; i++) {
 			if(druglist[i].value == "" || druglist[i].value == null) {
-				alert('请选择药名！');
+				swal({
+					title: '操作失败...',
+					text: '请选择药名！',
+					type: 'error'
+				})
 				return false;
 			} else {
 				if(num[i].value == 0) {
-					alert('请填写数量！');
+					swal({
+						title: '操作失败...',
+						text: '请填写数量！',
+						type: 'error'
+					})
 					return false;
 				}
 			}

@@ -17,7 +17,7 @@
 	<div class="main" id="main">
 		<c:forEach items="${wards }" var="ward">
 			<div class="module">
-			<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteWard.do?id=${ward.id }'" class="module_delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
+			<a href="javascript:void(0)" onclick="return ondelete(${ward.id })" class="module_delete"><i class="fa fa-trash" aria-hidden="true"></i></a>
 				<form action="/HIS/admin/updateWard.do" method="post" onsubmit="return updateWard_${ward.id }()">
 					<input type="hidden" name="id" value="${ward.id }">
 					<input type="hidden" name="oldWard_code" value="${ward.ward_code }">
@@ -45,7 +45,7 @@
 							</form>
 							<i class="fa fa-angle-down fa-angle-down_${bed.id }" aria-hidden="true"></i>
 							<div class="delete delete_${bed.id } <c:if test="${!bed.occupy }">idel_down_${bed.id }</c:if><c:if test="${bed.occupy }">occupy_down_${bed.id }</c:if>">
-								<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteBed.do?id=${bed.id }'" class="beddel beddel_${bed.id }">删除</a>
+								<a href="javascript:void(0)" onclick="return ondeletebed(${bed.id })" class="beddel beddel_${bed.id }">删除</a>
 							</div>
 						</div>
 					</c:forEach>
@@ -87,9 +87,57 @@
 	<script type="text/javascript">
 	$(document).ready(function () {
 		if (${!empty msg }) {
-			alert('${msg }');
+			swal({
+				title: '操作失败...',
+				text: '${msg }',
+				type: 'error'
+			}).then(function() {
+				window.location.href='/HIS/admin/ward.do';
+			})
 		}
 	});
+	function ondelete(id) {
+		swal({
+			title: '确定删除？',
+			text: "该操作将不能被撤销!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			confirmButtonClass: 'btn btn-success',
+			cancelButtonClass: 'btn btn-danger',
+			buttonsStyling: false
+		}).then(function(isConfirm) {
+			if (isConfirm === true) {
+				window.location.href='/HIS/admin/deleteWard.do?id=' + id;
+			} else if (isConfirm === false){
+				window.location.href='/HIS/admin/ward.do';
+			}
+		})
+	}
+	function ondeletebed(id) {
+		swal({
+			title: '确定删除？',
+			text: "该操作将不能被撤销!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
+			confirmButtonClass: 'btn btn-success',
+			cancelButtonClass: 'btn btn-danger',
+			buttonsStyling: false
+		}).then(function(isConfirm) {
+			if (isConfirm === true) {
+				window.location.href='/HIS/admin/deleteBed.do?id=' + id;
+			} else if (isConfirm === false){
+				window.location.href='/HIS/admin/ward.do';
+			}
+		})
+	}
 	</script>
 	<c:forEach items="${wards }" var="ward">
 		<script type="text/javascript">
@@ -121,7 +169,11 @@
 		function updateWard_${ward.id }(){
 			var ward_code = getID('ward_code_${ward.id }').value;	
 			if(ward_code.length < 1 || ward_code == ""){
-				alert("请完整填写信息！");
+				swal({
+					title: '操作失败...',
+					text: '请完整填写信息！',
+					type: 'error'
+				})
 				window.location.reload();
 				return false;	
 			}else{
@@ -133,7 +185,11 @@
 			var bed_code = getID('bed_code1_${ward.id }').value;
 			var price = getID('price1_${ward.id }').value;
 			if(bed_code.length < 1 || price.length <1){
-				alert("请完整填写信息！");
+				swal({
+					title: '操作失败...',
+					text: '请完整填写信息！',
+					type: 'error'
+				})
 				return false;	
 			}else{
 				return true;
@@ -232,7 +288,11 @@
 				var bed_code = getID('bed_code_${bed.id }').value;
 				var price = getID('price_${bed.id }').value;
 				if(bed_code.length < 1 || price.length <1 || bed_code == "" || price == ""){
-					alert("请完整填写信息！");
+					swal({
+						title: '操作失败...',
+						text: '请完整填写信息！',
+						type: 'error'
+					})
 					window.location.reload();
 					return false;	
 				}else{

@@ -49,7 +49,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		$(document).ready(function () {
 			if (${!empty msg }) {
-				alert('${msg }');
+				swal({
+					title: '权限不足...',
+					text: '请确认权限后重试!',
+					type: 'error'
+				}).then(function(){
+					window.location.href='/HIS/toIndex.action';
+				})
 			}
 		});
 	</script>

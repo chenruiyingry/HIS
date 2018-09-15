@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:forEach items="${pagination.list }" var="drug">
 					<div class="main_content js_${drug.id }"><!-- 循环 -->
 						<p class="name">${drug.name }</p>
-						<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {window.location.reload();return false;} window.location.href='/HIS/admin/deleteDrug.do?code=${drug.code }'"  class="delete delete_${drug.id }"><i class="fa fa-times" aria-hidden="true"></i></a>
+						<a href="javascript:void(0)" onclick="return ondelete(${drug.code })"  class="delete delete_${drug.id }"><i class="fa fa-times" aria-hidden="true"></i></a>
 						<p class="effect"><i class="fa fa-quote-left fa-lg pull-left fa-border"></i>${drug.funcction }</p>
 					</div>
 				</c:forEach>
@@ -124,9 +124,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		$(document).ready(function () {
 			if (${!empty msg }) {
-				alert('${msg }');
+				swal({
+					title: '操作失败...',
+					text: '${msg }',
+					type: 'error'
+				}).then(function(){
+					window.location.href='/HIS/admin/druglist.do';
+				})
 			}
 		});
+		function ondelete(code) {
+			swal({
+				title: '确定删除？',
+				text: "该操作将不能被撤销!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				confirmButtonClass: 'btn btn-success',
+				cancelButtonClass: 'btn btn-danger',
+				buttonsStyling: false
+			}).then(function(isConfirm) {
+				if (isConfirm === true) {
+					window.location.href='/HIS/admin/deleteDrug.do?code=' + code;
+				} else if (isConfirm === false){
+					window.location.href='/HIS/admin/druglist.do';
+				}
+			})
+		}
 	</script>
 	<script type="text/javascript">
 		var main = document.getElementById('main');

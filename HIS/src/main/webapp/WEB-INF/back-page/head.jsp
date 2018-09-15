@@ -13,6 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" href="/HIS/res/css/homeHeader.css">
+	<link rel="stylesheet" href="/HIS/res/css/buttons.css">
+	<link rel="stylesheet" href="/HIS/res/css/sweetalert2.min.css">
   </head>
   
   <body>
@@ -22,9 +24,7 @@
 			<div class="bar_c_a"></div>
 		</div>
 		<div class="half-head">
-			<a href="/HIS/admin/toIndex.do">
-				<img src="/HIS/res/img/logo.png" class="title">
-			</a>
+			<a href="/HIS/admin/toIndex.do" title="返回首页"><img src="/HIS/res/img/logo.png" class="title"></a>
 			<p class="half-title">―― ${name }</p>
 		</div>
 		<span class="timeShow_1" id="timeShow_1"></span>
@@ -35,14 +35,32 @@
 				<a href="/HIS/admin/patientList.do">病人</a>
 				<a href="/HIS/admin/ward.do">病房</a>
 				<a href="/HIS/admin/division.do">门诊</a>
-				<a href="/HIS/admin/durglist.do">药品</a>
+				<a href="/HIS/admin/druglist.do">药品</a>
 				<a href="/HIS/admin/costList.do">收费</a>
 			</div>
 			<p class="username">${admin_session.username }</p>
-			<a href="/HIS/admin/logout.do" class="sign-out" title="退出"><i class="fa fa-sign-out"></i></a>
+			<a href="javascript:void(0)" onclick="return isout()" class="sign-out" title="退出"><i class="fa fa-sign-out"></i></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script src="/HIS/res/js/sweetalert2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>
+	<script type="text/javascript">
+	function isout() {
+		swal({
+			title: '确认操作',
+			text: "是否确定退出？",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '确定'
+			}).then(function(isConfirm) {
+			if (isConfirm) {
+				window.location.href='/HIS/admin/logout.do';
+			}
+		})
+	}
+	</script>
   </body>
 </html>

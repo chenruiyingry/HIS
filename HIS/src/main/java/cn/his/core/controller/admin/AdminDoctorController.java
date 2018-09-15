@@ -198,12 +198,12 @@ public class AdminDoctorController {
 				doctor.getSex() == "" || doctor.getTitle() == "" || doctor.getWork_time() == "") {
 			model.addAttribute("msg", "请填写完整表单");
 			model.addAttribute("doctor", doctor);
-			return "redirect:/admin/toAddDoctor.do";
+			return "redirect:/admin/toAdd.do";
 		} else {
 			if (doctorService.findDoctorByCode(doctor.getCode()) != null) {
 				model.addAttribute("msg", "医生编号已被使用");
 				model.addAttribute("doctor", doctor);
-				return "redirect:/admin/toAddDoctor.do";
+				return "redirect:/admin/toAdd.do";
 			} else {
 				doctor.setFirst(true);
 				doctor.setWorknow(false);

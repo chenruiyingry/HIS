@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/paging.css">
 	<link rel="stylesheet" href="/HIS/res/css/doctor_s.css">
+	
 </head>
 <body>
 	<c:import url="/admin/toHead.do">
@@ -58,7 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><c:if test="${doctor.worknow eq true }">是</c:if><c:if test="${doctor.worknow eq false }">否</c:if></td>
 							<td class="td_1">${doctor.work_time } ~ ${doctor.outwork_time }
 								<div class="td_1_d js_${doctor.id }">
-									<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deleteDoctor.do?id=${doctor.id }'" class="td_1_d_a js_a_${doctor.id }">删除</a>
+									<a href="javascript:void(0)" onclick="return ondelete(${doctor.id })" class="td_1_d_a js_a_${doctor.id }">删除</a>
 								</div>
 								<div class="lookdetails"><a href="/HIS/admin/doctor.do?code=${doctor.code }">查看</a></div>
 							</td>
@@ -84,6 +85,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		var main = document.getElementById('main');
 		main.style.height = $(window).height()-72+"px";
+		function ondelete(id) {
+			swal({
+				title: '确定删除？',
+				text: "该操作将不能被撤销!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				confirmButtonClass: 'btn btn-success',
+				cancelButtonClass: 'btn btn-danger',
+				buttonsStyling: false
+			}).then(function(isConfirm) {
+				if (isConfirm === true) {
+					window.location.href='/HIS/admin/deleteDoctor.do?id=' + id;
+				} else if (isConfirm === false){
+					window.location.reload();
+				}
+			})
+		}
 	</script>
 	<c:forEach items="${pagination.list }" var="doctor">
 		<script>

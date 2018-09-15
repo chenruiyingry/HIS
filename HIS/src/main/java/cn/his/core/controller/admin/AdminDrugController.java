@@ -34,7 +34,7 @@ public class AdminDrugController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/durglist.do")
+	@RequestMapping(value = "/admin/druglist.do")
 	public String druglist(String name, Integer pageNo, String msg, ModelMap model) {
 		Drug drug = new Drug();
 		StringBuilder params = new StringBuilder();
@@ -45,7 +45,7 @@ public class AdminDrugController {
 		drug.setPageNo(Pagination.cpn(pageNo));
 		drug.setPageSize(7);
 		Pagination pagination = drugService.findDrugList(drug);
-		String url = "/HIS/admin/durglist.do";
+		String url = "/HIS/admin/druglist.do";
 		pagination.pageView(url, params.toString());
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("pageNo", Pagination.cpn(pageNo));
@@ -83,7 +83,7 @@ public class AdminDrugController {
 			drugService.insertDrug(drug);
 			
 		}
-		return "redirect:/admin/durglist.do";
+		return "redirect:/admin/druglist.do";
 	}
 	
 	/**
@@ -99,7 +99,7 @@ public class AdminDrugController {
 		} else {
 			drugService.updateDrug(drug);
 		}
-		return "redirect:/admin/durglist.do";
+		return "redirect:/admin/druglist.do";
 	}
 	
 	/**
@@ -110,6 +110,6 @@ public class AdminDrugController {
 	@RequestMapping(value = "/admin/deleteDrug.do")
 	public String deleteDrug(String code) {
 		drugService.deleteDrug(code);
-		return "redirect:/admin/durglist.do";
+		return "redirect:/admin/druglist.do";
 	}
 }

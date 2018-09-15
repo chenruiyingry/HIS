@@ -179,7 +179,11 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			if (${!empty msg }) {
-				alert('${msg }');
+				swal({
+					title: '操作失败...',
+					text: '${msg }',
+					type: 'error'
+				})
 			}
 			if (${code eq "yesyes" }) {
 				$(document).ready(function (){

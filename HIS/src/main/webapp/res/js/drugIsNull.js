@@ -51,7 +51,11 @@ function check1(){
 	}else{
 		err='';
 		isUpdate();
-		alert(err);
+		swal({
+			title: '操作失败...',
+			text: err,
+			type: 'error'
+		})
 		return false;
 	}
 }
@@ -61,7 +65,11 @@ function check2(){
 	}else{
 		err='';
 		isAdd();
-		alert(err);
+		swal({
+			title: '操作失败...',
+			text: err,
+			type: 'error'
+		})
 		return false;
 	}
 }

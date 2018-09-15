@@ -43,7 +43,11 @@ function check(){
 		err = "" ;
 		chPhone();	
 		isNull();
-		alert(err);
+		swal({
+			title: '操作失败...',
+			text: err,
+			type: 'error'
+		})
 		return false;
 	}
 }

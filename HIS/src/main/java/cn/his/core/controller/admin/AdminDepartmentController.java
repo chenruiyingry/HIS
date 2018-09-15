@@ -134,8 +134,9 @@ public class AdminDepartmentController {
 				departmentService.deleteDepartment(id);
 			} else {
 				model.addAttribute("msg", "该部门还有医生，不能删除！");
+				model.addAttribute("code", department.getP_code());
 			}
 		}
-		return "redirect:/admin/department.do?code=" + department.getP_code();
+		return "redirect:/admin/department.do";
 	}
 }

@@ -49,7 +49,7 @@
 							</td>
 							<td class="td_1">
 								<div class="td_1_d js_${patient.id }">
-									<a href="javascript:void(0)" onclick="if(!confirm('您确定删除吗？')) {return false;} window.location.href='/HIS/admin/deletePatient.do?code=${patient.code }'" class="td_1_d_a js_a_${patient.id }">删除</a>
+									<a href="javascript:void(0)" onclick="return ondelete(${patient.code })" class="td_1_d_a js_a_${patient.id }">删除</a>
 								</div>
 								<a href="/HIS/admin/patient.do?code=${patient.code }">查看</a>
 							</td>
@@ -75,6 +75,27 @@
 	<script type="text/javascript">
 		var main = document.getElementById('main');
 		main.style.height = $(window).height()-72+"px";
+		function ondelete(code) {
+			swal({
+				title: '确定删除？',
+				text: "该操作将不能被撤销!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '确定',
+				cancelButtonText: '取消',
+				confirmButtonClass: 'btn btn-success',
+				cancelButtonClass: 'btn btn-danger',
+				buttonsStyling: false
+			}).then(function(isConfirm) {
+				if (isConfirm === true) {
+					window.location.href='/HIS/admin/deletePatient.do?code=' + code;
+				} else if (isConfirm === false){
+					window.location.href='/HIS/admin/patientList.do';
+				}
+			})
+		}
 	</script>
 	<c:forEach items="${pagination.list }" var="patient">
 		<script>

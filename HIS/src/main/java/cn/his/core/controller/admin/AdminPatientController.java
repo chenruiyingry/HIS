@@ -83,6 +83,7 @@ public class AdminPatientController {
 		if (patient.getName() == "" || patient.getSex() == "" || patient.getAge() == 0 || patient.getPhone() ==  "" || 
 				patient.getInsurance_type() == "" ) {
 			model.addAttribute("msg", "请填写完整表单信息！");
+			model.addAttribute("patient", patient);
 		} else {
 			patientService.updatePatient(patient);
 		}

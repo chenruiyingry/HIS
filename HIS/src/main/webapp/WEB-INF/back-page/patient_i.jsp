@@ -110,7 +110,13 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 			if (${!empty msg }) {
-				alert('${msg }');
+				swal({
+					title: '操作失败...',
+					text: '${msg }',
+					type: 'error'
+				}).then(function(){
+					window.location.href='/HIS/admin/patient.do?code=' + '${patient.code }';
+				})
 			}
 		});
 	</script>

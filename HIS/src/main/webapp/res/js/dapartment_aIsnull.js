@@ -37,7 +37,11 @@ function check(){
 		return true;	
 	}else{
 		UpdateIsNull();
-		alert(err);
+		swal({
+			title: '操作失败...',
+			text: err,
+			type: 'error'
+		})
 		return false;	
 	}
 }
@@ -49,7 +53,11 @@ function check1(){
 		return true;	
 	}else{
 		insertIsNull();
-		alert(err);
+		swal({
+			title: '操作失败...',
+			text: err,
+			type: 'error'
+		})
 		return false;	
 	}
 }

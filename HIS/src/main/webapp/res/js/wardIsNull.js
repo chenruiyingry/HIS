@@ -12,7 +12,11 @@ function getID(id){
 function insertWard(){
 	var ward_code = getID('ward_code1').value;	
 	if(ward_code.length < 1){
-		alert("请完整填写信息！");
+		swal({
+			title: '操作失败...',
+			text: '请完整填写信息！',
+			type: 'error'
+		})
 		return false;	
 	}else{
 		return true;

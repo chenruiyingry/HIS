@@ -18,6 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" href="/HIS/res/css/homeHeader.css">
+	<link rel="stylesheet" href="/HIS/res/css/buttons.css">
+	<link rel="stylesheet" href="/HIS/res/css/sweetalert2.min.css">
   </head>
   
   <body>
@@ -27,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="bar_c_a"></div>
 		</div>
 		<div class="half-head">
-			<a href="/HIS/toIndex.action"><img src="/HIS/res/img/logo.png" class="title"></a>
+			<a href="/HIS/toIndex.action"><img src="/HIS/res/img/logo.png" class="title" title="返回首页"></a>
 			<p class="half-title">— ${name }</p>
 		</div>
 		<span class="timeShow_1" id="timeShow_1"></span>
@@ -40,13 +42,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<a href="/HIS/toDrug.action">取药</a>
 				<a href="/HIS/toUpdate.action">修改密码</a>
 			</div>
-			<a href="/HIS/toInfo.action?code=${doctorsession.code }" class="update" title="点击查看个人信息"></a>
+			<a href="/HIS/toInfo.action?code=${doctorsession.code }" class="update" title="查看个人信息"></a>
 			<img class="auther_head" id="auther_head" src="${doctorsession.allUrl }" alt="img">
 			<p class="username_1" id="username_1">${doctorsession.name }</p>
-			<a href="/HIS/logout.action" class="sign-out"><i class="fa fa-sign-out"></i></a>
+			<a href="javascript:void(0)" onclick="return isout()" class="sign-out"><i class="fa fa-sign-out"></i></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script src="/HIS/res/js/sweetalert2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>
+	<script type="text/javascript">
+	function isout() {
+		swal({
+			title: '确认操作',
+			text: "是否确定退出？",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: '确定'
+			}).then(function(isConfirm) {
+			if (isConfirm) {
+				window.location.href='/HIS/logout.action';
+			}
+		})
+	}
+	</script>
   </body>
 </html>
