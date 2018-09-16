@@ -1,9 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="UTF-8">
 	<title>HIS</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/index.css">
 </head>
 <body>
@@ -86,7 +81,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/modernizr.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/index.js"></script>
 	<script>
 		var ta = document.getElementById('ta');

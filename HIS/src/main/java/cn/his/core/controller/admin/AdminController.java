@@ -44,7 +44,9 @@ public class AdminController {
 		} else {
 			model.addAttribute("username", username);
 			model.addAttribute("password", password);
-			model.addAttribute("msg", "用户名或密码错误");
+			model.addAttribute("title", "登陆失败");
+			model.addAttribute("msg", "用户名或密码错误！");
+			model.addAttribute("status", "error");
 			return "login";
 		}
 	}

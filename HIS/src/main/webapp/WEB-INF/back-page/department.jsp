@@ -1,9 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="UTF-8">
 	<title>科室管理</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/department.css">
 </head>
 <body>
@@ -53,15 +48,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/departmentIsnull.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/department.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function () {
 		if (${!empty msg }) {
 			swal({
-				title: '操作失败...',
+				title: '${title }',
 				text: '${msg }',
-				type: 'error'
+				type: '${status }'
 			}).then(function() {
 				window.location.href='/HIS/admin/department.do?code=' + '${p_code }'
 			})
@@ -76,10 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: '确定',
-			cancelButtonText: '取消',
-			confirmButtonClass: 'btn btn-success',
-			cancelButtonClass: 'btn btn-danger',
-			buttonsStyling: false
+			cancelButtonText: '取消'
 		}).then(function(isConfirm) {
 			if (isConfirm === true) {
 				window.location.href='/HIS/admin/deleteDepartment.do?id=' + id;

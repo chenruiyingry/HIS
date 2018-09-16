@@ -132,9 +132,3 @@ body {
     background-color: rgb(230, 89, 78);
 	box-shadow: rgba(0, 0, 0, 0.4) 1px 1px 4px;
 }
-.loginbar p {
-	width: 100%;
-    color: rgb(230, 89, 78);
-    margin: 0px 0px 15px;
-    text-align: center;
-}

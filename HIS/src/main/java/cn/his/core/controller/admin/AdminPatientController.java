@@ -30,7 +30,7 @@ public class AdminPatientController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/patientList.do")
-	public String patientList(ModelMap model, Integer pageNo, String name) {
+	public String patientList(ModelMap model, Integer pageNo, String name, String title, String msg, String status) {
 		Patient patient = new Patient();
 		StringBuilder params = new StringBuilder();
 		if (StringUtils.isNotBlank(name)) {
@@ -43,6 +43,9 @@ public class AdminPatientController {
 		String url = "/HIS/admin/patientList.do";
 		pagination.pageView(url, params.toString());
 		model.addAttribute("pagination", pagination);
+		model.addAttribute("title", title);
+		model.addAttribute("msg", msg);
+		model.addAttribute("status", status);
 		return "patient_s";
 	}
 	
@@ -53,10 +56,12 @@ public class AdminPatientController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/patient.do")
-	public String patient(String code, String msg, ModelMap model) {
+	public String patient(String code, String title, String msg, String status, ModelMap model) {
 		Patient patient = patientService.findPatientByCode(code);
 		model.addAttribute("patient", patient);
+		model.addAttribute("title", title);
 		model.addAttribute("msg", msg);
+		model.addAttribute("status", status);
 		return "patient_i";
 	}
 	
@@ -66,8 +71,11 @@ public class AdminPatientController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/deletePatient.do")
-	public String deletePatient(String code) {
+	public String deletePatient(String code, ModelMap model) {
 		patientService.deletePatient(code);
+		model.addAttribute("title", "操作成功");
+		model.addAttribute("msg", "删除病人成功！");
+		model.addAttribute("status", "success");
 		return "redirect:/admin/patientList.do";
 	}
 	
@@ -82,9 +90,14 @@ public class AdminPatientController {
 		model.addAttribute("code", patient.getCode());
 		if (patient.getName() == "" || patient.getSex() == "" || patient.getAge() == 0 || patient.getPhone() ==  "" || 
 				patient.getInsurance_type() == "" ) {
+			model.addAttribute("title", "操作失败");
 			model.addAttribute("msg", "请填写完整表单信息！");
+			model.addAttribute("status", "error");
 			model.addAttribute("patient", patient);
 		} else {
+			model.addAttribute("title", "操作成功");
+			model.addAttribute("msg", "修改病人信息成功！");
+			model.addAttribute("status", "success");
 			patientService.updatePatient(patient);
 		}
 		return "redirect:/admin/patient.do";

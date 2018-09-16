@@ -1,9 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +7,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="UTF-8">
 	<title>收费</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/fee_s.css">
-	<!-- <link rel="stylesheet" href="/HIS/res/css/homeHeader.css"> -->
 </head>
 <body>
 	<c:import url="/toHead.action">
@@ -169,8 +163,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	</form>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/fee_s.js"></script>
 	<script>
 	var ta = document.getElementById('main');

@@ -7,7 +7,6 @@
 	<meta charset="UTF-8">
 	<title>收费管理</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/cost.css">
 </head>
 <body>
@@ -60,9 +59,6 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/patient_i.js"></script>
 </body>
 </html>

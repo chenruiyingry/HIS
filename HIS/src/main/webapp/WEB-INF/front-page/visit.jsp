@@ -1,9 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +7,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="UTF-8">
 	<title>就诊</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/visit.css">
 </head>
 <body>
@@ -132,75 +127,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/visitIsNull.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/visit.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			if (${!empty msg }) {
-				alert('${msg }');
+				swal({
+					title: '${title }',
+					text: '${msg }',
+					type: '${status }'
+				})
 			}
 		});
-	</script>
-	<script type="text/javascript">
-	function drugInfo(code, num){
-		$.ajax({
-			type: 'POST',
-			url: '/HIS/drugInfo.action',
-			data: {
-				code: code
-			},
-			dataType: "json",
-			success: function(data) {
-				$(".unit_" + num).html(data.unit);
-				$(".spec_" + num).html(data.spec + "/" + data.unit);
-			}
-		});
-	}
-	function beds(ward_code){
-		$.ajax({
-			type: 'POST',
-			url: '/HIS/beds.action',
-			data: {
-				ward_code: ward_code
-			},
-			dataType: "json",
-			success: function(data) {
-				var beds = data.beds;
-				var html = '<option value="" selected>病床号</option>';
-				for(var i = 0; i < beds.length; i++) {
-					html += '<option value="'+ beds[i].bed_code + '" <c:if test="${medical_record.bed_number eq ward.bed_code }">selected="selected"</c:if> >' + beds[i].bed_code + '</option>';
+		function drugInfo(code, num){
+			$.ajax({
+				type: 'POST',
+				url: '/HIS/drugInfo.action',
+				data: {
+					code: code
+				},
+				dataType: "json",
+				success: function(data) {
+					$(".unit_" + num).html(data.unit);
+					$(".spec_" + num).html(data.spec + "/" + data.unit);
 				}
-				$("#bed").html(html);
-			}
-		});
-	}
-	</script>
-	<script type="text/javascript">
-	function remove(num) {
-		$('#tr_' + num).remove();
-	}
-	function add(num) {
-		var html = '';
-		html += '	<tr id=tr_' + (num + 1) + '>'
-		html += '	<td style="width: 40%; padding: 1% 0% 1% 4%;">'
-		html += '		<i class="fa fa-times" aria-hidden="true" id="tr_1_fa" onclick="remove(' + (num+1) +')"></i>'
-		html += '		<select name="druglist" id=""  style="width: 80%" class="si" onchange="drugInfo(this.value, ' + (num+1) +')">'
-		html += '           <option value="">---请选择药名---</option>'
-		html += '			<c:forEach items="${drugs }" var="drug">'
-		html += '				<option value="${drug.code }">${drug.name }</option>'
-		html += '			</c:forEach>'
-		html += '		</select>'
-		html += '	</td>'
-		html += '	<td style="width: 20%">'
-		html += '		<input type="text" style="width: 70%" id="num" class="si" name="num" value="0">'
-		html += '	</td>'
-		html += '	<td style="width: 20%" class="unit_' + (num+1) + '">盒</td>'
-		html += '	<td style="width: 20%" class="spec_' + (num+1) + '">10颗/盒</td>'
-		html += '	</tr>'
-		$("#tbody").append(html);
-		$("#plus").html('<i class="fa fa-plus" aria-hidden="true" onclick="add(' + (num+1) +')"></i>')
-	}
+			});
+		}
+		function beds(ward_code){
+			$.ajax({
+				type: 'POST',
+				url: '/HIS/beds.action',
+				data: {
+					ward_code: ward_code
+				},
+				dataType: "json",
+				success: function(data) {
+					var beds = data.beds;
+					var html = '<option value="" selected>病床号</option>';
+					for(var i = 0; i < beds.length; i++) {
+						html += '<option value="'+ beds[i].bed_code + '" <c:if test="${medical_record.bed_number eq ward.bed_code }">selected="selected"</c:if> >' + beds[i].bed_code + '</option>';
+					}
+					$("#bed").html(html);
+				}
+			});
+		}
+		function remove(num) {
+			$('#tr_' + num).remove();
+		}
+		function add(num) {
+			var html = '';
+			html += '	<tr id=tr_' + (num + 1) + '>'
+			html += '	<td style="width: 40%; padding: 1% 0% 1% 4%;">'
+			html += '		<i class="fa fa-times" aria-hidden="true" id="tr_1_fa" onclick="remove(' + (num+1) +')"></i>'
+			html += '		<select name="druglist" id=""  style="width: 80%" class="si" onchange="drugInfo(this.value, ' + (num+1) +')">'
+			html += '           <option value="">---请选择药名---</option>'
+			html += '			<c:forEach items="${drugs }" var="drug">'
+			html += '				<option value="${drug.code }">${drug.name }</option>'
+			html += '			</c:forEach>'
+			html += '		</select>'
+			html += '	</td>'
+			html += '	<td style="width: 20%">'
+			html += '		<input type="text" style="width: 70%" id="num" class="si" name="num" value="0">'
+			html += '	</td>'
+			html += '	<td style="width: 20%" class="unit_' + (num+1) + '">盒</td>'
+			html += '	<td style="width: 20%" class="spec_' + (num+1) + '">10颗/盒</td>'
+			html += '	</tr>'
+			$("#tbody").append(html);
+			$("#plus").html('<i class="fa fa-plus" aria-hidden="true" onclick="add(' + (num+1) +')"></i>')
+		}
 	</script>
 </body>
 </html>

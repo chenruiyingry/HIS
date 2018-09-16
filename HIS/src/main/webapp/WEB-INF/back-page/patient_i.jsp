@@ -7,7 +7,6 @@
 	<meta charset="UTF-8">
 	<title>病人信息</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/patient_i.css">
 </head>
 <body>
@@ -111,9 +110,9 @@
 		$(document).ready(function () {
 			if (${!empty msg }) {
 				swal({
-					title: '操作失败...',
+					title: '${title }',
 					text: '${msg }',
-					type: 'error'
+					type: '${status }'
 				}).then(function(){
 					window.location.href='/HIS/admin/patient.do?code=' + '${patient.code }';
 				})
@@ -121,9 +120,6 @@
 		});
 	</script>
 	<script type="text/javascript" src="/HIS/res/js/patient.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/patient_i.js"></script>
 </body>
 </html>

@@ -7,7 +7,6 @@
 	<meta charset="UTF-8">
 	<title>病人管理</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/paging.css">
 	<link rel="stylesheet" href="/HIS/res/css/patient_s.css">
 </head>
@@ -71,8 +70,18 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				swal({
+					title: '${title }',
+					text: '${msg }',
+					type: '${status }'
+				}).then(function(){
+					window.location.href='/HIS/admin/patientList.do';
+				})
+			}
+		});
 		var main = document.getElementById('main');
 		main.style.height = $(window).height()-72+"px";
 		function ondelete(code) {
@@ -84,10 +93,7 @@
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
 				confirmButtonText: '确定',
-				cancelButtonText: '取消',
-				confirmButtonClass: 'btn btn-success',
-				cancelButtonClass: 'btn btn-danger',
-				buttonsStyling: false
+				cancelButtonText: '取消'
 			}).then(function(isConfirm) {
 				if (isConfirm === true) {
 					window.location.href='/HIS/admin/deletePatient.do?code=' + code;

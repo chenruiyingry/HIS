@@ -77,9 +77,3 @@
 .change:hover {
 	color: red;
 }
-.errormsg {
-	color: red;
-    position: absolute;
-    width: 20%;
-    right: 41%;
-}

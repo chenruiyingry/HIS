@@ -1,24 +1,17 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
+   
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 	<link rel="stylesheet" href="/HIS/res/css/homeHeader.css">
 	<link rel="stylesheet" href="/HIS/res/css/buttons.css">
+	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/sweetalert2.min.css">
   </head>
   
@@ -49,7 +42,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script src="/HIS/res/js/sweetalert2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/sweetalert2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>
 	<script type="text/javascript">
 	function isout() {
@@ -60,7 +56,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: '确定'
+			confirmButtonText: '确定',
+			cancelButtonText: '取消'
 			}).then(function(isConfirm) {
 			if (isConfirm) {
 				window.location.href='/HIS/logout.action';

@@ -48,7 +48,9 @@ public class DrugController {
 		if ("PHARMACIST".equals(doctor.getDuty())) {
 			return "todrug";
 		} else {
-			model.addAttribute("msg", "权限不足，请确定权限后重试！");
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "权限不足，请重试！");
+			model.addAttribute("status", "error");
 			return "index_s";
 		}
 	}
@@ -68,7 +70,10 @@ public class DrugController {
 			List<Medical_record> medical_records = medical_recordService.findMedical_records(medical_record);
 			medical_record = medical_records.get(medical_records.size() - 1);
 			if (medical_record.getDrug_record().get(medical_record.getDrug_record().size() - 1).getStatus() == 2) {
-				model.addAttribute("msg", "病人未缴费，不能取药");
+				model.addAttribute("title", "操作失败");
+				model.addAttribute("msg", "病人未缴费，不能取药！");
+				model.addAttribute("status", "error");
+				model.addAttribute("code", code);
 				return "todrug";
 			} else if (medical_record.getDrug_record().get(medical_record.getDrug_record().size() - 1).getStatus() == 0) {
 				model.addAttribute("status", "未取药");
@@ -80,7 +85,9 @@ public class DrugController {
 			model.addAttribute("medical_record", medical_record);
 			return "takemedicine";
 		} else {
-			model.addAttribute("msg", "查无此人，稍后再试");
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "查无此人，请重新输入卡号！");
+			model.addAttribute("status", "error");
 			model.addAttribute("code", code);
 			return "todrug";
 		}
@@ -105,20 +112,19 @@ public class DrugController {
 				drug_record.setStatus(1);
 				drug_recordService.updateDrug_record(drug_record);
 			} else {
+				model.addAttribute("title", "操作失败");
 				model.addAttribute("msg", "药品库存不足，取药失败！");
-				model.addAttribute("code", "error");
+				model.addAttribute("status", "error");
 				flag = true;
 				break;
 			}
 		}
 		if (!flag) {
-			model.addAttribute("msg", "取药成功");
-	    	model.addAttribute("code", "success");
+			model.addAttribute("title", "操作成功");
+			model.addAttribute("msg", "取药成功！");
+			model.addAttribute("status", "success");
 		}
-    	model.addAttribute("urlname", "取药页面");
-    	model.addAttribute("url", "toDrug.action");
-    	model.addAttribute("time", 5);
-		return "message";
+		return "todrug";
 	}
 	
 	/**

@@ -7,7 +7,6 @@
 	<meta charset="UTF-8">
 	<title>病房管理</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/ward.css">
 </head>
 <body>
@@ -81,16 +80,14 @@
 		<div class="module_bar"></div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/wardIsNull.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/ward.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function () {
 		if (${!empty msg }) {
 			swal({
-				title: '操作失败...',
+				title: '${title }',
 				text: '${msg }',
-				type: 'error'
+				type: '${status }'
 			}).then(function() {
 				window.location.href='/HIS/admin/ward.do';
 			})
@@ -105,10 +102,7 @@
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: '确定',
-			cancelButtonText: '取消',
-			confirmButtonClass: 'btn btn-success',
-			cancelButtonClass: 'btn btn-danger',
-			buttonsStyling: false
+			cancelButtonText: '取消'
 		}).then(function(isConfirm) {
 			if (isConfirm === true) {
 				window.location.href='/HIS/admin/deleteWard.do?id=' + id;
@@ -126,10 +120,7 @@
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: '确定',
-			cancelButtonText: '取消',
-			confirmButtonClass: 'btn btn-success',
-			cancelButtonClass: 'btn btn-danger',
-			buttonsStyling: false
+			cancelButtonText: '取消'
 		}).then(function(isConfirm) {
 			if (isConfirm === true) {
 				window.location.href='/HIS/admin/deleteBed.do?id=' + id;
@@ -202,6 +193,7 @@
 				$('.wardnum_${ward.id }').attr({"readonly": "readonly",});
 				$('.wardgen_${ward.id }').attr({"disabled": "disabled",});
 				$('.bsp_${bed.id }').attr({"readonly": "readonly",});
+				$('.fa-angle-down_${bed.id }').css({"display": "none","color": "#000",});
 				$('.idle_${bed.id }').mouseover(function (){
 					$('.idle_${bed.id }').css({"height": "16%",});
 					$('.bedmod_${bed.id }').css({"height": "25px",});

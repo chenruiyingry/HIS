@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.alibaba.fastjson.JSONObject;
 
 import cn.his.common.utils.Md5Utils;
+import cn.his.common.web.ResponseUtils;
 import cn.his.common.web.SessionProvider;
 import cn.his.core.model.doctor.Department;
 import cn.his.core.model.doctor.Doctor;
@@ -62,10 +66,11 @@ public class DoctorController {
 			if (doctor.isFirst()) {
 				return "redirect:/toUpdate.action";
 			}
-			System.out.println(sessionProvider.getSessionTime(request, response));
 			return "redirect:/toIndex.action";
 		} else {
+			model.addAttribute("title", "登陆失败");
 			model.addAttribute("msg", "用户名或密码错误");
+			model.addAttribute("status", "error");
 			model.addAttribute("code", code);
 			model.addAttribute("password", password);
 			return "login_s";
@@ -122,28 +127,26 @@ public class DoctorController {
 	 * @param model
 	 * @return
 	 */
-	@SuppressWarnings("unused")
-	@RequestMapping(value="/updatepasswd.action")
-	public String updatePassWord(String code, String pw, String pw1, ModelMap model, HttpServletRequest request, HttpServletResponse response){
-		Doctor doctor = doctorService.login(code, pw);
-		Doctor doctor1 = new Doctor();
-		doctor1.setId(doctor.getId());
-		doctor1.setCode(code);
-		doctor1.setPassword(Md5Utils.md5(pw1));
-		if (doctor == null) {
-			model.addAttribute("msg", "原密码错误");
-			return "updatepassword";
+	@RequestMapping(value="/updatepasswd.action", method= RequestMethod.POST)
+	public void updatePassWord(String pw, String pw1, ModelMap model, HttpServletRequest request, HttpServletResponse response){
+		Doctor doctor = (Doctor) sessionProvider.getAttribute(request, response, "doctorsession");
+		JSONObject jsonObject = new JSONObject();
+		if (!Md5Utils.md5(pw).equals(doctor.getPassword())) {
+			jsonObject.put("yes", false);
+			jsonObject.put("title", "操作失败");
+			jsonObject.put("msg", "原密码错误!");
+			jsonObject.put("status", "error");
 		} else {
-			doctor1.setFirst(false);
-			doctorService.updateDoctor(doctor1);
+			doctor.setPassword(Md5Utils.md5(pw1));
+			doctor.setFirst(false);
+			doctorService.updateDoctor(doctor);
 			sessionProvider.logout(request, response);
-			model.addAttribute("msg", "修改密码成功");
-			model.addAttribute("code", "success");
-			model.addAttribute("url", "/HIS/toLogin.action");
-			model.addAttribute("urlname", "登陆页面");
-			model.addAttribute("time", 3);
-			return "message";
+			jsonObject.put("title", "操作成功");
+			jsonObject.put("msg", "修改密码成功!");
+			jsonObject.put("status", "success");
+			jsonObject.put("yes", true);
 		}
+		ResponseUtils.renderJson(response, jsonObject.toString());
 	}
 	
 	/**

@@ -8,6 +8,7 @@
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
 	<link rel="stylesheet" href="/HIS/res/css/login.css">
 	<link rel="stylesheet" href="/HIS/res/css/login_o.css">
+	<link rel="stylesheet" href="/HIS/res/css/sweetalert2.min.css">
 </head>
 <body>
 	<img class="bg-image" id="bg-image" src="/HIS/res/img/be5004e71963dbe7b2066098c2636721.jpg" alt="img">
@@ -31,12 +32,12 @@
 			<form action="" onsubmit="return check()" id="loginform" method="post">
 				<input type="text" placeholder="User ID" id="username" value="${username }" name="username">
 				<input type="password" placeholder="Password" id="userpwd" value="${password }" name="password">
-				<p>${msg }</p>
 				<input type="submit" value="Sign In" onmouseover="mov()" onmouseout="mou()" class="submit" id="submit">
 			</form>
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/sweetalert2.min.js"></script>
 	<script>
 		var bg = document.getElementById("bg-image");
 		var main = document.getElementById("main");
@@ -54,6 +55,15 @@
 			si.style.cssText = "color: rgb(120, 120, 120);";
 			submit.style.cssText = "background-color: rgb(230, 89, 78);";
 			submit.disabled = false;
+		});
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				swal({
+					title: '${title }',
+					text: '${msg }',
+					type: '${status }'
+				})
+			}
 		});
 	</script>
 	<script type="text/javascript" src="/HIS/res/js/login.js"></script>

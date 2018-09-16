@@ -35,7 +35,7 @@ public class AdminDrugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/druglist.do")
-	public String druglist(String name, Integer pageNo, String msg, ModelMap model) {
+	public String druglist(String name, Integer pageNo, String msg, String title, String status, ModelMap model) {
 		Drug drug = new Drug();
 		StringBuilder params = new StringBuilder();
 		if (StringUtils.isNotBlank(name)) {
@@ -50,7 +50,9 @@ public class AdminDrugController {
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("pageNo", Pagination.cpn(pageNo));
 		model.addAttribute("name", name);
+		model.addAttribute("title", title);
 		model.addAttribute("msg", msg);
+		model.addAttribute("status", status);
 		return "drugs";
 	}
 	
@@ -78,10 +80,14 @@ public class AdminDrugController {
 		if (drug.getEffective_date() == "" || drug.getFuncction() == "" || drug.getManufacturer() == "" || drug.getName() == "" ||
 				drug.getProduce_date() == "" || drug.getSale_price() ==  0 || drug.getPurchase_price() == 0 || drug.getUnit() == "" ||
 				drug.getSpec() == "") {
-			model.addAttribute("msg", "请填写完整表单");
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "请填写完整表单！");
+			model.addAttribute("status", "error");
 		} else {
+			model.addAttribute("title", "操作成功");
+			model.addAttribute("msg", "新增药品成功！");
+			model.addAttribute("status", "success");
 			drugService.insertDrug(drug);
-			
 		}
 		return "redirect:/admin/druglist.do";
 	}
@@ -95,8 +101,13 @@ public class AdminDrugController {
 	public String updateDrug(Drug drug, ModelMap model) {
 		if (drug.getName() == "" || drug.getFuncction() == "" || drug.getManufacturer() == "" || drug.getPurchase_price() == 0 ||
 				drug.getSale_price() == 0) {
-			model.addAttribute("msg", "请填写完整表单");
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "请填写完整表单！");
+			model.addAttribute("status", "error");
 		} else {
+			model.addAttribute("title", "操作成功");
+			model.addAttribute("msg", "修改药品信息成功！");
+			model.addAttribute("status", "success");
 			drugService.updateDrug(drug);
 		}
 		return "redirect:/admin/druglist.do";
@@ -108,7 +119,10 @@ public class AdminDrugController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/deleteDrug.do")
-	public String deleteDrug(String code) {
+	public String deleteDrug(String code, ModelMap model) {
+		model.addAttribute("title", "操作成功");
+		model.addAttribute("msg", "删除药品成功！");
+		model.addAttribute("status", "success");
 		drugService.deleteDrug(code);
 		return "redirect:/admin/druglist.do";
 	}

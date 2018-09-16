@@ -51,27 +51,6 @@ public class PatientController {
 	private SessionProvider sessionProvider;
 	
 	/**
-	 * 挂号系统
-	 * @param model
-	 * @param msg
-	 * @param department_code
-	 * @param code
-	 * @return
-	 */
-	@RequestMapping(value = "/toRegist.action")
-	public String toRegist(ModelMap model, String msg, Patient patient, String department_code, String code) {
-		if (code != null) {
-			patient = patientService.findPatientByCode(code);
-		}
-		List<Department> departments = departmentService.findDepartmentList(new Department());
-		model.addAttribute("departments", departments);
-		model.addAttribute("msg", msg);
-		model.addAttribute("department_code", department_code);
-		model.addAttribute("patient", patient);
-		return "registered";
-	}
-
-	/**
 	 * 去挂号
 	 * @param model
 	 * @return
@@ -82,10 +61,41 @@ public class PatientController {
 		if ("REGISTER".equals(doctor.getDuty())) {
 			return "toregister";
 		} else {
-			model.addAttribute("msg", "权限不足，请确定权限后重试！");
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "权限不足，请重试！");
+			model.addAttribute("status", "error");
 			return "index_s";
 		}
-		
+	}
+	
+	/**
+	 * 挂号系统
+	 * @param model
+	 * @param msg
+	 * @param department_code
+	 * @param code
+	 * @return
+	 */
+	@RequestMapping(value = "/toRegist.action")
+	public String toRegist(ModelMap model, String msg, Patient patient, String department_code, String code) {
+		boolean flag = false;
+		if (code != null) {
+			patient = patientService.findPatientByCode(code);
+			flag = true;
+		} 
+		if (flag == false) {
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "未查询到对应卡号病人，请返回重试或填写表格！");
+			model.addAttribute("status", "error");
+		}
+		List<Department> departments = departmentService.findDepartmentList(new Department());
+		model.addAttribute("departments", departments);
+		if (msg != null) {
+			model.addAttribute("msg", msg);
+		}
+		model.addAttribute("department_code", department_code);
+		model.addAttribute("patient", patient);
+		return "registered";
 	}
 	
 	/**
@@ -98,7 +108,9 @@ public class PatientController {
 	public String register(Patient patient, String department_code, ModelMap model) {
 		if (patient.getName() == "" || patient.getSex() == "" || patient.getAge() == 0 || patient.getInsurance_type() == "" ||
 				patient.getAddress() == "" || patient.getPhone() == "" || department_code == ""){
+			model.addAttribute("title", "操作失败");
 			model.addAttribute("msg", "请填写完整表单！");
+			model.addAttribute("status", "error");
 			model.addAttribute("patient", patient);
 			model.addAttribute("department_code", department_code);
 			return "redirect:/toRegist.action";
@@ -114,12 +126,27 @@ public class PatientController {
 				medical_record.setDepartment_code(department_code);
 				medical_recordService.insertMedical_record(medical_record);
 			}
-			model.addAttribute("msg", "挂号成功");
-			model.addAttribute("code", "success");
-			model.addAttribute("url", "/HIS/toRegister.action");
-			model.addAttribute("urlname", "挂号系统");
-			model.addAttribute("time", 3);
-			return "message";
+			model.addAttribute("title", "操作成功");
+			model.addAttribute("msg", "挂号成功！");
+			model.addAttribute("status", "success");
+			return "toregister";
+		}
+	}
+	
+	/**
+	 * 去看病页面
+	 * @return
+	 */
+	@RequestMapping(value = "/toVisit.action")
+	public String toVisit(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		Doctor doctor = (Doctor) sessionProvider.getAttribute(request, response, "doctorsession");
+		if ("DOCTOR".equals(doctor.getDuty())) {
+			return "tovisit";
+		} else {
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "权限不足，请重试！");
+			model.addAttribute("status", "error");
+			return "index_s";
 		}
 	}
 	
@@ -129,12 +156,14 @@ public class PatientController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/visit.action")
-	public String visit(String code, String msg, ModelMap model) {
+	@RequestMapping(value = "/visit.action", method = RequestMethod.POST)
+	public String visit(String code, String msg, String title, String status, ModelMap model) {
 		Patient patient = patientService.findPatientByCode(code);
 		if (patient != null) {
 			if (patient.getStatus() == 3) {
+				model.addAttribute("title", "操作失败");
 				model.addAttribute("msg", "该病人尚未挂号，请挂号后尝试！");
+				model.addAttribute("status", "error");
 				return "tovisit";
 			} else {
 				Medical_record medical_record = new Medical_record();
@@ -150,29 +179,16 @@ public class PatientController {
 				List<Ward> wards = wardService.selectWardList();
 				model.addAttribute("drugs", drugs);
 				model.addAttribute("wards", wards);
+				model.addAttribute("title", title);
 				model.addAttribute("msg", msg);
+				model.addAttribute("status", status);
 				return "visit";
 			}
 		} else {
+			model.addAttribute("title", "操作失败");
 			model.addAttribute("msg", "查无此人，请校对病人卡号！");
+			model.addAttribute("status", "error");
 			return "tovisit";
-		}
-			
-		
-	}
-	
-	/**
-	 * 去看病页面
-	 * @return
-	 */
-	@RequestMapping(value = "/toVisit.action")
-	public String toVisit(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		Doctor doctor = (Doctor) sessionProvider.getAttribute(request, response, "doctorsession");
-		if ("DOCTOR".equals(doctor.getDuty())) {
-			return "tovisit";
-		} else {
-			model.addAttribute("msg", "权限不足，请确定权限后重试！");
-			return "index_s";
 		}
 	}
 
@@ -188,26 +204,34 @@ public class PatientController {
 		patient.setDoctor_code(medical_record.getDoctor_code());
 		if (medical_record.isAssay() == true) {
 			if (medical_record.getAssay_result() == "" || medical_record.getAssay_result() == null) {
+				model.addAttribute("title", "操作失败");
 				model.addAttribute("msg", "请填写化验结果！");
+				model.addAttribute("status", "error");
 				model.addAttribute("code", medical_record.getPatient_code());
 				return "redirect:/visit.action";
 			}
 		}
 		if (medical_record.isExamination() == true) {
 			if (medical_record.getExamination_result() == "" || medical_record.getExamination_result() == null) {
+				model.addAttribute("title", "操作失败");
 				model.addAttribute("msg", "请填写检查结果！");
+				model.addAttribute("status", "error");
 				model.addAttribute("code", medical_record.getPatient_code());
 				return "redirect:/visit.action";
 			}
 		}
 		if (medical_record.getDiagnostic_result() == "" || medical_record.getDiagnostic_result() == null || medical_record.getTreatment() == "" || medical_record.getTreatment() == null) {
+			model.addAttribute("title", "操作失败");
 			model.addAttribute("msg", "请填写诊断结果和处理方法！");
+			model.addAttribute("status", "error");
 			model.addAttribute("code", medical_record.getPatient_code());
 			return "redirect:/visit.action";
 		}
 		if (medical_record.isHospitalization() == true) {
 			if (medical_record.getWard_number() == "" || medical_record.getWard_number() == null || medical_record.getBed_number() == "" || medical_record.getBed_number() == null || medical_record.getHospitalization_days() == 0) {
+				model.addAttribute("title", "操作失败");
 				model.addAttribute("msg", "请选择病房，填写住院时间！");
+				model.addAttribute("status", "error");
 				model.addAttribute("code", medical_record.getPatient_code());
 				return "redirect:/visit.action";
 			} else {
@@ -215,8 +239,10 @@ public class PatientController {
 			}
 		}
 		for (int i = 0; i < druglist.length; i++) {
-			if (num[i] == null || druglist[i] == "" || druglist[i] == null) {
+			if (num[i] == 0 || druglist[i] == "" || druglist[i] == null) {
+				model.addAttribute("title", "操作失败");
 				model.addAttribute("msg", "请填写药品数量或名称！");
+				model.addAttribute("status", "error");
 				model.addAttribute("code", medical_record.getPatient_code());
 				return "redirect:/visit.action";
 			}
@@ -243,12 +269,10 @@ public class PatientController {
 			medical_recordService.insertMedical_record(medical_record);
 		}
 		patientService.updatePatient(patient);
-		model.addAttribute("msg", "就诊成功，请提醒病人前往缴费取药");
-		model.addAttribute("code", "success");
-		model.addAttribute("url", "/HIS/toVisit.action");
-		model.addAttribute("urlname", "诊疗系统");
-		model.addAttribute("time", 5);
-		return "message";
+		model.addAttribute("title", "操作成功");
+		model.addAttribute("msg", "就诊成功，请提醒病人前往缴费取药！");
+		model.addAttribute("status", "success");
+		return "tovisit";
 	}
 	
 	/**

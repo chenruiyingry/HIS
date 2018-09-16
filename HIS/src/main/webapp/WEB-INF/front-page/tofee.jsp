@@ -1,9 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,19 +17,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<form action="fee.action">
 	<div class="main" id="main">
 		<div class="main_bar">
-			<!-- <canvas></canvas> -->
 			<div><a href="javascript:void(0)" onclick="return change()" class="change">交班></a></div>
 			<div class="main_bar_input">
 				<input type="text" placeholder="卡号" class="number" name="code" value="${code }">
 				<input type="submit" value="" class="submit">
 				<i class="fa fa-search" aria-hidden="true"></i>
-				<p class="errormsg">${msg }</p>
 			</div>
 		</div>
 	</div>
 	</form>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script>
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				swal({
+					title: '${title }',
+					text: '${msg }',
+					type: '${status }'
+				}).then(function(){
+					window.location.href='/HIS/tofee.action';
+				})
+			}
+		});
 		var ta = document.getElementById('main');
 		ta.style.height = $(window).height()-72+"px";
 		function change() {

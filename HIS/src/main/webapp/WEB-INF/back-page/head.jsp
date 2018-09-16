@@ -9,9 +9,8 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/homeHeader.css">
 	<link rel="stylesheet" href="/HIS/res/css/buttons.css">
 	<link rel="stylesheet" href="/HIS/res/css/sweetalert2.min.css">
@@ -43,24 +42,27 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script src="/HIS/res/js/sweetalert2.min.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
+	<script type="text/javascript" src="/HIS/res/js/sweetalert2.min.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/homeHeader.js"></script>
 	<script type="text/javascript">
-	function isout() {
-		swal({
-			title: '确认操作',
-			text: "是否确定退出？",
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: '确定'
-			}).then(function(isConfirm) {
-			if (isConfirm) {
-				window.location.href='/HIS/admin/logout.do';
-			}
-		})
-	}
+		function isout() {
+			swal({
+				title: '确认操作',
+				text: "是否确定退出？",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: '确定',
+				cancelButtonText: '取消'
+				}).then(function(isConfirm) {
+				if (isConfirm) {
+					window.location.href='/HIS/admin/logout.do';
+				}
+			})
+		}
 	</script>
   </body>
 </html>

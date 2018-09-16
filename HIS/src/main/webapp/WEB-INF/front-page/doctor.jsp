@@ -7,7 +7,6 @@
 	<meta charset="UTF-8">
 	<title>医生信息</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/doctor_i.css">
 </head>
 <body>
@@ -142,16 +141,17 @@
 	</div>
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/doctorIsNull.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/doctor_i.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function () {
-			if (${!empty msg }) {
-				alert('${msg }');
-			}
-		});
+	$(document).ready(function () {
+		if (${!empty msg }) {
+			swal({
+				title: '${title }',
+				text: '${msg }',
+				type: '${status }'
+			})
+		}
+	});
 	</script>
 </body>
 </html>

@@ -7,7 +7,6 @@
 	<meta charset="UTF-8">
 	<title>医生信息</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/doctor_i.css">
 </head>
 <body>
@@ -118,12 +117,6 @@
 					<textarea class="td_2 td_3" name="remark">${doctor.remark }</textarea></td>
 				</tr>
 				<tr>
-					<%-- <td>是否值班</td>
-					<td>
-						<input type="text" class="td_3 td_3_gdd" value="<c:if test="${doctor.worknow }">是</c:if><c:if test="${!doctor.worknow }">否</c:if>" >
-						<input type="radio" name="worknow" class="duty gender" <c:if test="${doctor.worknow }">checked="checked"</c:if>><span class="male mf yn">是</span>
-						<input type="radio" name="worknow" class="duty gender" <c:if test="${!doctor.worknow }">checked="checked"</c:if>><span class="famale mf yn">否</span>
-					</td> --%>
 					<td>工作时间</td>
 					<td class="td_3_datetime">
 						<input class="td_3 datetime" type="time" name="work_time" id="work_time" value="${doctor.work_time }"/> —
@@ -172,17 +165,16 @@
 	</div>
 	</form>
 	<script type="text/javascript" src="/HIS/res/js/doctorIsNull.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.nicescroll.js"></script>
-	<script type="text/javascript" src="/HIS/res/js/jquery.form.js"></script>
 	<script type="text/javascript" src="/HIS/res/js/doctor_i.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
 			if (${!empty msg }) {
 				swal({
-					title: '操作失败...',
+					title: '${title }',
 					text: '${msg }',
-					type: 'error'
+					type: '${status }'
+				}).then(function(){
+					window.location.href='/HIS/admin/doctor.do?code=' + '${doctor.code }';
 				})
 			}
 			if (${code eq "yesyes" }) {

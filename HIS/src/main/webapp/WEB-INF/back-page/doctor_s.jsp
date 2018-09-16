@@ -1,9 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,10 +7,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta charset="UTF-8">
 	<title>医生管理</title>
 	<link rel="shortcut icon" href="/HIS/res/img/favicon.ico">
-	<link rel="stylesheet" href="/HIS/res/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/HIS/res/css/paging.css">
 	<link rel="stylesheet" href="/HIS/res/css/doctor_s.css">
-	
 </head>
 <body>
 	<c:import url="/admin/toHead.do">
@@ -81,8 +75,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/HIS/res/js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function () {
+			if (${!empty msg }) {
+				swal({
+					title: '${title }',
+					text: '${msg }',
+					type: '${status }'
+				}).then(function(){
+					window.location.href='/HIS/admin/doctorList.do';
+				})
+			}
+		});
 		var main = document.getElementById('main');
 		main.style.height = $(window).height()-72+"px";
 		function ondelete(id) {
@@ -94,10 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				confirmButtonColor: '#3085d6',
 				cancelButtonColor: '#d33',
 				confirmButtonText: '确定',
-				cancelButtonText: '取消',
-				confirmButtonClass: 'btn btn-success',
-				cancelButtonClass: 'btn btn-danger',
-				buttonsStyling: false
+				cancelButtonText: '取消'
 			}).then(function(isConfirm) {
 				if (isConfirm === true) {
 					window.location.href='/HIS/admin/deleteDoctor.do?id=' + id;

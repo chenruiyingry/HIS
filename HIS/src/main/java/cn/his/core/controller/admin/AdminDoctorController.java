@@ -57,7 +57,7 @@ public class AdminDoctorController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/doctorList.do")
-	public String doctorList(ModelMap model, Integer pageNo, String name) {
+	public String doctorList(ModelMap model, Integer pageNo, String name, String msg, String status, String title) {
 		Doctor doctor = new Doctor();
 		StringBuilder params = new StringBuilder();
 		if (StringUtils.isNotBlank(name)) {
@@ -70,7 +70,121 @@ public class AdminDoctorController {
 		String url = "/HIS/admin/doctorList.do";
 		pagination.pageView(url, params.toString());
 		model.addAttribute("pagination", pagination);
+		model.addAttribute("msg", msg);
+		model.addAttribute("status", status);
+		model.addAttribute("title", title);
 		return "doctor_s";
+	}
+	
+	/**
+	 * 医生信息
+	 * @param code
+	 * @param model
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "/admin/doctor.do")
+	public String toDoctorInfo(String code, ModelMap model, String msg, String status, String title) throws ParseException {
+		Doctor doctor = doctorService.findDoctorByCode(code);
+		String departmentName = departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName();
+		List<Department> list = departmentService.findDepartmentList(new Department());
+		Patient patient = new Patient();
+		patient.setDoctor_code(code);
+		List<Patient> patients = patientService.findPatients(patient);
+		doctor.setWork_time(doctor.getWork_time().replace(" ", "T"));
+		doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
+		model.addAttribute("doctor", doctor);
+		model.addAttribute("departmentlist", list);
+		model.addAttribute("departmentName", departmentName);
+		model.addAttribute("msg", msg);
+		model.addAttribute("status", status);
+		model.addAttribute("title", title);
+		model.addAttribute("patients", patients);
+		return "doctor_i";
+	}
+	
+	/**
+	 * 去添加医生
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/toAdd.do")
+	public String toAddDoctor(ModelMap model, String msg, Doctor doctor, String status, String title) {
+		model.addAttribute("code", "yesyes");
+		List<Department> list = departmentService.findDepartmentList(new Department());
+		model.addAttribute("departmentlist", list);
+		model.addAttribute("msg", msg);
+		model.addAttribute("status", status);
+		model.addAttribute("title", title);
+		doctor.setImage_url("his/add.png");
+		model.addAttribute("doctor", doctor);
+		return "doctor_i";
+	}
+	
+	/**
+	 * 添加医生
+	 * @param doctor
+	 * @return
+	 */
+	@RequestMapping(value = "admin/addDoctor.do", method = RequestMethod.POST)
+	public String addDoctor(Doctor doctor, ModelMap model) {
+		if (doctor.getName() == "" || doctor.getAddress() == "" || doctor.getBirth() == "" || doctor.getDegree() == "" ||
+				doctor.getDepartment_code() == "" || doctor.getDuty() == "" || doctor.getEmail() == "" ||
+				doctor.getGraduate() == "" || doctor.getHiredate() == "" || doctor.getImage_url() == "" || doctor.getIntroduction() == ""|| 
+				doctor.getLevel() == "" || doctor.getLicense() == "" || doctor.getMajor() == "" || doctor.getNation() == "" ||
+				doctor.getNative_place() == "" || doctor.getOutwork_time() == "" || doctor.getPhone() == "" || doctor.getQualification() == "" ||
+				doctor.getSex() == "" || doctor.getTitle() == "" || doctor.getWork_time() == "") {
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "请填写完整表单！");
+			model.addAttribute("status", "error");
+			model.addAttribute("doctor", doctor);
+			return "redirect:/admin/toAdd.do";
+		} else {
+			if (doctorService.findDoctorByCode(doctor.getCode()) != null) {
+				model.addAttribute("title", "操作失败");
+				model.addAttribute("msg", "医生编号已被使用！");
+				model.addAttribute("status", "error");
+				model.addAttribute("doctor", doctor);
+				return "redirect:/admin/toAdd.do";
+			} else {
+				doctor.setFirst(true);
+				doctor.setWorknow(false);
+				doctor.setPassword(Md5Utils.md5("123456"));
+				doctorService.insertDoctor(doctor);
+				model.addAttribute("title", "操作成功");
+				model.addAttribute("msg", "添加医生成功！");
+				model.addAttribute("status", "success");
+				return "redirect:/admin/doctorList.do";
+			}
+		}
+	}
+	
+	/**
+	 * 修改医生信息
+	 * @param doctor
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/editDoctor.do", method = RequestMethod.POST)
+	public String editDoctor(Doctor doctor, ModelMap model) {
+		if (doctor.getName() == "" || doctor.getAddress() == "" || doctor.getBirth() == "" || doctor.getDegree() == "" ||
+				doctor.getDepartment_code() == "" || doctor.getDuty() == "" || doctor.getEmail() == "" ||
+				doctor.getGraduate() == "" || doctor.getHiredate() == "" || doctor.getImage_url() == "" || doctor.getIntroduction() == ""|| 
+				doctor.getLevel() == "" || doctor.getLicense() == "" || doctor.getMajor() == "" || doctor.getNation() == "" ||
+				doctor.getNative_place() == "" || doctor.getOutwork_time() == "" || doctor.getPhone() == "" || doctor.getQualification() == "" ||
+				doctor.getSex() == "" || doctor.getTitle() == "" || doctor.getWork_time() == "") {
+			model.addAttribute("title", "操作失败");
+			model.addAttribute("msg", "请填写完整表单！");
+			model.addAttribute("status", "error");
+			model.addAttribute("code", doctor.getCode());
+			return "redirect:/admin/doctor.do?";
+		} else {
+			doctorService.updateDoctor(doctor);
+			model.addAttribute("title", "操作成功");
+			model.addAttribute("msg", "医生信息修改成功！");
+			model.addAttribute("status", "success");
+			model.addAttribute("code", doctor.getCode());
+			return "redirect:/admin/doctor.do";
+		}
 	}
 	
 	/**
@@ -79,8 +193,11 @@ public class AdminDoctorController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/deleteDoctor.do")
-	public String deleteDoctor(int id) {
+	public String deleteDoctor(ModelMap model, int id) {
 		doctorService.deleteDoctorByCode(id);
+		model.addAttribute("title", "操作成功");
+		model.addAttribute("msg", "删除医生成功！");
+		model.addAttribute("status", "success");
 		return "redirect:/admin/doctorList.do";
 	}
 	
@@ -119,99 +236,5 @@ public class AdminDoctorController {
 		jo.put("url", url);
 		jo.put("path", path);
 		ResponseUtils.renderJson(response, jo.toString());
-	}
-	
-	/**
-	 * 医生信息
-	 * @param code
-	 * @param model
-	 * @return
-	 * @throws ParseException
-	 */
-	@RequestMapping(value = "/admin/doctor.do")
-	public String toDoctorInfo(String code, ModelMap model, String msg) throws ParseException {
-		Doctor doctor = doctorService.findDoctorByCode(code);
-		String departmentName = departmentService.findDepartmentByCode(doctor.getDepartment_code()).getName();
-		List<Department> list = departmentService.findDepartmentList(new Department());
-		Patient patient = new Patient();
-		patient.setDoctor_code(code);
-		List<Patient> patients = patientService.findPatients(patient);
-		doctor.setWork_time(doctor.getWork_time().replace(" ", "T"));
-		doctor.setOutwork_time(doctor.getOutwork_time().replace(" ", "T"));
-		model.addAttribute("doctor", doctor);
-		model.addAttribute("departmentlist", list);
-		model.addAttribute("departmentName", departmentName);
-		model.addAttribute("msg", msg);
-		model.addAttribute("patients", patients);
-		return "doctor_i";
-	}
-	
-	/**
-	 * 去添加医生
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/admin/toAdd.do")
-	public String toAddDoctor(ModelMap model, String msg, Doctor doctor) {
-		model.addAttribute("code", "yesyes");
-		List<Department> list = departmentService.findDepartmentList(new Department());
-		model.addAttribute("departmentlist", list);
-		model.addAttribute("msg", msg);
-		doctor.setImage_url("his/add.png");
-		model.addAttribute("doctor", doctor);
-		return "doctor_i";
-	}
-	
-	/**
-	 * 修改医生信息
-	 * @param doctor
-	 * @return
-	 */
-	@RequestMapping(value = "/admin/editDoctor.do", method = RequestMethod.POST)
-	public String editDoctor(Doctor doctor, ModelMap model) {
-		if (doctor.getName() == "" || doctor.getAddress() == "" || doctor.getBirth() == "" || doctor.getDegree() == "" ||
-				doctor.getDepartment_code() == "" || doctor.getDuty() == "" || doctor.getEmail() == "" ||
-				doctor.getGraduate() == "" || doctor.getHiredate() == "" || doctor.getImage_url() == "" || doctor.getIntroduction() == ""|| 
-				doctor.getLevel() == "" || doctor.getLicense() == "" || doctor.getMajor() == "" || doctor.getNation() == "" ||
-				doctor.getNative_place() == "" || doctor.getOutwork_time() == "" || doctor.getPhone() == "" || doctor.getQualification() == "" ||
-				doctor.getSex() == "" || doctor.getTitle() == "" || doctor.getWork_time() == "") {
-			model.addAttribute("msg", "请填写完整表单");
-			return "redirect:/admin/toDoctorInfo?code=" + doctor.getCode();
-		} else {
-			doctorService.updateDoctor(doctor);
-			return "redirect:/admin/doctorList.do";
-		}
-	}
-	
-	/**
-	 * 添加医生
-	 * @param doctor
-	 * @return
-	 */
-	@RequestMapping(value = "admin/addDoctor.do", method = RequestMethod.POST)
-	public String addDoctor(Doctor doctor, ModelMap model) {
-		if (doctor.getName() == "" || doctor.getAddress() == "" || doctor.getBirth() == "" || doctor.getDegree() == "" ||
-				doctor.getDepartment_code() == "" || doctor.getDuty() == "" || doctor.getEmail() == "" ||
-				doctor.getGraduate() == "" || doctor.getHiredate() == "" || doctor.getImage_url() == "" || doctor.getIntroduction() == ""|| 
-				doctor.getLevel() == "" || doctor.getLicense() == "" || doctor.getMajor() == "" || doctor.getNation() == "" ||
-				doctor.getNative_place() == "" || doctor.getOutwork_time() == "" || doctor.getPhone() == "" || doctor.getQualification() == "" ||
-				doctor.getSex() == "" || doctor.getTitle() == "" || doctor.getWork_time() == "") {
-			model.addAttribute("msg", "请填写完整表单");
-			model.addAttribute("doctor", doctor);
-			return "redirect:/admin/toAdd.do";
-		} else {
-			if (doctorService.findDoctorByCode(doctor.getCode()) != null) {
-				model.addAttribute("msg", "医生编号已被使用");
-				model.addAttribute("doctor", doctor);
-				return "redirect:/admin/toAdd.do";
-			} else {
-				doctor.setFirst(true);
-				doctor.setWorknow(false);
-				doctor.setPassword(Md5Utils.md5("123456"));
-				doctorService.insertDoctor(doctor);
-				return "redirect:/admin/doctorList.do";
-			}
-		}
-		
 	}
 }
