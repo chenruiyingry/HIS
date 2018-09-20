@@ -32,6 +32,11 @@ import cn.his.core.service.drug.Drug_recordService;
 import cn.his.core.service.patient.Medical_recordService;
 import cn.his.core.service.patient.PatientService;
 
+/**
+ * 前台病人模块
+ * @author chenruiying
+ *
+ */
 @Controller
 public class PatientController {
 	
@@ -78,16 +83,9 @@ public class PatientController {
 	 */
 	@RequestMapping(value = "/toRegist.action")
 	public String toRegist(ModelMap model, String msg, Patient patient, String department_code, String code) {
-		boolean flag = false;
 		if (code != null) {
 			patient = patientService.findPatientByCode(code);
-			flag = true;
 		} 
-		if (flag == false) {
-			model.addAttribute("title", "操作失败");
-			model.addAttribute("msg", "未查询到对应卡号病人，请返回重试或填写表格！");
-			model.addAttribute("status", "error");
-		}
 		List<Department> departments = departmentService.findDepartmentList(new Department());
 		model.addAttribute("departments", departments);
 		if (msg != null) {

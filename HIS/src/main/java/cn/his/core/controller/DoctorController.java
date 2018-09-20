@@ -203,19 +203,5 @@ public class DoctorController {
 		}
 		return "head";
 	}
-	
-	/**
-	 * 信息板
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "msg.action")
-	public String toMsg(ModelMap model) {
-		model.addAttribute("msg", "支付宝支付成功");
-    	model.addAttribute("code", "error");
-    	model.addAttribute("urlname", "收费页面");
-    	model.addAttribute("url", "toFee.action");
-    	model.addAttribute("time", 5);
-		return "message";
-	}
+
 }

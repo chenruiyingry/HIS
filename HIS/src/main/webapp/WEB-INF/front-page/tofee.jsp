@@ -34,7 +34,7 @@
 					text: '${msg }',
 					type: '${status }'
 				}).then(function(){
-					window.location.href='/HIS/tofee.action';
+					window.location.href='/HIS/toFee.action';
 				})
 			}
 		});
